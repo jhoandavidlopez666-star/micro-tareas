@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Encuestas y Recompensas - MicroTask App</title>
+    <title>Trivia Escrita - MicroTask App</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
@@ -13,16 +13,14 @@
         .card { background-color: #1e293b; padding: 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
         h2 { color: #38bdf8; margin-bottom: 10px; font-size: 20px; }
         p { color: #94a3b8; font-size: 14px; margin-bottom: 15px; }
-        .btn { background-color: #38bdf8; color: #0f172a; border: none; padding: 10px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        .btn { background-color: #38bdf8; color: #0f172a; border: none; padding: 12px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s; width: 100%; margin-top: 10px; }
         .btn:hover { background-color: #0ea5e9; }
-        .input-field { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #334155; background-color: #0f172a; color: #f8fafc; margin-bottom: 10px; }
+        .input-field { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #334155; background-color: #0f172a; color: #f8fafc; margin-bottom: 10px; font-size: 16px; }
         
-        /* Estilos de las Encuestas */
-        .survey-box { background: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
-        .survey-question { font-weight: bold; color: #f8fafc; margin-bottom: 10px; font-size: 15px; }
-        .options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-        .option-label { display: flex; align-items: center; gap: 8px; color: #94a3b8; cursor: pointer; font-size: 14px; }
-        .option-label input { accent-color: #38bdf8; }
+        /* Estilos de la Trivia Escrita */
+        .trivia-box { background: #0f172a; border: 1px solid #334155; padding: 20px; border-radius: 8px; text-align: center; }
+        .level-badge { display: inline-block; background: #38bdf8; color: #0f172a; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 12px; }
+        .trivia-question { font-size: 18px; font-weight: bold; color: #f8fafc; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -31,20 +29,20 @@
         <div class="header">
             <div>
                 <h2>Bienvenido, <span id="userDisplay">Usuario</span></h2>
-                <p style="margin: 0;">Responde encuestas y gana cripto</p>
+                <p style="margin: 0;">Trivia Escrita & Cripto</p>
             </div>
             <div class="wallet">
                 Saldo: $<span id="balance">0.000</span> USD
             </div>
         </div>
 
-        <!-- SECCIÓN DE ENCUESTAS -->
+        <!-- SECCIÓN DE TRIVIA CON ESCRITURA -->
         <div class="card">
-            <h2>📋 Panel de Encuestas Rápidas</h2>
-            <p>Selecciona la respuesta correcta en cada pregunta para validar tu micro-tarea y sumar saldo.</p>
+            <h2>✍️ Reto de Escritura y Lógica</h2>
+            <p>Lee la pregunta y escribe tu respuesta en el recuadro. ¡Cada nivel correcto suma saldo!</p>
             
-            <div id="surveyContainer">
-                <!-- Las encuestas se cargan dinámicamente aquí -->
+            <div class="trivia-box" id="triviaCard">
+                <!-- Se carga dinámicamente con JavaScript -->
             </div>
         </div>
 
@@ -64,7 +62,7 @@
 
     <script>
         // Versión para limpieza y reinicio total
-        const appVersion = 'v7_survey_system';
+        const appVersion = 'v9_typed_trivia';
         if (localStorage.getItem('appVersion') !== appVersion) {
             localStorage.clear();
             localStorage.setItem('appVersion', appVersion);
@@ -86,98 +84,78 @@
             document.getElementById('cryptoWallet').value = savedWallet;
         }
 
-        // Base de datos de encuestas rápidas estilo lógico
-        const surveys = [
-            {
-                id: 1,
-                question: '¿Cuántas ruedas principales tiene un carro estándar?',
-                options: ['2 ruedas', '4 ruedas', '6 ruedas', '3 ruedas'],
-                correct: 1, // índice de la opción correcta ("4 ruedas")
-                reward: 0.002
-            },
-            {
-                id: 2,
-                question: '¿Qué elemento principal tienen la mayoría de los árboles en sus hojas?',
-                options: ['Clorofila (Color verde)', 'Piedra', 'Plástico', 'Metal'],
-                correct: 0,
-                reward: 0.002
-            },
-            {
-                id: 3,
-                question: '¿Cuál de los siguientes planetas es conocido como el planeta rojo?',
-                options: ['Venus', 'Marte', 'Júpiter', 'Saturn'],
-                correct: 1,
-                reward: 0.003
-            },
-            {
-                id: 4,
-                question: '¿En qué continente se encuentra ubicado Venezuela?',
-                options: ['Europa', 'África', 'América del Sur', 'Asia'],
-                correct: 2,
-                reward: 0.002
-            }
+        // Banco de preguntas donde el usuario debe escribir la respuesta exacta (se valida sin mayúsculas/espacios)
+        const questionBank = [
+            { level: 'Fácil (Nivel 1)', q: '¿Cuántas ruedas principales tiene un carro estándar? (Escribe el número en dígitos)', answers: ['4', 'cuatro'], reward: 0.001 },
+            { level: 'Fácil (Nivel 2)', q: '¿De qué color es la clorofila que tienen las hojas de los árboles?', answers: ['verde'], reward: 0.001 },
+            { level: 'Fácil (Nivel 3)', q: '¿En qué continente está ubicado el país Venezuela?', answers: ['america del sur', 'suramerica', 'sudamerica', 'américa del sur'], reward: 0.001 },
+            
+            { level: 'Intermedio (Nivel 4)', q: '¿Cómo se llama el planeta más grande de nuestro sistema solar?', answers: ['jupiter', 'júpiter'], reward: 0.002 },
+            { level: 'Intermedio (Nivel 5)', q: '¿En qué año se firmó el acta de la Independencia de Venezuela?', answers: ['1811'], reward: 0.002 },
+            { level: 'Intermedio (Nivel 6)', q: '¿Cuál es el gas más abundante en la atmósfera de la Tierra?', answers: ['nitrogeno', 'nitrógeno'], reward: 0.002 },
+
+            { level: 'Difícil (Nivel 7)', q: '¿Qué elemento químico tiene el símbolo "Au" en la tabla periódica?', answers: ['oro'], reward: 0.003 },
+            { level: 'Difícil (Nivel 8)', q: 'Apellido del físico que formuló la teoría de la relatividad:', answers: ['einstein', 'albert einstein'], reward: 0.003 },
+            { level: 'Difícil (Nivel 9)', q: '¿Cuál es la capital de Australia? (Empieza por C)', answers: ['canberra'], reward: 0.003 },
+
+            { level: 'Experto (Nivel 10)', q: '¿En qué año se minó el primer bloque (Genesis Block) de Bitcoin?', answers: ['2009'], reward: 0.005 },
+            { level: 'Experto (Nivel 11)', q: '¿Cuál es el nombre de la moneda digital oficial de Tether usada en redes como TRC20?', answers: ['usdt', 'tether'], reward: 0.005 }
         ];
 
-        function renderSurveys() {
-            const container = document.getElementById('surveyContainer');
-            container.innerHTML = '';
-
-            surveys.forEach((survey) => {
-                const box = document.createElement('div');
-                box.className = 'survey-box';
-                
-                let optionsHtml = '';
-                survey.options.forEach((opt, optIndex) => {
-                    optionsHtml += `
-                        <label class="option-label">
-                            <input type="radio" name="survey_${survey.id}" value="${optIndex}">
-                            ${opt}
-                        </label>
-                    `;
-                });
-
-                box.innerHTML = `
-                    <div class="survey-question">Pregunta #${survey.id}: ${survey.question}</div>
-                    <div class="options-list">${optionsHtml}</div>
-                    <button class="btn" onclick="submitSurvey(${survey.id}, ${survey.correct}, ${survey.reward})">Enviar Respuesta ($${survey.reward.toFixed(3)})</button>
-                `;
-                container.appendChild(box);
-            });
+        let currentQuestionIndex = parseInt(localStorage.getItem('typedTriviaIndex')) || 0;
+        if (currentQuestionIndex >= questionBank.length) {
+            currentQuestionIndex = 0;
         }
 
-        function submitSurvey(surveyId, correctIndex, reward) {
-            const radios = document.getElementsByName('survey_' + surveyId);
-            let selectedIndex = -1;
+        function renderTrivia() {
+            const container = document.getElementById('triviaCard');
+            const currentQ = questionBank[currentQuestionIndex];
 
-            for (let i = 0; i < radios.length; i++) {
-                if (radios[i].checked) {
-                    selectedIndex = i;
-                    break;
-                }
-            }
+            container.innerHTML = `
+                <div class="level-badge">${currentQ.level}</div>
+                <div class="trivia-question">${currentQ.q}</div>
+                <input type="text" id="userAnswerInput" class="input-field" placeholder="Escribe tu respuesta aquí...">
+                <button class="btn" onclick="submitTypedAnswer()">Enviar Respuesta (Gana $${currentQ.reward.toFixed(3)})</button>
+            `;
+        }
 
-            if (selectedIndex === -1) {
-                alert('Por favor selecciona una opción antes de enviar.');
+        function submitTypedAnswer() {
+            const inputField = document.getElementById('userAnswerInput');
+            const userText = inputField.value.trim().toLowerCase();
+
+            if (userText === '') {
+                alert('Por favor escribe una respuesta antes de enviar.');
                 return;
             }
 
-            if (selectedIndex !== correctIndex) {
-                alert('Respuesta incorrecta. ¡Inténtalo de nuevo con otra opción!');
+            const currentQ = questionBank[currentQuestionIndex];
+            
+            // Validar si lo que escribió coincide con alguna de las respuestas válidas configuradas
+            let isCorrect = currentQ.answers.some(ans => userText.includes(ans));
+
+            if (!isCorrect) {
+                alert('❌ Respuesta incorrecta. ¡Revisa bien e inténtalo de nuevo!');
                 return;
             }
 
-            // Si la respuesta es correcta, abre el enlace de Monetag para generar la ganancia
+            // ¡Respuesta correcta! Abre tu enlace de Monetag en pestaña nueva
             window.open('https://omg10.com/4/11874696', '_blank');
 
-            // Sumar saldo
-            currentBalance += reward;
+            // Sumar saldo según la recompensa del nivel
+            currentBalance += currentQ.reward;
             localStorage.setItem('userBalance', currentBalance.toFixed(3));
             document.getElementById('balance').innerText = currentBalance.toFixed(3);
 
-            alert('¡Respuesta correcta! Se han sumado $' + reward.toFixed(3) + ' a tu cuenta.');
-            
-            // Opcional: desmarcar o recargar para rotar
-            renderSurveys();
+            alert('🎉 ¡Excelente! Respuesta correcta. Ganaste $' + currentQ.reward.toFixed(3));
+
+            // Avanzar a la siguiente pregunta del banco
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= questionBank.length) {
+                currentQuestionIndex = 0;
+            }
+            localStorage.setItem('typedTriviaIndex', currentQuestionIndex);
+
+            renderTrivia();
         }
 
         function saveWallet() {
@@ -203,8 +181,8 @@
             alert('¡Solicitud de retiro enviada con éxito! Tus fondos serán procesados a: ' + wallet);
         }
 
-        // Inicializar encuestas al cargar
-        renderSurveys();
+        // Inicializar la trivia escrita al cargar
+        renderTrivia();
     </script>
 
     <!-- Script general de Monetag -->
