@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Juegos y Recompensas - MicroTask App</title>
+    <title>Panel de Ludo y Recompensas - MicroTask App</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
@@ -19,12 +19,9 @@
         .task-item { display: flex; justify-content: space-between; align-items: center; background-color: #0f172a; padding: 12px 15px; border-radius: 6px; border: 1px solid #334155; flex-wrap: wrap; gap: 10px; }
         .input-field { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #334155; background-color: #0f172a; color: #f8fafc; margin-bottom: 10px; }
         
-        /* Estilos del Mini-Juego tipo Candy Crush */
-        .game-board { background: #1e293b; border: 2px dashed #ec4899; padding: 15px; border-radius: 8px; text-align: center; }
-        .candy-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 15px; }
-        .candy-tile { background: #334155; color: #f8fafc; font-size: 28px; padding: 15px; border-radius: 12px; cursor: pointer; transition: transform 0.1s, background 0.2s; user-select: none; border: 2px solid #475569; }
-        .candy-tile:active { transform: scale(0.90); }
-        .candy-tile.selected { border-color: #ec4899; background: #475569; }
+        /* Estilos del Mini-Juego Ludo */
+        .ludo-board { background: #1e293b; border: 2px dashed #22c55e; padding: 15px; border-radius: 8px; text-align: center; }
+        .dice-display { font-size: 48px; margin: 10px 0; }
     </style>
 </head>
 <body>
@@ -33,24 +30,23 @@
         <div class="header">
             <div>
                 <h2>Bienvenido, <span id="userDisplay">Usuario</span></h2>
-                <p style="margin: 0;">¡Juega Candy Crush & Gana Cripto!</p>
+                <p style="margin: 0;">¡Lanza los dados de Ludo & Gana Cripto!</p>
             </div>
             <div class="wallet">
                 Saldo: $<span id="balance">0.000</span> USD
             </div>
         </div>
 
-        <!-- SECCIÓN DE JUEGO TIPO CANDY CRUSH -->
+        <!-- SECCIÓN DE MINI-JUEGO LUDO -->
         <div class="card">
-            <h2>🍬 Candy Crush Crypto Match</h2>
-            <p>Haz clic en dos caramelos iguales adyacentes para hacerlos estallar. ¡Limpia el tablero para reclamar tu premio!</p>
+            <h2>🎲 Ludo Crypto Dados</h2>
+            <p>Lanza el dado, avanza casillas en tu camino a la meta y reclama tus recompensas al completar la partida.</p>
             
-            <div class="game-board">
-                <p id="gameStatus" style="color: #ec4899; font-weight: bold; margin-bottom: 10px;">Objetivo: Haz estallar los caramelos</p>
-                <div class="candy-grid" id="candyGrid">
-                    <!-- Caramelos generados por JS -->
-                </div>
-                <button class="btn" id="claimBonusBtn" onclick="claimGameReward()" style="display:none; width: 100%; background-color: #ec4899; color: #fff;">¡Reclamar Recompensa de Nivel ($0.003)!</button>
+            <div class="ludo-board">
+                <p id="ludoStatus" style="color: #22c55e; font-weight: bold;">Casilla actual: 0 / 20 para la Meta</p>
+                <div class="dice-display" id="diceIcon">🎲</div>
+                <button class="btn" onclick="rollDice()" style="background-color: #22c55e; color: #fff; width: 100%; margin-bottom: 10px;">¡Lanzar Dado ($0.002 por tiro)!</button>
+                <button class="btn" id="claimLudoBtn" onclick="claimLudoReward()" style="display:none; width: 100%; background-color: #38bdf8;">¡Llegaste a la Meta! Reclamar Bonos Extra ($0.005)</button>
             </div>
         </div>
 
@@ -63,17 +59,13 @@
                     <span>🎥 Video Viral #1 (20 seg)</span>
                     <button class="btn" onclick="doTask(0.002)">Ver Video ($0.002)</button>
                 </div>
-                <div class="task-item">
-                    <span>🔥 Reel de Humor #2</span>
-                    <button class="btn" onclick="doTask(0.002)">Ver Reel ($0.002)</button>
-                </div>
             </div>
         </div>
 
         <div class="card">
             <h2>Configurar Billetera Cripto (Binance / USDT)</h2>
             <p>Ingresa tu correo de Binance Pay o dirección USDT (Red TRC20).</p>
-            <input type="text" id="cryptoWallet" class="input-field" placeholder="Ej: Correo de Binance ou Dirección USDT">
+            <input type="text" id="cryptoWallet" class="input-field" placeholder="Ej: Correo de Binance o Dirección USDT">
             <button class="btn" onclick="saveWallet()">Guardar Billetera</button>
         </div>
 
@@ -86,7 +78,7 @@
 
     <script>
         // Versión para limpieza
-        const appVersion = 'v5_candy_crush';
+        const appVersion = 'v6_ludo_game';
         if (localStorage.getItem('appVersion') !== appVersion) {
             localStorage.clear();
             localStorage.setItem('appVersion', appVersion);
@@ -108,78 +100,57 @@
             document.getElementById('cryptoWallet').value = savedWallet;
         }
 
-        // Lógica del Mini-Juego tipo Candy Crush
-        const candies = ['🍬', '🍭', '🍫', '⭐', '🍬', '🍭', '🍫', '⭐', '🍬', '🍭', '🍫', '⭐'];
-        let candiesLeft = candies.length;
-        let firstSelected = null;
+        // Lógica del Ludo
+        let ludoPosition = parseInt(localStorage.getItem('ludoPos')) || 0;
+        const targetPosition = 20;
+        updateLudoUI();
 
-        function initCandyGame() {
-            const grid = document.getElementById('candyGrid');
-            grid.innerHTML = '';
-            candiesLeft = candies.length;
-            firstSelected = null;
-            
-            const shuffled = [...candies].sort(() => Math.random() - 0.5);
-            
-            shuffled.forEach((emoji, index) => {
-                const tile = document.createElement('div');
-                tile.className = 'candy-tile';
-                tile.innerText = emoji;
-                tile.dataset.index = index;
-                tile.dataset.emoji = emoji;
-                
-                tile.onclick = function() {
-                    if (tile.style.visibility === 'hidden') return;
-
-                    if (!firstSelected) {
-                        firstSelected = tile;
-                        tile.classList.add('selected');
-                    } else {
-                        if (firstSelected === tile) {
-                            firstSelected.classList.remove('selected');
-                            firstSelected = null;
-                            return;
-                        }
-
-                        // Si coinciden los emojis, ¡explotan estilo Candy Crush!
-                        if (firstSelected.dataset.emoji === tile.dataset.emoji) {
-                            firstSelected.style.visibility = 'hidden';
-                            tile.style.visibility = 'hidden';
-                            candiesLeft -= 2;
-
-                            firstSelected.classList.remove('selected');
-                            firstSelected = null;
-
-                            if (candiesLeft <= 0) {
-                                document.getElementById('gameStatus').innerText = '🎉 ¡Nivel completado con éxito!';
-                                document.getElementById('claimBonusBtn').style.display = 'block';
-                            }
-                        } else {
-                            firstSelected.classList.remove('selected');
-                            firstSelected = tile;
-                            tile.classList.add('selected');
-                        }
-                    }
-                };
-                grid.appendChild(tile);
-            });
-        }
-
-        function claimGameReward() {
-            // Abre enlace de Monetag al reclamar
+        function rollDice() {
+            // Abre enlace de Monetag al tirar el dado
             window.open('https://omg10.com/4/11874696', '_blank');
 
-            const amount = 0.003;
-            currentBalance += amount;
+            const diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+            const roll = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('diceIcon').innerText = diceFaces[roll - 1];
+
+            ludoPosition += roll;
+            if (ludoPosition > targetPosition) ludoPosition = targetPosition;
+            
+            localStorage.setItem('ludoPos', ludoPosition);
+
+            // Suma un pequeño céntimo por cada tiro con avance
+            const reward = 0.002;
+            currentBalance += reward;
+            localStorage.setItem('userBalance', currentBalance.toFixed(3));
+            document.getElementById('balance').innerText = currentBalance.toFixed(3);
+
+            updateLudoUI();
+            alert('¡Sacaste un ' + roll + '! Avanzaste en el tablero y ganaste $' + reward.toFixed(3));
+        }
+
+        function updateLudoUI() {
+            if (ludoPosition >= targetPosition) {
+                document.getElementById('ludoStatus').innerText = '🎉 ¡Llegaste a la Meta de Ludo!';
+                document.getElementById('claimLudoBtn').style.display = 'block';
+            } else {
+                document.getElementById('ludoStatus').innerText = 'Casilla actual: ' + ludoPosition + ' / ' + targetPosition + ' para la Meta';
+            }
+        }
+
+        function claimLudoReward() {
+            window.open('https://omg10.com/4/11874696', '_blank');
+            const bonus = 0.005;
+            currentBalance += bonus;
             localStorage.setItem('userBalance', currentBalance.toFixed(3));
             document.getElementById('balance').innerText = currentBalance.toFixed(3);
             
-            alert('¡Premio de Candy Crush sumada! +$' + amount.toFixed(3));
+            alert('¡Premio de Meta de Ludo reclamado! +$' + bonus.toFixed(3));
             
-            // Reiniciar juego para el siguiente nivel
-            document.getElementById('gameStatus').innerText = 'Objetivo: Haz estallar los caramelos';
-            document.getElementById('claimBonusBtn').style.display = 'none';
-            initCandyGame();
+            // Reiniciar juego
+            ludoPosition = 0;
+            localStorage.setItem('ludoPos', 0);
+            document.getElementById('claimLudoBtn').style.display = 'none';
+            updateLudoUI();
         }
 
         function doTask(amount) {
@@ -212,9 +183,6 @@
             }
             alert('¡Solicitud de retiro enviada con éxito! Tus fondos serán procesados a: ' + wallet);
         }
-
-        // Iniciar el juego al cargar
-        initCandyGame();
     </script>
 
     <!-- Script general de Monetag -->
