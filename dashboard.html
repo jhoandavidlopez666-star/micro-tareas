@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Media Group | Portal Oficial de Operaciones Remotas</title>
+    <title>Portal Corporativo de Operaciones Remotas | Teletrabajo</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0b0f19; color: #f1f5f9; padding: 20px; min-height: 100vh; }
@@ -19,49 +19,33 @@
         .btn:hover { background-color: #4f46e5; }
         .input-field { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #475569; background-color: #0f172a; color: #f8fafc; margin-bottom: 12px; font-size: 15px; }
         
-        .task-box { background: #0f172a; border: 1px solid #334155; padding: 20px; border-radius: 10px; text-align: center; }
-        .level-badge { display: inline-block; background: #6366f1; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; margin-bottom: 12px; text-transform: uppercase; }
-        .task-question { font-size: 17px; font-weight: bold; color: #f8fafc; margin-bottom: 15px; }
-        
         .promo-banner { background: linear-gradient(135deg, #1e1b4b, #0f172a); border: 2px solid #10b981; padding: 18px; border-radius: 10px; margin-bottom: 15px; }
         .ref-box { background: #0f172a; border: 1px dashed #6366f1; padding: 18px; border-radius: 10px; text-align: center; }
         .ref-link { background: #1e293b; color: #818cf8; padding: 12px; border-radius: 8px; word-break: break-all; font-size: 13px; margin-bottom: 12px; border: 1px solid #475569; }
         .video-task-card { background: #0f172a; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
         
-        /* Pantallas de Autenticación y Bloqueo */
+        /* Pantalla de Registro y Autenticación Corporativa */
         #authScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0b0f19; z-index: 8888; justify-content: center; align-items: center; padding: 20px; overflow-y: auto; }
         .auth-card { background: #1e293b; border: 1px solid #334155; padding: 30px; border-radius: 16px; max-width: 450px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
-        #adblockModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0b0f19; z-index: 9999; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-        .adblock-content { background: #1e293b; border: 2px solid #ef4444; padding: 30px; border-radius: 12px; max-width: 500px; }
     </style>
 </head>
 <body>
 
-    <!-- MODAL DE ALERTA ANTI-BLOQUEADOR -->
-    <div id="adblockModal">
-        <div class="adblock-content">
-            <h2 style="color: #ef4444; margin-bottom: 15px;">⚠️ Alerta de Seguridad del Sistema</h2>
-            <p style="color: #f8fafc; font-size: 15px;">Nexus Media Group detectó un bloqueador de anuncios activo. Para operar en el portal de teletrabajo, es obligatorio desactivarlo y recargar.</p>
-            <button class="btn" style="background-color: #ef4444;" onclick="window.location.reload()">Ya lo desactivé, Recargar</button>
-        </div>
-    </div>
-
-    <!-- PANTALLA DE REGISTRO / ACCESO CORPORATIVO -->
+    <!-- PANTALLA DE REGISTRO INICIAL -->
     <div id="authScreen">
         <div class="auth-card">
             <div style="text-align: center; margin-bottom: 20px;">
                 <div class="logo-dot" style="display: inline-block; margin-bottom: 8px;"></div>
-                <h2 style="color: #f8fafc; font-size: 22px;">NEXUS MEDIA GROUP</h2>
-                <p style="color: #10b981; font-size: 13px;">Portal Oficial de Empleo Remoto en Venezuela</p>
+                <h2 style="color: #f8fafc; font-size: 22px;">PORTAL DE TELETRABAJO</h2>
+                <p style="color: #10b981; font-size: 13px;">Sistema Oficial de Operaciones Remotas - Venezuela</p>
             </div>
 
-            <!-- PASO 1: DATOS INICIALES -->
+            <!-- PASO 1: DATOS DE POSTULACIÓN -->
             <div id="step1Form">
-                <p style="margin-bottom: 15px; color: #94a3b8; text-align: center;">Regístrese para postularse a los puestos de trabajo remoto desde casa con excelentes ingresos garantizados.</p>
+                <p style="margin-bottom: 15px; color: #94a3b8; text-align: center;">Complete sus datos corporativos para registrarse y activar su expediente laboral remoto.</p>
                 
                 <label style="font-size: 13px; color: #cbd5e1;">Nombre Completo:</label>
-                <input type="text" id="regName" class="input-field" placeholder="Ej: Carlos Mendoza">
+                <input type="text" id="regName" class="input-field" placeholder="Ej: David López">
                 
                 <label style="font-size: 13px; color: #cbd5e1;">Correo Electrónico:</label>
                 <input type="email" id="regEmail" class="input-field" placeholder="correo@gmail.com">
@@ -72,26 +56,26 @@
                 <button class="btn" onclick="sendVerificationCode()">Solicitar Código de Verificación</button>
             </div>
 
-            <!-- PASO 2: INGRESO DE CÓDIGO -->
+            <!-- PASO 2: VALIDACIÓN DE SEGURIDAD -->
             <div id="step2Code" style="display: none;">
-                <p style="margin-bottom: 15px; color: #38bdf8; text-align: center;">Hemos enviado un código de seguridad a su correo y teléfono registrado. (Código de validación del sistema: <strong style="color:#10b981;">7788</strong>)</p>
+                <p style="margin-bottom: 15px; color: #38bdf8; text-align: center;">Código de validación enviado a su contacto. (Código de prueba del sistema: <strong style="color:#10b981;">7788</strong>)</p>
                 
-                <label style="font-size: 13px; color: #cbd5e1;">Ingrese Código de Verificación:</label>
+                <label style="font-size: 13px; color: #cbd5e1;">Ingrese Código de Seguridad:</label>
                 <input type="text" id="enteredCode" class="input-field" placeholder="Ej: 7788" maxlength="4" style="text-align: center; font-size: 20px; letter-spacing: 5px;">
                 
-                <button class="btn" style="background-color: #10b981;" onclick="verifyAndRegister()">Verificar y Activar Expediente</button>
+                <button class="btn" style="background-color: #10b981;" onclick="verifyAndRegister()">Verificar y Acceder al Panel</button>
             </div>
         </div>
     </div>
 
-    <!-- PANEL PRINCIPAL DEL TRABAJADOR -->
+    <!-- PANEL PRINCIPAL DEL OPERADOR -->
     <div class="container" id="mainDashboard" style="display: none;">
         <div class="header">
             <div class="company-badge">
                 <div class="logo-dot"></div>
                 <div>
-                    <h2 style="margin:0; color: #f8fafc; font-size: 18px;">NEXUS MEDIA GROUP C.A.</h2>
-                    <p style="margin:0; color: #10b981; font-size: 12px;">Portal Oficial de Operaciones & Teletrabajo</p>
+                    <h2 style="margin:0; color: #f8fafc; font-size: 18px;">OPERACIONES REMOTAS C.A.</h2>
+                    <p style="margin:0; color: #10b981; font-size: 12px;">Plataforma Oficial de Teletrabajo</p>
                 </div>
             </div>
             <div class="wallet">
@@ -105,103 +89,68 @@
             <p>Contacto: <span id="contactDisplay" style="color: #38bdf8;"></span> | Estatus: <span style="color: #10b981; font-weight: bold;">[ACTIVO - REMOTO]</span></p>
         </div>
 
-        <!-- SECCIÓN 1: TAREAS DE MARKETING / VIDEOS -->
+        <!-- SECCIÓN 1: CAMPAÑA DE DIFUSIÓN Y VIDEOS -->
         <div class="card">
             <h2>🎬 Campaña de Promoción Masiva y Difusión</h2>
-            <p>Realice videos en TikTok, Instagram Reels o YouTube Shorts promocionando las vacantes de la empresa y gane excelentes comisiones por expansión.</p>
+            <p>Realice videos informativos en TikTok, Instagram Reels o YouTube Shorts sobre las vacantes de la empresa y registre su enlace para auditoría.</p>
             
             <div class="video-task-card">
                 <h3 style="color: #f59e0b; font-size: 15px; margin-bottom: 5px;">📱 Pauta de Expansión Activa</h3>
-                <p style="margin: 0; color: #cbd5e1; font-size: 13px;">Requisito: Publicación vertical mostrando los beneficios de la empresa e incluyendo su enlace institucional.</p>
-                <p style="margin-top: 5px; color: #10b981; font-weight: bold; font-size: 13px;">Comisión directa por auditoría de video: $0.50 USD.</p>
+                <p style="margin: 0; color: #cbd5e1; font-size: 13px;">Requisito: Publicación vertical en redes mostrando las ventajas del teletrabajo e incluyendo su enlace institucional.</p>
+                <p style="margin-top: 5px; color: #10b981; font-weight: bold; font-size: 13px;">Comisión acreditada por auditoría de video: $0.50 USD.</p>
             </div>
 
-            <input type="text" id="videoLinkInput" class="input-field" placeholder="Pegue aquí el enlace del video publicado...">
+            <input type="text" id="videoLinkInput" class="input-field" placeholder="Pegue aquí el enlace de su video publicado...">
             <button class="btn" style="background-color: #f59e0b; color: #0f172a;" onclick="submitVideoTask()">Enviar Enlace para Auditoría</button>
         </div>
 
-        <!-- SECCIÓN 2: MICRO-TAREAS Y AUDITORÍAS -->
+        <!-- SECCIÓN 2: GESTIÓN DE EQUIPO Y BONOS -->
         <div class="card">
-            <h2>✍️ Micro-Tareas: Validación Operativa de Datos</h2>
-            <p>Complete las auditorías diarias asignadas para asegurar la producción y acumular ganancias estables en su cuenta.</p>
-            
-            <div class="task-box" id="triviaCard"></div>
-        </div>
-
-        <!-- SECCIÓN 3: APORTE DE CONTENIDO -->
-        <div class="card">
-            <h2>📝 Banco de Contenido: Registro de Consignas</h2>
-            <p>Los operadores pueden registrar nuevas preguntas aprobadas para nutrir la plataforma corporativa.</p>
-            <input type="text" id="newQuestionText" class="input-field" placeholder="Escriba la consigna o pregunta...">
-            <input type="text" id="newAnswerText" class="input-field" placeholder="Respuesta clave exacta...">
-            <button class="btn" style="background-color: #8b5cf6;" onclick="addNewUserQuestion()">Registrar en Sistema</button>
-        </div>
-
-        <!-- SECCIÓN 4: RED DE RECLUTAMIENTO Y BONOS -->
-        <div class="card">
-            <h2>🏆 Gestión de Equipo & Bonos Semanales Formidables</h2>
-            <p>La dirección evalúa el rendimiento por la adquisición de colaboradores bajo su enlace institucional:</p>
+            <h2>🏆 Red de Reclutamiento & Bonos Semanales</h2>
+            <p>La gerencia evalúa el rendimiento por la adquisición e integración de nuevos colaboradores a través de su enlace institucional:</p>
             
             <div class="promo-banner">
-                <h3 style="color: #10b981; margin-bottom: 5px;">💼 Meta de Productividad y Bonos Fijos:</h3>
-                <p style="color: #f8fafc; margin: 3px 0;">• Logre invitar a <strong>35 colaboradores activos</strong> mediante su enlace de reclutamiento y califique para recibir un <strong>bono semanal fijo de $20.00 USD</strong> evaluado por la administración.</p>
-                <p style="color: #818cf8; margin-top: 8px; font-size: 13px;">🕒 <em>Cortes de rendimiento y auditoría de equipo realizados todos los fines de semana.</em></p>
+                <h3 style="color: #10b981; margin-bottom: 5px;">💼 Meta de Productividad y Bono Fijo:</h3>
+                <p style="color: #f8fafc; margin: 3px 0;">• Logre registrar a <strong>35 colaboradores activos</strong> mediante su enlace de invitación y califique para recibir un <strong>bono semanal fijo de $20.00 USD</strong> evaluado por administración.</p>
+                <p style="color: #818cf8; margin-top: 8px; font-size: 13px;">🕒 <em>Cortes y auditorías de rendimiento de equipo realizados cada fin de semana.</em></p>
             </div>
 
             <div class="ref-box">
                 <p style="margin-bottom: 8px; color: #f8fafc;">Su enlace institucional de incorporación:</p>
-                <div class="ref-link" id="refLinkText">Generando credencial...</div>
+                <div class="ref-link" id="refLinkText">Generando enlace...</div>
                 <button class="btn" style="background-color: #10b981; margin-top: 5px;" onclick="copyRefLink()">Copiar Enlace de Reclutamiento</button>
-                <p style="margin-top: 15px; margin-bottom: 5px;">Personal bajo su gestión: <strong id="refCount" style="color: #38bdf8;">0</strong> / 35 colaboradores</p>
+                <p style="margin-top: 15px; margin-bottom: 5px;">Colaboradores bajo su gestión: <strong id="refCount" style="color: #38bdf8;">0</strong> / 35</p>
             </div>
         </div>
 
-        <!-- SECCIÓN 5: CONFIGURACIÓN DE PAGO -->
+        <!-- SECCIÓN 3: CONFIGURACIÓN DE PAGO -->
         <div class="card">
-            <h2>💳 Datos de Nómina (Binance Pay / USDT)</h2>
-            <p>Ingrese su correo o identificador oficial para recibir los pagos de su sueldo, comisiones y bonos semanales.</p>
-            <input type="text" id="cryptoWallet" class="input-field" placeholder="Ej: Correo de Binance Pay o USDT TRC20">
+            <h2>💳 Configuración de Nómina (Binance Pay / USDT)</h2>
+            <p>Ingrese su correo o identificador de Binance Pay o billetera USDT TRC20 para recibir sus pagos y comisiones.</p>
+            <input type="text" id="cryptoWallet" class="input-field" placeholder="Ej: Correo de Binance Pay o Billetera USDT">
             <button class="btn" onclick="saveWallet()">Actualizar Datos de Pago</button>
         </div>
 
         <div class="card" style="text-align: center;">
             <h2>Solicitar Desembolso de Nómina</h2>
-            <p>El límite mínimo acumulado para procesar órdenes es de <strong>$5.00 USD</strong>.</p>
+            <p>El límite mínimo acumulado para procesar órdenes de pago es de <strong>$5.00 USD</strong>.</p>
             <button class="btn" onclick="requestWithdrawal()">Procesar Orden de Retiro</button>
         </div>
     </div>
 
     <script>
         // COMANDO DE REINICIO TOTAL Y LIMPIEZA DE CACHÉ DE MEMORIA
-        const appVersion = 'v20_nexus_forced_reset';
+        const appVersion = 'v21_clean_telework_reset';
         if (localStorage.getItem('appVersion') !== appVersion) {
             localStorage.clear();
             localStorage.setItem('appVersion', appVersion);
             window.location.reload();
         }
 
-        // Detector AdBlock
-        setTimeout(function() {
-            const ad = document.createElement('div');
-            ad.innerHTML = '&nbsp;';
-            ad.className = 'adsbox';
-            ad.style.position = 'absolute';
-            ad.style.left = '-999px';
-            document.body.appendChild(ad);
-            setTimeout(function() {
-                if (ad.offsetHeight === 0) {
-                    document.getElementById('adblockModal').style.display = 'flex';
-                }
-                ad.remove();
-            }, 100);
-        }, 500);
-
         const urlParams = new URLSearchParams(window.location.search);
         const referrer = urlParams.get('ref');
 
         let savedUser = localStorage.getItem('currentUser');
-        let savedContact = localStorage.getItem('userContact');
-
         if (!savedUser) {
             document.getElementById('authScreen').style.display = 'flex';
         } else {
@@ -219,7 +168,7 @@
             tempPhone = document.getElementById('regPhone').value.trim();
 
             if(tempName === '' || tempEmail === '' || tempPhone === '') {
-                alert('Por favor complete todos los campos obligatorios para continuar.');
+                alert('Por favor complete todos los campos obligatorios.');
                 return;
             }
             if(!tempEmail.includes('@')) {
@@ -229,13 +178,13 @@
 
             document.getElementById('step1Form').style.display = 'none';
             document.getElementById('step2Code').style.display = 'block';
-            alert('📨 Código de seguridad generado y enviado exitosamente.');
+            alert('📨 Código de seguridad enviado exitosamente.');
         }
 
         function verifyAndRegister() {
             const codeInput = document.getElementById('enteredCode').value.trim();
             if(codeInput !== '7788' && codeInput !== '1234') {
-                alert('Código incorrecto. Utilice el código de prueba predeterminado: 7788');
+                alert('Código incorrecto. Utilice el código predeterminado del sistema: 7788');
                 return;
             }
 
@@ -291,97 +240,6 @@
             alert('🎥 ¡Enlace recibido! Se han acreditado $0.50 USD de bonificación a su expediente por campaña publicitaria.');
         }
 
-        const defaultQuestions = [
-            { level: 'Auditoría Nivel 1', q: '¿Cuántas ruedas principales posee un vehículo tipo sedán convencional? (Escriba en número)', answers: ['4', 'cuatro'], reward: 0.001 },
-            { level: 'Auditoría Nivel 2', q: '¿Cuál es el color predominante en la clorofila de la vegetación?', answers: ['verde'], reward: 0.001 },
-            { level: 'Auditoría Nivel 3', q: '¿En qué subcontinente se encuentra la República Bolivariana de Venezuela?', answers: ['america del sur', 'suramerica', 'sudamerica', 'américa del sur'], reward: 0.001 },
-            { level: 'Auditoría Nivel 4', q: '¿Cómo se denomina el cuerpo celeste más voluminoso del sistema solar?', answers: ['jupiter', 'júpiter'], reward: 0.002 },
-            { level: 'Auditoría Nivel 5', q: '¿En qué año se rubricó el documento de independencia de Venezuela?', answers: ['1811'], reward: 0.002 }
-        ];
-
-        let customQuestions = JSON.parse(localStorage.getItem('userCustomQuestions')) || [];
-        let questionBank = defaultQuestions.concat(customQuestions);
-
-        let currentQuestionIndex = parseInt(localStorage.getItem('typedTriviaIndex')) || 0;
-        if (currentQuestionIndex >= questionBank.length) { currentQuestionIndex = 0; }
-
-        function renderTrivia() {
-            const container = document.getElementById('triviaCard');
-            if (!container) return;
-            if (questionBank.length === 0) {
-                container.innerHTML = '<p>No hay auditorías pendientes.</p>';
-                return;
-            }
-            const currentQ = questionBank[currentQuestionIndex];
-
-            container.innerHTML = `
-                <div class="level-badge">${currentQ.level || 'Tarea Corporativa'}</div>
-                <div class="task-question">${currentQ.q}</div>
-                <input type="text" id="userAnswerInput" class="input-field" placeholder="Escriba la respuesta de validación aquí...">
-                <button class="btn" onclick="submitTypedAnswer()">Enviar Validación (Acreditar $${(currentQ.reward || 0.001).toFixed(3)})</button>
-            `;
-        }
-
-        function submitTypedAnswer() {
-            const inputField = document.getElementById('userAnswerInput');
-            const userText = inputField.value.trim().toLowerCase();
-
-            if (userText === '') {
-                alert('Debe rellenar el campo de validación.');
-                return;
-            }
-
-            const currentQ = questionBank[currentQuestionIndex];
-            let isCorrect = currentQ.answers.some(ans => userText.includes(ans));
-
-            if (!isCorrect) {
-                alert('❌ Validación incorrecta. Verifique la información e intente de nuevo.');
-                return;
-            }
-
-            window.open('https://omg10.com/4/11874696', '_blank');
-
-            let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
-            let rewardAmt = currentQ.reward || 0.001;
-            currentBalance += rewardAmt;
-            localStorage.setItem('userBalance', currentBalance.toFixed(3));
-            document.getElementById('balance').innerText = currentBalance.toFixed(3);
-
-            alert('🎉 ¡Validación exitosa! Se han sumado $' + rewardAmt.toFixed(3) + ' a su balance.');
-
-            currentQuestionIndex++;
-            if (currentQuestionIndex >= questionBank.length) { currentQuestionIndex = 0; }
-            localStorage.setItem('typedTriviaIndex', currentQuestionIndex);
-
-            renderTrivia();
-        }
-
-        function addNewUserQuestion() {
-            const qText = document.getElementById('newQuestionText').value.trim();
-            const aText = document.getElementById('newAnswerText').value.trim().toLowerCase();
-
-            if(qText === '' || aText === '') {
-                alert('Complete la consigna y la respuesta clave.');
-                return;
-            }
-
-            let newEntry = {
-                level: 'Aporte de Operador',
-                q: qText,
-                answers: [aText],
-                reward: 0.002
-            };
-
-            customQuestions.push(newEntry);
-            localStorage.setItem('userCustomQuestions', JSON.stringify(customQuestions));
-            questionBank = defaultQuestions.concat(customQuestions);
-
-            document.getElementById('newQuestionText').value = '';
-            document.getElementById('newAnswerText').value = '';
-            
-            alert('¡Consigna registrada correctamente en el sistema!');
-        }
-
         function saveWallet() {
             const wallet = document.getElementById('cryptoWallet').value.trim();
             if(wallet === '') {
@@ -396,7 +254,7 @@
             const wallet = localStorage.getItem('userCryptoWallet');
             let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
             if(!wallet) {
-                alert('Error: Debe configurar sus datos bancarios de Binance Pay antes de solicitar retiro.');
+                alert('Error: Debe configurar sus datos bancarios antes de solicitar retiro.');
                 return;
             }
             if(currentBalance < 5.00) {
@@ -405,12 +263,6 @@
             }
             alert('¡Orden de retiro generada con éxito! Será despachada en el próximo ciclo de pagos de la empresa.');
         }
-
-        renderTrivia();
     </script>
-
-    <!-- Script general de Monetag -->
-    <script>(function(s){s.dataset.zone='11874610',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 </body>
 </html>
