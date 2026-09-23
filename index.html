@@ -13,9 +13,10 @@
             padding: 20px; 
             min-height: 100vh; 
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* Marca de agua institucional de fondo muy elegante estilo corporativo */
+        /* Marca de agua institucional de fondo */
         body::before {
             content: "NEXUS MEDIA GROUP";
             position: fixed;
@@ -31,11 +32,18 @@
             letter-spacing: 8px;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+        /* Contenedor principal ajustado para que no se salga nada */
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            position: relative; 
+            z-index: 2; 
+            width: 100%;
+        }
 
         /* Header Ejecutivo */
         .header { 
-            background: rgba(17, 24, 39, 0.85); 
+            background: rgba(17, 24, 39, 0.9); 
             backdrop-filter: blur(12px);
             padding: 20px 30px; 
             border-radius: 16px; 
@@ -61,21 +69,31 @@
             font-size: 14px; 
         }
 
-        /* Tarjetas estilo Dashboard Corporativo */
-        .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media(max-width: 768px) { .grid-layout { grid-template-columns: 1fr; } }
+        /* Sistema de Cuadrícula Perfecta */
+        .dashboard-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; 
+            width: 100%;
+        }
+        
+        @media(max-width: 768px) { 
+            .dashboard-grid { grid-template-columns: 1fr; } 
+        }
 
         .card { 
-            background: rgba(17, 24, 39, 0.85); 
+            background: rgba(17, 24, 39, 0.9); 
             backdrop-filter: blur(12px);
             padding: 25px; 
             border-radius: 16px; 
-            margin-bottom: 20px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
             border: 1px solid rgba(255, 255, 255, 0.06); 
+            width: 100%;
         }
         
-        .card.full-width { grid-column: 1 / -1; }
+        .card.full-width { 
+            grid-column: 1 / -1; 
+        }
 
         .card h2 { 
             color: #818cf8; 
@@ -155,7 +173,6 @@
             overflow: hidden;
         }
 
-        /* Franja tricolor elegante superior */
         .auth-card::before {
             content: '';
             position: absolute;
@@ -202,7 +219,7 @@
         </div>
     </div>
 
-    <!-- PANEL PRINCIPAL DE TRABAJO ESTILO DASHBOARD -->
+    <!-- PANEL PRINCIPAL DE TRABAJO -->
     <div class="container" id="mainDashboard" style="display: none;">
         
         <!-- Cabecera -->
@@ -216,9 +233,10 @@
             </div>
         </div>
 
-        <div class="grid-layout">
+        <!-- Cuadrícula organizada -->
+        <div class="dashboard-grid">
             
-            <!-- Expediente -->
+            <!-- Expediente (Ancho completo) -->
             <div class="card full-width">
                 <h2>👤 Expediente del Operador</h2>
                 <p>Colaborador Activo: <strong id="userDisplay" style="color: #ffffff;"></strong></p>
