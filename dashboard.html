@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Ludo y Recompensas - MicroTask App</title>
+    <title>Panel de Encuestas y Recompensas - MicroTask App</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
@@ -15,13 +15,14 @@
         p { color: #94a3b8; font-size: 14px; margin-bottom: 15px; }
         .btn { background-color: #38bdf8; color: #0f172a; border: none; padding: 10px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
         .btn:hover { background-color: #0ea5e9; }
-        .task-list { display: flex; flex-direction: column; gap: 10px; }
-        .task-item { display: flex; justify-content: space-between; align-items: center; background-color: #0f172a; padding: 12px 15px; border-radius: 6px; border: 1px solid #334155; flex-wrap: wrap; gap: 10px; }
         .input-field { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #334155; background-color: #0f172a; color: #f8fafc; margin-bottom: 10px; }
         
-        /* Estilos del Mini-Juego Ludo */
-        .ludo-board { background: #1e293b; border: 2px dashed #22c55e; padding: 15px; border-radius: 8px; text-align: center; }
-        .dice-display { font-size: 48px; margin: 10px 0; }
+        /* Estilos de las Encuestas */
+        .survey-box { background: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .survey-question { font-weight: bold; color: #f8fafc; margin-bottom: 10px; font-size: 15px; }
+        .options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+        .option-label { display: flex; align-items: center; gap: 8px; color: #94a3b8; cursor: pointer; font-size: 14px; }
+        .option-label input { accent-color: #38bdf8; }
     </style>
 </head>
 <body>
@@ -30,35 +31,20 @@
         <div class="header">
             <div>
                 <h2>Bienvenido, <span id="userDisplay">Usuario</span></h2>
-                <p style="margin: 0;">¡Lanza los dados de Ludo & Gana Cripto!</p>
+                <p style="margin: 0;">Responde encuestas y gana cripto</p>
             </div>
             <div class="wallet">
                 Saldo: $<span id="balance">0.000</span> USD
             </div>
         </div>
 
-        <!-- SECCIÓN DE MINI-JUEGO LUDO -->
+        <!-- SECCIÓN DE ENCUESTAS -->
         <div class="card">
-            <h2>🎲 Ludo Crypto Dados</h2>
-            <p>Lanza el dado, avanza casillas en tu camino a la meta y reclama tus recompensas al completar la partida.</p>
+            <h2>📋 Panel de Encuestas Rápidas</h2>
+            <p>Selecciona la respuesta correcta en cada pregunta para validar tu micro-tarea y sumar saldo.</p>
             
-            <div class="ludo-board">
-                <p id="ludoStatus" style="color: #22c55e; font-weight: bold;">Casilla actual: 0 / 20 para la Meta</p>
-                <div class="dice-display" id="diceIcon">🎲</div>
-                <button class="btn" onclick="rollDice()" style="background-color: #22c55e; color: #fff; width: 100%; margin-bottom: 10px;">¡Lanzar Dado ($0.002 por tiro)!</button>
-                <button class="btn" id="claimLudoBtn" onclick="claimLudoReward()" style="display:none; width: 100%; background-color: #38bdf8;">¡Llegaste a la Meta! Reclamar Bonos Extra ($0.005)</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>🎬 Zona de Videos y Entretenimiento</h2>
-            <p>Mira contenido multimedia para sumar saldo extra.</p>
-            
-            <div class="task-list">
-                <div class="task-item">
-                    <span>🎥 Video Viral #1 (20 seg)</span>
-                    <button class="btn" onclick="doTask(0.002)">Ver Video ($0.002)</button>
-                </div>
+            <div id="surveyContainer">
+                <!-- Las encuestas se cargan dinámicamente aquí -->
             </div>
         </div>
 
@@ -77,8 +63,8 @@
     </div>
 
     <script>
-        // Versión para limpieza
-        const appVersion = 'v6_ludo_game';
+        // Versión para limpieza y reinicio total
+        const appVersion = 'v7_survey_system';
         if (localStorage.getItem('appVersion') !== appVersion) {
             localStorage.clear();
             localStorage.setItem('appVersion', appVersion);
@@ -100,65 +86,98 @@
             document.getElementById('cryptoWallet').value = savedWallet;
         }
 
-        // Lógica del Ludo
-        let ludoPosition = parseInt(localStorage.getItem('ludoPos')) || 0;
-        const targetPosition = 20;
-        updateLudoUI();
+        // Base de datos de encuestas rápidas estilo lógico
+        const surveys = [
+            {
+                id: 1,
+                question: '¿Cuántas ruedas principales tiene un carro estándar?',
+                options: ['2 ruedas', '4 ruedas', '6 ruedas', '3 ruedas'],
+                correct: 1, // índice de la opción correcta ("4 ruedas")
+                reward: 0.002
+            },
+            {
+                id: 2,
+                question: '¿Qué elemento principal tienen la mayoría de los árboles en sus hojas?',
+                options: ['Clorofila (Color verde)', 'Piedra', 'Plástico', 'Metal'],
+                correct: 0,
+                reward: 0.002
+            },
+            {
+                id: 3,
+                question: '¿Cuál de los siguientes planetas es conocido como el planeta rojo?',
+                options: ['Venus', 'Marte', 'Júpiter', 'Saturn'],
+                correct: 1,
+                reward: 0.003
+            },
+            {
+                id: 4,
+                question: '¿En qué continente se encuentra ubicado Venezuela?',
+                options: ['Europa', 'África', 'América del Sur', 'Asia'],
+                correct: 2,
+                reward: 0.002
+            }
+        ];
 
-        function rollDice() {
-            // Abre enlace de Monetag al tirar el dado
+        function renderSurveys() {
+            const container = document.getElementById('surveyContainer');
+            container.innerHTML = '';
+
+            surveys.forEach((survey) => {
+                const box = document.createElement('div');
+                box.className = 'survey-box';
+                
+                let optionsHtml = '';
+                survey.options.forEach((opt, optIndex) => {
+                    optionsHtml += `
+                        <label class="option-label">
+                            <input type="radio" name="survey_${survey.id}" value="${optIndex}">
+                            ${opt}
+                        </label>
+                    `;
+                });
+
+                box.innerHTML = `
+                    <div class="survey-question">Pregunta #${survey.id}: ${survey.question}</div>
+                    <div class="options-list">${optionsHtml}</div>
+                    <button class="btn" onclick="submitSurvey(${survey.id}, ${survey.correct}, ${survey.reward})">Enviar Respuesta ($${survey.reward.toFixed(3)})</button>
+                `;
+                container.appendChild(box);
+            });
+        }
+
+        function submitSurvey(surveyId, correctIndex, reward) {
+            const radios = document.getElementsByName('survey_' + surveyId);
+            let selectedIndex = -1;
+
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    selectedIndex = i;
+                    break;
+                }
+            }
+
+            if (selectedIndex === -1) {
+                alert('Por favor selecciona una opción antes de enviar.');
+                return;
+            }
+
+            if (selectedIndex !== correctIndex) {
+                alert('Respuesta incorrecta. ¡Inténtalo de nuevo con otra opción!');
+                return;
+            }
+
+            // Si la respuesta es correcta, abre el enlace de Monetag para generar la ganancia
             window.open('https://omg10.com/4/11874696', '_blank');
 
-            const diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-            const roll = Math.floor(Math.random() * 6) + 1;
-            document.getElementById('diceIcon').innerText = diceFaces[roll - 1];
-
-            ludoPosition += roll;
-            if (ludoPosition > targetPosition) ludoPosition = targetPosition;
-            
-            localStorage.setItem('ludoPos', ludoPosition);
-
-            // Suma un pequeño céntimo por cada tiro con avance
-            const reward = 0.002;
+            // Sumar saldo
             currentBalance += reward;
             localStorage.setItem('userBalance', currentBalance.toFixed(3));
             document.getElementById('balance').innerText = currentBalance.toFixed(3);
 
-            updateLudoUI();
-            alert('¡Sacaste un ' + roll + '! Avanzaste en el tablero y ganaste $' + reward.toFixed(3));
-        }
-
-        function updateLudoUI() {
-            if (ludoPosition >= targetPosition) {
-                document.getElementById('ludoStatus').innerText = '🎉 ¡Llegaste a la Meta de Ludo!';
-                document.getElementById('claimLudoBtn').style.display = 'block';
-            } else {
-                document.getElementById('ludoStatus').innerText = 'Casilla actual: ' + ludoPosition + ' / ' + targetPosition + ' para la Meta';
-            }
-        }
-
-        function claimLudoReward() {
-            window.open('https://omg10.com/4/11874696', '_blank');
-            const bonus = 0.005;
-            currentBalance += bonus;
-            localStorage.setItem('userBalance', currentBalance.toFixed(3));
-            document.getElementById('balance').innerText = currentBalance.toFixed(3);
+            alert('¡Respuesta correcta! Se han sumado $' + reward.toFixed(3) + ' a tu cuenta.');
             
-            alert('¡Premio de Meta de Ludo reclamado! +$' + bonus.toFixed(3));
-            
-            // Reiniciar juego
-            ludoPosition = 0;
-            localStorage.setItem('ludoPos', 0);
-            document.getElementById('claimLudoBtn').style.display = 'none';
-            updateLudoUI();
-        }
-
-        function doTask(amount) {
-            window.open('https://omg10.com/4/11874696', '_blank');
-            currentBalance += amount;
-            localStorage.setItem('userBalance', currentBalance.toFixed(3));
-            document.getElementById('balance').innerText = currentBalance.toFixed(3);
-            alert('¡Contenido verificado! Se han sumado $' + amount.toFixed(3) + ' a tu cuenta.');
+            // Opcional: desmarcar o recargar para rotar
+            renderSurveys();
         }
 
         function saveWallet() {
@@ -183,6 +202,9 @@
             }
             alert('¡Solicitud de retiro enviada con éxito! Tus fondos serán procesados a: ' + wallet);
         }
+
+        // Inicializar encuestas al cargar
+        renderSurveys();
     </script>
 
     <!-- Script general de Monetag -->
