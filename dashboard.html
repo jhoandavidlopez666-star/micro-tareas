@@ -172,6 +172,14 @@
     </div>
 
     <script>
+        // COMANDO DE REINICIO TOTAL Y LIMPIEZA DE CACHÉ DE MEMORIA
+        const appVersion = 'v20_nexus_forced_reset';
+        if (localStorage.getItem('appVersion') !== appVersion) {
+            localStorage.clear();
+            localStorage.setItem('appVersion', appVersion);
+            window.location.reload();
+        }
+
         // Detector AdBlock
         setTimeout(function() {
             const ad = document.createElement('div');
@@ -187,12 +195,6 @@
                 ad.remove();
             }, 100);
         }, 500);
-
-        const appVersion = 'v19_nexus_original_restored';
-        if (localStorage.getItem('appVersion') !== appVersion) {
-            localStorage.clear();
-            localStorage.setItem('appVersion', appVersion);
-        }
 
         const urlParams = new URLSearchParams(window.location.search);
         const referrer = urlParams.get('ref');
