@@ -34,20 +34,20 @@
 
         <div class="card">
             <h2>Tareas Disponibles Hoy</h2>
-            <p>Haz clic en "Completar" para ver el anuncio y sumar saldo a tu cuenta.</p>
+            <p>Haz clic en "Ganar" para ver el anuncio patrocinado y sumar saldo a tu cuenta.</p>
             
             <div class="task-list">
                 <div class="task-item">
                     <span>Visitar enlace patrocinado #1 (15 seg)</span>
-                    <button class="btn" onclick="completeTask(0.05)">Ganar $0.05</button>
+                    <button class="btn" onclick="doTask(0.05)">Ganar $0.05</button>
                 </div>
                 <div class="task-item">
                     <span>Ver anuncio de redirección #2</span>
-                    <button class="btn" onclick="completeTask(0.08)">Ganar $0.08</button>
+                    <button class="btn" onclick="doTask(0.08)">Ganar $0.08</button>
                 </div>
                 <div class="task-item">
                     <span>Completar micro-verificación #3</span>
-                    <button class="btn" onclick="completeTask(0.10)">Ganar $0.10</button>
+                    <button class="btn" onclick="doTask(0.10)">Ganar $0.10</button>
                 </div>
             </div>
         </div>
@@ -60,23 +60,27 @@
     </div>
 
     <script>
-        // Cargar el nombre del usuario guardado en el index
+        // Cargar nombre y saldo actual
         const savedUser = localStorage.getItem('currentUser') || 'Invitado';
         document.getElementById('userDisplay').innerText = savedUser;
 
-        // Sistema básico de saldo simulado
         let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.00;
         document.getElementById('balance').innerText = currentBalance.toFixed(2);
 
-        function completeTask(amount) {
+        function doTask(amount) {
+            // Abre tu enlace de Direct Link de Monetag en una pestaña nueva para generar ganancias
+            window.open('https://omg10.com/4/11874696', '_blank');
+
+            // Suma el saldo al usuario de forma automática
             currentBalance += amount;
             localStorage.setItem('userBalance', currentBalance.toFixed(2));
             document.getElementById('balance').innerText = currentBalance.toFixed(2);
-            alert('¡Tarea completada con éxito! Se han sumado $' + amount + ' a tu cuenta.');
+            
+            alert('¡Anuncio abierto con éxito! Se han sumado $' + amount + ' a tu cuenta.');
         }
     </script>
 
-    <!-- Script oficial de Monetag integrado -->
+    <!-- Script general de Monetag -->
     <script>(function(s){s.dataset.zone='11874610',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
