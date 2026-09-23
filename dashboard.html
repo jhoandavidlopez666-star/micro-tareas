@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trivia Escrita & Referidos - MicroTask App</title>
+    <title>Trivia Trifásica - Mega Bono de Referidos</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
@@ -23,6 +23,7 @@
         .trivia-question { font-size: 18px; font-weight: bold; color: #f8fafc; margin-bottom: 15px; }
         .ref-box { background: #0f172a; border: 1px dashed #38bdf8; padding: 15px; border-radius: 8px; text-align: center; }
         .ref-link { background: #1e293b; color: #38bdf8; padding: 10px; border-radius: 6px; word-break: break-all; font-size: 13px; margin-bottom: 10px; border: 1px solid #334155; }
+        .promo-banner { background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px solid #10b981; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -31,7 +32,7 @@
         <div class="header">
             <div>
                 <h2>Bienvenido, <span id="userDisplay">Usuario</span></h2>
-                <p style="margin: 0;">Trivia Trifásica & Referidos</p>
+                <p style="margin: 0;">Crecimiento Masivo & Referidos</p>
             </div>
             <div class="wallet">
                 Saldo: $<span id="balance">0.000</span> USD
@@ -48,16 +49,23 @@
             </div>
         </div>
 
-        <!-- SECCIÓN DE REFERIDOS -->
+        <!-- SECCIÓN DE PROGRAMA DE REFERIDOS Y METAS -->
         <div class="card">
-            <h2>🤝 Programa de Referidos</h2>
-            <p>Invita a tus amigos y gana un bono por cada persona que se registre con tu enlace.</p>
+            <h2>🔥 Super Bono de Referidos (¡Gana hasta $15 USD extra!)</h2>
+            <p>Invita a tus amigos con tu enlace. Gana por volumen y rompe la meta de referidos activos:</p>
             
+            <div class="promo-banner">
+                <h3 style="color: #10b981; margin-bottom: 5px;">🏆 Metas de Recompensa:</h3>
+                <p style="color: #f8fafc; margin: 3px 0;">• Trae <strong>20 referidos</strong> válidos ➔ <strong>Bono de $10.00 USD</strong></p>
+                <p style="color: #f8fafc; margin: 3px 0;">• Trae <strong>30 referidos</strong> válidos ➔ <strong>Bono de $15.00 USD</strong></p>
+            </div>
+
             <div class="ref-box">
-                <p style="margin-bottom: 8px; color: #f8fafc;">Tu enlace de invitado:</p>
+                <p style="margin-bottom: 8px; color: #f8fafc;">Tu enlace de invitado personal:</p>
                 <div class="ref-link" id="refLinkText">Cargando enlace...</div>
                 <button class="btn" style="background-color: #10b981; color: #fff; margin-top: 5px;" onclick="copyRefLink()">Copiar Enlace de Referido</button>
-                <p style="margin-top: 15px; margin-bottom: 0;">Amigos referidos: <strong id="refCount" style="color: #38bdf8;">0</strong> | Ganancia por referidos: $<span id="refEarnings" style="color: #38bdf8;">0.000</span></p>
+                <p style="margin-top: 15px; margin-bottom: 5px;">Tus referidos actuales: <strong id="refCount" style="color: #38bdf8;">0</strong> personas</p>
+                <button class="btn" style="background-color: #f59e0b; color: #0f172a;" onclick="claimBonus()">Reclamar Bono por Meta</button>
             </div>
         </div>
 
@@ -70,20 +78,20 @@
 
         <div class="card" style="text-align: center;">
             <h2>Solicitar Retiro</h2>
-            <p>El mínimo de retiro es de <strong>$5.00 USD</strong> acumulados.</p>
+            <p>El mínimo de retiro acumulado es de <strong>$5.00 USD</strong> (o haber completado tu bono de metas).</p>
             <button class="btn" onclick="requestWithdrawal()">Retirar a Cripto</button>
         </div>
     </div>
 
     <script>
-        // Versión para limpieza y actualización
-        const appVersion = 'v10_referral_system';
+        // Versión para limpieza y actualización del sistema de referidos con metas
+        const appVersion = 'v11_referral_goals';
         if (localStorage.getItem('appVersion') !== appVersion) {
             localStorage.clear();
             localStorage.setItem('appVersion', appVersion);
         }
 
-        // Sistema de detección de referidos por URL (Ej: tudominio.com/?ref=usuario123)
+        // Detección de referido por URL (?ref=nombre)
         const urlParams = new URLSearchParams(window.location.search);
         const referrer = urlParams.get('ref');
 
@@ -91,41 +99,56 @@
         if (!savedUser) {
             let defaultName = 'Usuario_' + Math.floor(Math.random() * 10000);
             const userName = prompt('Por favor, ingresa tu correo o nombre de usuario para registrarte:') || defaultName;
-            localStorage.setItem('currentUser', userName.trim());
+            let cleanUserName = userName.trim();
+            localStorage.setItem('currentUser', cleanUserName);
             
-            // Si entró por referido, registrar al sponsor y darle un bono de bienvenida
-            if (referrer) {
-                localStorage.setItem('myReferrer', referrer);
-                // Aquí podrías sumar contador al referrer si estuviera en backend, localmente simulamos el registro
+            // Si vino por un enlace de referido, guardamos el registro local del sponsor
+            if (referrer && referrer !== cleanUserName) {
+                let existingRefData = JSON.parse(localStorage.getItem('refStorage_' + referrer)) || { count: 0, claimed: false };
+                existingRefData.count += 1;
+                localStorage.setItem('refStorage_' + referrer, JSON.stringify(existingRefData));
             }
             window.location.reload();
         }
 
-        document.getElementById('userDisplay').innerText = localStorage.getItem('currentUser');
+        const currentUser = localStorage.getItem('currentUser');
+        document.getElementById('userDisplay').innerText = currentUser;
 
         let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
         document.getElementById('balance').innerText = currentBalance.toFixed(3);
 
-        // Control de referidos locales del usuario actual
-        let refCount = parseInt(localStorage.getItem('userRefCount')) || 0;
-        let refEarnings = parseFloat(localStorage.getItem('userRefEarnings')) || 0.000;
+        // Cargar referidos del usuario actual desde su propio registro local simulado
+        let myRefData = JSON.parse(localStorage.getItem('refStorage_' + currentUser)) || { count: 0, claimed: 10_claimed_false };
+        let refCount = myRefData.count;
         document.getElementById('refCount').innerText = refCount;
-        document.getElementById('refEarnings').innerText = refEarnings.toFixed(3);
 
-        // Generar enlace de referido personalizado
+        // Enlace de referido limpio
         const currentCleanUrl = window.location.href.split('?')[0];
-        const userRefLink = currentCleanUrl + '?ref=' + encodeURIComponent(localStorage.getItem('currentUser'));
+        const userRefLink = currentCleanUrl + '?ref=' + encodeURIComponent(currentUser);
         document.getElementById('refLinkText').innerText = userRefLink;
 
         function copyRefLink() {
             navigator.clipboard.writeText(userRefLink).then(() => {
-                alert('¡Enlace de referido copiado al portapapeles! Compártelo con tus amigos.');
-            }).catch(err => {
-                alert('No se pudo copiar automáticamente, selecciónalo y cópialo manual.');
+                alert('¡Enlace copiado! Compártelo en tus redes para sumar referidos rápido.');
             });
         }
 
-        const savedWallet = localStorage.getItem('userCryptoWallet') || '';
+        function claimBonus() {
+            if (refCount >= 30) {
+                currentBalance += 15.00;
+                alert('🎉 ¡Felicidades! Desbloqueaste la meta de 30 referidos. Se han sumado $15.00 USD a tu balance.');
+            } else if (refCount >= 20) {
+                currentBalance += 10.00;
+                alert('🎉 ¡Felicidades! Desbloqueaste la meta de 20 referidos. Se han sumado $10.00 USD a tu balance.');
+            } else {
+                alert('Aún te faltan referidos para reclamar el bono. Tienes ' + refCount + ' referidos (Necesitas mínimo 20). ¡Sigue compartiendo tu enlace!');
+                return;
+            }
+            localStorage.setItem('userBalance', currentBalance.toFixed(3));
+            document.getElementById('balance').innerText = currentBalance.toFixed(3);
+        }
+
+        const savedWallet = localStorage.getItem('userCryptoWallet'] || '';
         if(savedWallet) {
             document.getElementById('cryptoWallet').value = savedWallet;
         }
@@ -194,7 +217,7 @@
 
             // Siguiente pregunta
             currentQuestionIndex++;
-            if (currentQuestionIndex >= questionBank.length) {
+            if (currentQuestionIndex >= questionBank.NameCount || currentQuestionIndex >= questionBank.length) {
                 currentQuestionIndex = 0;
             }
             localStorage.setItem('typedTriviaIndex', currentQuestionIndex);
