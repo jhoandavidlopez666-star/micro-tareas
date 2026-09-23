@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trivia Escrita - MicroTask App</title>
+    <title>Trivia Escrita & Referidos - MicroTask App</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
@@ -17,10 +17,12 @@
         .btn:hover { background-color: #0ea5e9; }
         .input-field { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #334155; background-color: #0f172a; color: #f8fafc; margin-bottom: 10px; font-size: 16px; }
         
-        /* Estilos de la Trivia Escrita */
+        /* Estilos de la Trivia y Referidos */
         .trivia-box { background: #0f172a; border: 1px solid #334155; padding: 20px; border-radius: 8px; text-align: center; }
         .level-badge { display: inline-block; background: #38bdf8; color: #0f172a; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 12px; }
         .trivia-question { font-size: 18px; font-weight: bold; color: #f8fafc; margin-bottom: 15px; }
+        .ref-box { background: #0f172a; border: 1px dashed #38bdf8; padding: 15px; border-radius: 8px; text-align: center; }
+        .ref-link { background: #1e293b; color: #38bdf8; padding: 10px; border-radius: 6px; word-break: break-all; font-size: 13px; margin-bottom: 10px; border: 1px solid #334155; }
     </style>
 </head>
 <body>
@@ -29,7 +31,7 @@
         <div class="header">
             <div>
                 <h2>Bienvenido, <span id="userDisplay">Usuario</span></h2>
-                <p style="margin: 0;">Trivia Escrita & Cripto</p>
+                <p style="margin: 0;">Trivia Trifásica & Referidos</p>
             </div>
             <div class="wallet">
                 Saldo: $<span id="balance">0.000</span> USD
@@ -43,6 +45,19 @@
             
             <div class="trivia-box" id="triviaCard">
                 <!-- Se carga dinámicamente con JavaScript -->
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE REFERIDOS -->
+        <div class="card">
+            <h2>🤝 Programa de Referidos</h2>
+            <p>Invita a tus amigos y gana un bono por cada persona que se registre con tu enlace.</p>
+            
+            <div class="ref-box">
+                <p style="margin-bottom: 8px; color: #f8fafc;">Tu enlace de invitado:</p>
+                <div class="ref-link" id="refLinkText">Cargando enlace...</div>
+                <button class="btn" style="background-color: #10b981; color: #fff; margin-top: 5px;" onclick="copyRefLink()">Copiar Enlace de Referido</button>
+                <p style="margin-top: 15px; margin-bottom: 0;">Amigos referidos: <strong id="refCount" style="color: #38bdf8;">0</strong> | Ganancia por referidos: $<span id="refEarnings" style="color: #38bdf8;">0.000</span></p>
             </div>
         </div>
 
@@ -61,30 +76,61 @@
     </div>
 
     <script>
-        // Versión para limpieza y reinicio total
-        const appVersion = 'v9_typed_trivia';
+        // Versión para limpieza y actualización
+        const appVersion = 'v10_referral_system';
         if (localStorage.getItem('appVersion') !== appVersion) {
             localStorage.clear();
             localStorage.setItem('appVersion', appVersion);
         }
 
-        const savedUser = localStorage.getItem('currentUser');
+        // Sistema de detección de referidos por URL (Ej: tudominio.com/?ref=usuario123)
+        const urlParams = new URLSearchParams(window.location.search);
+        const referrer = urlParams.get('ref');
+
+        let savedUser = localStorage.getItem('currentUser');
         if (!savedUser) {
-            const userName = prompt('Por favor, ingresa tu correo o nombre de usuario para registrarte:') || 'Usuario';
-            localStorage.setItem('currentUser', userName);
+            let defaultName = 'Usuario_' + Math.floor(Math.random() * 10000);
+            const userName = prompt('Por favor, ingresa tu correo o nombre de usuario para registrarte:') || defaultName;
+            localStorage.setItem('currentUser', userName.trim());
+            
+            // Si entró por referido, registrar al sponsor y darle un bono de bienvenida
+            if (referrer) {
+                localStorage.setItem('myReferrer', referrer);
+                // Aquí podrías sumar contador al referrer si estuviera en backend, localmente simulamos el registro
+            }
             window.location.reload();
         }
+
         document.getElementById('userDisplay').innerText = localStorage.getItem('currentUser');
 
         let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
         document.getElementById('balance').innerText = currentBalance.toFixed(3);
+
+        // Control de referidos locales del usuario actual
+        let refCount = parseInt(localStorage.getItem('userRefCount')) || 0;
+        let refEarnings = parseFloat(localStorage.getItem('userRefEarnings')) || 0.000;
+        document.getElementById('refCount').innerText = refCount;
+        document.getElementById('refEarnings').innerText = refEarnings.toFixed(3);
+
+        // Generar enlace de referido personalizado
+        const currentCleanUrl = window.location.href.split('?')[0];
+        const userRefLink = currentCleanUrl + '?ref=' + encodeURIComponent(localStorage.getItem('currentUser'));
+        document.getElementById('refLinkText').innerText = userRefLink;
+
+        function copyRefLink() {
+            navigator.clipboard.writeText(userRefLink).then(() => {
+                alert('¡Enlace de referido copiado al portapapeles! Compártelo con tus amigos.');
+            }).catch(err => {
+                alert('No se pudo copiar automáticamente, selecciónalo y cópialo manual.');
+            });
+        }
 
         const savedWallet = localStorage.getItem('userCryptoWallet') || '';
         if(savedWallet) {
             document.getElementById('cryptoWallet').value = savedWallet;
         }
 
-        // Banco de preguntas donde el usuario debe escribir la respuesta exacta (se valida sin mayúsculas/espacios)
+        // Banco de preguntas trifásicas
         const questionBank = [
             { level: 'Fácil (Nivel 1)', q: '¿Cuántas ruedas principales tiene un carro estándar? (Escribe el número en dígitos)', answers: ['4', 'cuatro'], reward: 0.001 },
             { level: 'Fácil (Nivel 2)', q: '¿De qué color es la clorofila que tienen las hojas de los árboles?', answers: ['verde'], reward: 0.001 },
@@ -129,8 +175,6 @@
             }
 
             const currentQ = questionBank[currentQuestionIndex];
-            
-            // Validar si lo que escribió coincide con alguna de las respuestas válidas configuradas
             let isCorrect = currentQ.answers.some(ans => userText.includes(ans));
 
             if (!isCorrect) {
@@ -138,17 +182,17 @@
                 return;
             }
 
-            // ¡Respuesta correcta! Abre tu enlace de Monetag en pestaña nueva
+            // Abre el enlace de Monetag al acertar
             window.open('https://omg10.com/4/11874696', '_blank');
 
-            // Sumar saldo según la recompensa del nivel
+            // Sumar saldo
             currentBalance += currentQ.reward;
             localStorage.setItem('userBalance', currentBalance.toFixed(3));
             document.getElementById('balance').innerText = currentBalance.toFixed(3);
 
             alert('🎉 ¡Excelente! Respuesta correcta. Ganaste $' + currentQ.reward.toFixed(3));
 
-            // Avanzar a la siguiente pregunta del banco
+            // Siguiente pregunta
             currentQuestionIndex++;
             if (currentQuestionIndex >= questionBank.length) {
                 currentQuestionIndex = 0;
@@ -181,7 +225,6 @@
             alert('¡Solicitud de retiro enviada con éxito! Tus fondos serán procesados a: ' + wallet);
         }
 
-        // Inicializar la trivia escrita al cargar
         renderTrivia();
     </script>
 
