@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trivia Trifásica - Mega Bono de Referidos</title>
+    <title>Trivia Pro & Super Bonos Semanales</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
@@ -24,6 +24,7 @@
         .ref-box { background: #0f172a; border: 1px dashed #38bdf8; padding: 15px; border-radius: 8px; text-align: center; }
         .ref-link { background: #1e293b; color: #38bdf8; padding: 10px; border-radius: 6px; word-break: break-all; font-size: 13px; margin-bottom: 10px; border: 1px solid #334155; }
         .promo-banner { background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px solid #10b981; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .custom-q-list { background: #0f172a; padding: 10px; border-radius: 6px; margin-top: 10px; max-height: 150px; overflow-y: auto; text-align: left; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -32,32 +33,44 @@
         <div class="header">
             <div>
                 <h2>Bienvenido, <span id="userDisplay">Usuario</span></h2>
-                <p style="margin: 0;">Crecimiento Masivo & Referidos</p>
+                <p style="margin: 0;">Sistema de Trivia Interactiva & Pagos Semanales</p>
             </div>
             <div class="wallet">
                 Saldo: $<span id="balance">0.000</span> USD
             </div>
         </div>
 
-        <!-- SECCIÓN DE TRIVIA CON ESCRITURA -->
+        <!-- SECCIÓN DE TRIVIA CON ESCRITURA Y ENVÍO -->
         <div class="card">
-            <h2>✍️ Reto de Escritura y Lógica</h2>
-            <p>Lee la pregunta y escribe tu respuesta en el recuadro. ¡Cada nivel correcto suma saldo!</p>
+            <h2>✍️ Responde y Gana</h2>
+            <p>Escribe tu respuesta en el cuadro y presiona enviar. ¡Si acertaras, ganas saldo y avanzas de nivel!</p>
             
             <div class="trivia-box" id="triviaCard">
                 <!-- Se carga dinámicamente con JavaScript -->
             </div>
         </div>
 
-        <!-- SECCIÓN DE PROGRAMA DE REFERIDOS Y METAS -->
+        <!-- SECCIÓN PARA QUE LOS USUARIOS AGREGUEN SUS PROPIAS PREGUNTAS -->
         <div class="card">
-            <h2>🔥 Super Bono de Referidos (¡Gana hasta $15 USD extra!)</h2>
-            <p>Invita a tus amigos con tu enlace. Gana por volumen y rompe la meta de referidos activos:</p>
+            <h2>📝 Crea tus propias Preguntas</h2>
+            <p>¿Quieres aportar contenido? Escribe tu propia pregunta y su respuesta para que otros usuarios también la respondan.</p>
+            <input type="text" id="newQuestionText" class="input-field" placeholder="Escribe tu pregunta aquí...">
+            <input type="text" id="newAnswerText" class="input-field" placeholder="Escribe la respuesta correcta...">
+            <button class="btn" style="background-color: #8b5cf6; color: #fff;" onclick="addNewUserQuestion()">Publicar mi Pregunta</button>
+            <div class="custom-q-list" id="customQuestionsContainer">
+                <em style="color: #64748b;">Aún no has creado preguntas personalizadas.</em>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE REFERIDOS Y BONOS SEMANALES MASIVOS -->
+        <div class="card">
+            <h2>🔥 Meta Masiva Semanal (Super Bono de Referidos)</h2>
+            <p>Si mantienes un flujo masivo en tu comunidad o red alcanzando la meta semanal, la plataforma te premia:</p>
             
             <div class="promo-banner">
-                <h3 style="color: #10b981; margin-bottom: 5px;">🏆 Metas de Recompensa:</h3>
-                <p style="color: #f8fafc; margin: 3px 0;">• Trae <strong>20 referidos</strong> válidos ➔ <strong>Bono de $10.00 USD</strong></p>
-                <p style="color: #f8fafc; margin: 3px 0;">• Trae <strong>30 referidos</strong> válidos ➔ <strong>Bono de $15.00 USD</strong></p>
+                <h3 style="color: #10b981; margin-bottom: 5px;">🏆 Meta Oficial Semanal:</h3>
+                <p style="color: #f8fafc; margin: 3px 0;">• Trae/mantiene <strong>35 referidos activos</strong> en la semana ➔ <strong>Bono Fijo de $20.00 USD</strong> (Pago Semanal automático)</p>
+                <p style="color: #38bdf8; margin-top: 8px; font-size: 13px;">🕒 <em>El corte de validación de referidos masivos y el despacho de los $20 semanales se procesa cada fin de semana.</em></p>
             </div>
 
             <div class="ref-box">
@@ -65,27 +78,27 @@
                 <div class="ref-link" id="refLinkText">Cargando enlace...</div>
                 <button class="btn" style="background-color: #10b981; color: #fff; margin-top: 5px;" onclick="copyRefLink()">Copiar Enlace de Referido</button>
                 <p style="margin-top: 15px; margin-bottom: 5px;">Tus referidos actuales: <strong id="refCount" style="color: #38bdf8;">0</strong> personas</p>
-                <button class="btn" style="background-color: #f59e0b; color: #0f172a;" onclick="claimBonus()">Reclamar Bono por Meta</button>
+                <button class="btn" style="background-color: #f59e0b; color: #0f172a;" onclick="claimWeeklyBonus()">Reclamar Bono Semanal ($20)</button>
             </div>
         </div>
 
         <div class="card">
             <h2>Configurar Billetera Cripto (Binance / USDT)</h2>
-            <p>Ingresa tu correo de Binance Pay o dirección USDT (Red TRC20).</p>
+            <p>Ingresa tu correo de Binance Pay o dirección USDT (Red TRC20) para recibir tus pagos.</p>
             <input type="text" id="cryptoWallet" class="input-field" placeholder="Ej: Correo de Binance o Dirección USDT">
             <button class="btn" onclick="saveWallet()">Guardar Billetera</button>
         </div>
 
         <div class="card" style="text-align: center;">
-            <h2>Solicitar Retiro</h2>
-            <p>El mínimo de retiro acumulado es de <strong>$5.00 USD</strong> (o haber completado tu bono de metas).</p>
+            <h2>Solicitar Retiro de Saldo</h2>
+            <p>El mínimo de retiro acumulado por tareas y trivias es de <strong>$5.00 USD</strong>.</p>
             <button class="btn" onclick="requestWithdrawal()">Retirar a Cripto</button>
         </div>
     </div>
 
     <script>
-        // Versión para limpieza y actualización del sistema de referidos con metas
-        const appVersion = 'v11_referral_goals';
+        // Versión para limpieza limpia del script en el navegador
+        const appVersion = 'v13_weekly_35_referrals';
         if (localStorage.getItem('appVersion') !== appVersion) {
             localStorage.clear();
             localStorage.setItem('appVersion', appVersion);
@@ -102,9 +115,8 @@
             let cleanUserName = userName.trim();
             localStorage.setItem('currentUser', cleanUserName);
             
-            // Si vino por un enlace de referido, guardamos el registro local del sponsor
             if (referrer && referrer !== cleanUserName) {
-                let existingRefData = JSON.parse(localStorage.getItem('refStorage_' + referrer)) || { count: 0, claimed: false };
+                let existingRefData = JSON.parse(localStorage.getItem('refStorage_' + referrer)) || { count: 0 };
                 existingRefData.count += 1;
                 localStorage.setItem('refStorage_' + referrer, JSON.stringify(existingRefData));
             }
@@ -117,59 +129,52 @@
         let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
         document.getElementById('balance').innerText = currentBalance.toFixed(3);
 
-        // Cargar referidos del usuario actual desde su propio registro local simulado
-        let myRefData = JSON.parse(localStorage.getItem('refStorage_' + currentUser)) || { count: 0, claimed: 10_claimed_false };
+        let myRefData = JSON.parse(localStorage.getItem('refStorage_' + currentUser)) || { count: 0 };
         let refCount = myRefData.count;
         document.getElementById('refCount').innerText = refCount;
 
-        // Enlace de referido limpio
         const currentCleanUrl = window.location.href.split('?')[0];
         const userRefLink = currentCleanUrl + '?ref=' + encodeURIComponent(currentUser);
         document.getElementById('refLinkText').innerText = userRefLink;
 
         function copyRefLink() {
             navigator.clipboard.writeText(userRefLink).then(() => {
-                alert('¡Enlace copiado! Compártelo en tus redes para sumar referidos rápido.');
+                alert('¡Enlace de referido copiado con éxito!');
             });
         }
 
-        function claimBonus() {
-            if (refCount >= 30) {
-                currentBalance += 15.00;
-                alert('🎉 ¡Felicidades! Desbloqueaste la meta de 30 referidos. Se han sumado $15.00 USD a tu balance.');
-            } else if (refCount >= 20) {
-                currentBalance += 10.00;
-                alert('🎉 ¡Felicidades! Desbloqueaste la meta de 20 referidos. Se han sumado $10.00 USD a tu balance.');
+        function claimWeeklyBonus() {
+            if (refCount >= 35) {
+                currentBalance += 20.00;
+                alert('🚀 ¡Increíble! Meta masiva de 35 referidos alcanzada. Se han acreditado $20.00 USD para tu lote de pago semanal.');
             } else {
-                alert('Aún te faltan referidos para reclamar el bono. Tienes ' + refCount + ' referidos (Necesitas mínimo 20). ¡Sigue compartiendo tu enlace!');
+                alert('Aún no alcanzas la meta de 35 referidos para el bono semanal. Tienes ' + refCount + '. ¡Sigue compartiendo tu enlace masivamente!');
                 return;
             }
             localStorage.setItem('userBalance', currentBalance.toFixed(3));
             document.getElementById('balance').innerText = currentBalance.toFixed(3);
         }
 
-        const savedWallet = localStorage.getItem('userCryptoWallet'] || '';
+        const savedWallet = localStorage.getItem('userCryptoWallet') || '';
         if(savedWallet) {
             document.getElementById('cryptoWallet').value = savedWallet;
         }
 
-        // Banco de preguntas trifásicas
-        const questionBank = [
-            { level: 'Fácil (Nivel 1)', q: '¿Cuántas ruedas principales tiene un carro estándar? (Escribe el número en dígitos)', answers: ['4', 'cuatro'], reward: 0.001 },
-            { level: 'Fácil (Nivel 2)', q: '¿De qué color es la clorofila que tienen las hojas de los árboles?', answers: ['verde'], reward: 0.001 },
-            { level: 'Fácil (Nivel 3)', q: '¿En qué continente está ubicado el país Venezuela?', answers: ['america del sur', 'suramerica', 'sudamerica', 'américa del sur'], reward: 0.001 },
-            
-            { level: 'Intermedio (Nivel 4)', q: '¿Cómo se llama el planeta más grande de nuestro sistema solar?', answers: ['jupiter', 'júpiter'], reward: 0.002 },
-            { level: 'Intermedio (Nivel 5)', q: '¿En qué año se firmó el acta de la Independencia de Venezuela?', answers: ['1811'], reward: 0.002 },
-            { level: 'Intermedio (Nivel 6)', q: '¿Cuál es el gas más abundante en la atmósfera de la Tierra?', answers: ['nitrogeno', 'nitrógeno'], reward: 0.002 },
-
-            { level: 'Difícil (Nivel 7)', q: '¿Qué elemento químico tiene el símbolo "Au" en la tabla periódica?', answers: ['oro'], reward: 0.003 },
-            { level: 'Difícil (Nivel 8)', q: 'Apellido del físico que formuló la teoría de la relatividad:', answers: ['einstein', 'albert einstein'], reward: 0.003 },
-            { level: 'Difícil (Nivel 9)', q: '¿Cuál es la capital de Australia? (Empieza por C)', answers: ['canberra'], reward: 0.003 },
-
-            { level: 'Experto (Nivel 10)', q: '¿En qué año se minó el primer bloque (Genesis Block) de Bitcoin?', answers: ['2009'], reward: 0.005 },
-            { level: 'Experto (Nivel 11)', q: '¿Cuál es el nombre de la moneda digital oficial de Tether usada en redes como TRC20?', answers: ['usdt', 'tether'], reward: 0.005 }
+        // Banco base de preguntas del sistema
+        const defaultQuestions = [
+            { level: 'Nivel 1', q: '¿Cuántas ruedas principales tiene un carro estándar? (Escribe el número)', answers: ['4', 'cuatro'], reward: 0.001 },
+            { level: 'Nivel 2', q: '¿De qué color es la clorofila de las hojas de las plantas?', answers: ['verde'], reward: 0.001 },
+            { level: 'Nivel 3', q: '¿En qué continente está ubicado Venezuela?', answers: ['america del sur', 'suramerica', 'sudamerica', 'américa del sur'], reward: 0.001 },
+            { level: 'Nivel 4', q: '¿Cómo se llama el planeta más grande de nuestro sistema solar?', answers: ['jupiter', 'júpiter'], reward: 0.002 },
+            { level: 'Nivel 5', q: '¿En qué año se firmó el acta de la Independencia de Venezuela?', answers: ['1811'], reward: 0.002 },
+            { level: 'Nivel 6', q: '¿Qué elemento químico tiene el símbolo "Au"?', answers: ['oro'], reward: 0.003 },
+            { level: 'Nivel 7', q: 'Apellido del físico que formuló la teoría de la relatividad:', answers: ['einstein', 'albert einstein'], reward: 0.003 },
+            { level: 'Nivel 8', q: '¿En qué año se creó el primer bloque (Genesis Block) de Bitcoin?', answers: ['2009'], reward: 0.005 }
         ];
+
+        // Combinar con preguntas creadas por usuarios si existen
+        let customQuestions = JSON.parse(localStorage.getItem('userCustomQuestions')) || [];
+        let questionBank = defaultQuestions.concat(customQuestions);
 
         let currentQuestionIndex = parseInt(localStorage.getItem('typedTriviaIndex')) || 0;
         if (currentQuestionIndex >= questionBank.length) {
@@ -178,13 +183,17 @@
 
         function renderTrivia() {
             const container = document.getElementById('triviaCard');
+            if (questionBank.length === 0) {
+                container.innerHTML = '<p>No hay preguntas disponibles por ahora.</p>';
+                return;
+            }
             const currentQ = questionBank[currentQuestionIndex];
 
             container.innerHTML = `
-                <div class="level-badge">${currentQ.level}</div>
+                <div class="level-badge">${currentQ.level || 'Comunidad'}</div>
                 <div class="trivia-question">${currentQ.q}</div>
-                <input type="text" id="userAnswerInput" class="input-field" placeholder="Escribe tu respuesta aquí...">
-                <button class="btn" onclick="submitTypedAnswer()">Enviar Respuesta (Gana $${currentQ.reward.toFixed(3)})</button>
+                <input type="text" id="userAnswerInput" class="input-field" placeholder="Escribe tu respuesta aquí y pulsa enviar...">
+                <button class="btn" onclick="submitTypedAnswer()">Enviar Respuesta (Gana $${(currentQ.reward || 0.001).toFixed(3)})</button>
             `;
         }
 
@@ -201,28 +210,70 @@
             let isCorrect = currentQ.answers.some(ans => userText.includes(ans));
 
             if (!isCorrect) {
-                alert('❌ Respuesta incorrecta. ¡Revisa bien e inténtalo de nuevo!');
+                alert('❌ Respuesta incorrecta. ¡Inténtalo de nuevo!');
                 return;
             }
 
-            // Abre el enlace de Monetag al acertar
+            // Abre el enlace publicitario de Monetag al acertar
             window.open('https://omg10.com/4/11874696', '_blank');
 
-            // Sumar saldo
-            currentBalance += currentQ.reward;
+            let rewardAmt = currentQ.reward || 0.001;
+            currentBalance += rewardAmt;
             localStorage.setItem('userBalance', currentBalance.toFixed(3));
             document.getElementById('balance').innerText = currentBalance.toFixed(3);
 
-            alert('🎉 ¡Excelente! Respuesta correcta. Ganaste $' + currentQ.reward.toFixed(3));
+            alert('🎉 ¡Correcto! Has ganado $' + rewardAmt.toFixed(3));
 
-            // Siguiente pregunta
             currentQuestionIndex++;
-            if (currentQuestionIndex >= questionBank.NameCount || currentQuestionIndex >= questionBank.length) {
+            if (currentQuestionIndex >= questionBank.length) {
                 currentQuestionIndex = 0;
             }
             localStorage.setItem('typedTriviaIndex', currentQuestionIndex);
 
             renderTrivia();
+        }
+
+        function addNewUserQuestion() {
+            const qText = document.getElementById('newQuestionText').value.trim();
+            const aText = document.getElementById('newAnswerText').value.trim().toLowerCase();
+
+            if(qText === '' || aText === '') {
+                alert('Por favor completa tanto la pregunta como la respuesta.');
+                return;
+            }
+
+            let newEntry = {
+                level: 'Creada por Usuario',
+                q: qText,
+                answers: [aText],
+                reward: 0.002
+            };
+
+            customQuestions.push(newEntry);
+            localStorage.setItem('userCustomQuestions', JSON.stringify(customQuestions));
+            
+            // Actualizar banco local
+            questionBank = defaultQuestions.concat(customQuestions);
+
+            document.getElementById('newQuestionText').value = '';
+            document.getElementById('newAnswerText').value = '';
+            
+            renderCustomQuestionsList();
+            alert('¡Pregunta publicada con éxito en el sistema!');
+        }
+
+        function renderCustomQuestionsList() {
+            const listContainer = document.getElementById('customQuestionsContainer');
+            if (customQuestions.length === 0) {
+                listContainer.innerHTML = '<em style="color: #64748b;">Aún no has creado preguntas personalizadas.</em>';
+                return;
+            }
+            let htmlContent = '<strong>Tus preguntas aportadas:</strong><ul style="margin-left: 15px; margin-top: 5px;">';
+            customQuestions.forEach((item, index) => {
+                htmlContent += `<li><strong>Q:</strong> ${item.q} <br><em>Ans:</em> ${item.answers.join(', ')}</li>`;
+            });
+            htmlContent += '</ul>';
+            listContainer.innerHTML = htmlContent;
         }
 
         function saveWallet() {
@@ -232,22 +283,23 @@
                 return;
             }
             localStorage.setItem('userCryptoWallet', wallet);
-            alert('¡Billetera de criptomonedas guardada con éxito!');
+            alert('¡Billetera guardada correctamente!');
         }
 
         function requestWithdrawal() {
             const wallet = localStorage.getItem('userCryptoWallet');
             if(!wallet) {
-                alert('Error: Debes configurar y guardar tu billetera antes de solicitar un retiro.');
+                alert('Error: Debes configurar tu billetera antes de retirar.');
                 return;
             }
             if(currentBalance < 5.00) {
-                alert('Saldo insuficiente. Necesitas al menos $5.00 USD para retirar. Tienes actualmente $' + currentBalance.toFixed(3));
+                alert('Saldo insuficiente. Necesitas al menos $5.00 USD acumulados para solicitar tu retiro. Tienes $' + currentBalance.toFixed(3));
                 return;
             }
-            alert('¡Solicitud de retiro enviada con éxito! Tus fondos serán procesados a: ' + wallet);
+            alert('¡Solicitud de retiro enviada con éxito! Se procesará en el lote de pagos correspondiente.');
         }
 
+        renderCustomQuestionsList();
         renderTrivia();
     </script>
 
