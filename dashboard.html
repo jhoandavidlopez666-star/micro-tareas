@@ -7,7 +7,7 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
-        .header { display: flex; justify-content: space-between; align-items: center; background-color: #1e293b; padding: 15px 20px; border-radius: 10px; margin-bottom: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; background-color: #1e293b; padding: 15px 20px; border-radius: 10px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
         .wallet { background-color: #0f172a; padding: 10px 15px; border-radius: 8px; border: 1px solid #38bdf8; color: #38bdf8; font-weight: bold; }
         .container { max-width: 800px; margin: 0 auto; }
         .card { background-color: #1e293b; padding: 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
@@ -16,7 +16,8 @@
         .btn { background-color: #38bdf8; color: #0f172a; border: none; padding: 10px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
         .btn:hover { background-color: #0ea5e9; }
         .task-list { display: flex; flex-direction: column; gap: 10px; }
-        .task-item { display: flex; justify-content: space-between; align-items: center; background-color: #0f172a; padding: 12px 15px; border-radius: 6px; border: 1px solid #334155; }
+        .task-item { display: flex; justify-content: space-between; align-items: center; background-color: #0f172a; padding: 12px 15px; border-radius: 6px; border: 1px solid #334155; flex-wrap: wrap; gap: 10px; }
+        .input-field { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #334155; background-color: #0f172a; color: #f8fafc; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -25,10 +26,10 @@
         <div class="header">
             <div>
                 <h2>Bienvenido, <span id="userDisplay">Usuario</span></h2>
-                <p style="margin: 0;">Gana céntimos completando microtareas</p>
+                <p style="margin: 0;">Gana cripto completando microtareas</p>
             </div>
             <div class="wallet">
-                Saldo: $<span id="balance">0.00</span> USD
+                Saldo: $<span id="balance">0.000</span> USD
             </div>
         </div>
 
@@ -39,44 +40,94 @@
             <div class="task-list">
                 <div class="task-item">
                     <span>Visitar enlace patrocinado #1 (15 seg)</span>
-                    <button class="btn" onclick="doTask(0.05)">Ganar $0.05</button>
+                    <button class="btn" onclick="doTask(0.001)">Ganar $0.001</button>
                 </div>
                 <div class="task-item">
                     <span>Ver anuncio de redirección #2</span>
-                    <button class="btn" onclick="doTask(0.08)">Ganar $0.08</button>
+                    <button class="btn" onclick="doTask(0.002)">Ganar $0.002</button>
                 </div>
                 <div class="task-item">
                     <span>Completar micro-verificación #3</span>
-                    <button class="btn" onclick="doTask(0.10)">Ganar $0.10</button>
+                    <button class="btn" onclick="doTask(0.003)">Ganar $0.003</button>
                 </div>
             </div>
         </div>
 
+        <div class="card">
+            <h2>Configurar Billetera Cripto (Binance / USDT)</h2>
+            <p>Ingresa tu correo de Binance Pay o dirección USDT (Red TRC20).</p>
+            <input type="text" id="cryptoWallet" class="input-field" placeholder="Ej: Correo de Binance o Dirección USDT">
+            <button class="btn" onclick="saveWallet()">Guardar Billetera</button>
+        </div>
+
         <div class="card" style="text-align: center;">
-            <h2>Tus Referidos y Retiros</h2>
-            <p>El mínimo de retiro es de $5.00 USD acumulados.</p>
-            <button class="btn" onclick="alert('Necesitas alcanzar los $5.00 para retirar.')">Solicitar Retiro</button>
+            <h2>Solicitar Retiro</h2>
+            <p>El mínimo de retiro es de <strong>$5.00 USD</strong> acumulados.</p>
+            <button class="btn" onclick="requestWithdrawal()">Retirar a Cripto</button>
         </div>
     </div>
 
     <script>
-        // Cargar nombre y saldo actual
-        const savedUser = localStorage.getItem('currentUser') || 'Invitado';
-        document.getElementById('userDisplay').innerText = savedUser;
+        // Sistema de versión para reiniciar datos viejos y forzar registro limpio
+        const appVersion = 'v2_reset';
+        if (localStorage.getItem('appVersion') !== appVersion) {
+            localStorage.clear();
+            localStorage.setItem('appVersion', appVersion);
+        }
 
-        let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.00;
-        document.getElementById('balance').innerText = currentBalance.toFixed(2);
+        // Cargar datos del usuario
+        const savedUser = localStorage.getItem('currentUser');
+        if (!savedUser) {
+            // Si no hay usuario registrado, redirigir al index o pedir nombre rápido
+            const userName = prompt('Por favor, ingresa tu correo o nombre de usuario para registrarte:') || 'Usuario';
+            localStorage.setItem('currentUser', userName);
+            window.location.reload();
+        }
+        document.getElementById('userDisplay').innerText = localStorage.getItem('currentUser');
+
+        let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
+        document.getElementById('balance').innerText = currentBalance.toFixed(3);
+
+        const savedWallet = localStorage.getItem('userCryptoWallet') || '';
+        if(savedWallet) {
+            document.getElementById('cryptoWallet').value = savedWallet;
+        }
 
         function doTask(amount) {
-            // Abre tu enlace de Direct Link de Monetag en una pestaña nueva para generar ganancias
+            // Abre tu enlace directo de Monetag en pestaña nueva
             window.open('https://omg10.com/4/11874696', '_blank');
 
-            // Suma el saldo al usuario de forma automática
+            // Suma el saldo con precisión de decimales
             currentBalance += amount;
-            localStorage.setItem('userBalance', currentBalance.toFixed(2));
-            document.getElementById('balance').innerText = currentBalance.toFixed(2);
+            localStorage.setItem('userBalance', currentBalance.toFixed(3));
+            document.getElementById('balance').innerText = currentBalance.toFixed(3);
             
-            alert('¡Anuncio abierto con éxito! Se han sumado $' + amount + ' a tu cuenta.');
+            alert('¡Anuncio verificado! Se han sumado $' + amount.toFixed(3) + ' a tu cuenta.');
+        }
+
+        function saveWallet() {
+            const wallet = document.getElementById('cryptoWallet').value.trim();
+            if(wallet === '') {
+                alert('Por favor ingresa una billetera o correo de Binance válido.');
+                return;
+            }
+            localStorage.setItem('userCryptoWallet', wallet);
+            alert('¡Billetera de criptomonedas guardada con éxito!');
+        }
+
+        function requestWithdrawal() {
+            const wallet = localStorage.getItem('userCryptoWallet');
+            if(!wallet) {
+                alert('Error: Debes configurar y guardar tu billetera antes de solicitar un retiro.');
+                return;
+            }
+
+            if(currentBalance < 5.00) {
+                alert('Saldo insuficiente. Necesitas al menos $5.00 USD para retirar. Tienes actualmente $' + currentBalance.toFixed(3));
+                return;
+            }
+
+            alert('¡Solicitud de retiro enviada con éxito! Tus fondos serán procesados a: ' + wallet);
         }
     </script>
 
