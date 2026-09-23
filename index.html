@@ -3,108 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Media Group | Panel de Operaciones Remotas</title>
+    <title>Nexus Media Group | Servicios & Operaciones Remotas</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; }
         
         body { 
-            background: linear-gradient(135deg, rgba(7, 9, 19, 0.95) 0%, rgba(11, 15, 25, 0.96) 50%, rgba(15, 23, 42, 0.98) 100%),
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-            background-size: cover;
-            color: #f1f5f9; 
-            padding: 30px 15px; 
+            background: linear-gradient(135deg, #090d16 0%, #111827 100%);
+            color: #f3f4f6; 
+            padding: 20px; 
             min-height: 100vh; 
             position: relative;
         }
 
-        /* Marca de agua elegante de fondo */
+        /* Marca de agua institucional de fondo muy elegante estilo corporativo */
         body::before {
             content: "NEXUS MEDIA GROUP";
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 7vw;
+            font-size: 8vw;
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.015);
             white-space: nowrap;
             z-index: 0;
             pointer-events: none;
-            letter-spacing: 6px;
+            letter-spacing: 8px;
         }
 
-        .container { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
+        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
 
-        /* Cabecera general limpia */
+        /* Header Ejecutivo */
         .header { 
-            background: rgba(30, 27, 75, 0.95); 
-            padding: 20px 25px; 
-            border-radius: 14px; 
+            background: rgba(17, 24, 39, 0.85); 
+            backdrop-filter: blur(12px);
+            padding: 20px 30px; 
+            border-radius: 16px; 
             margin-bottom: 25px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             flex-wrap: wrap; 
             gap: 15px; 
-            border: 1px solid #312e81; 
+            border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
-        .company-info h1 { color: #f8fafc; font-size: 20px; letter-spacing: 0.5px; }
-        .company-info p { color: #34d399; font-size: 13px; font-weight: 600; margin-top: 2px; }
-        .wallet-badge { background: #0f172a; padding: 12px 20px; border-radius: 10px; border: 1px solid #6366f1; color: #818cf8; font-weight: bold; font-size: 15px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
+        .brand-info h1 { color: #ffffff; font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+        .brand-info p { color: #34d399; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-top: 3px; letter-spacing: 1px; }
+        
+        .metric-pill { 
+            background: rgba(31, 41, 55, 0.9); 
+            padding: 12px 20px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(99, 102, 241, 0.4); 
+            color: #818cf8; 
+            font-weight: 600; 
+            font-size: 14px; 
+        }
 
-        /* Tarjetas de contenido perfectamente espaciadas */
+        /* Tarjetas estilo Dashboard Corporativo */
+        .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media(max-width: 768px) { .grid-layout { grid-template-columns: 1fr; } }
+
         .card { 
-            background: rgba(30, 41, 59, 0.95); 
+            background: rgba(17, 24, 39, 0.85); 
+            backdrop-filter: blur(12px);
             padding: 25px; 
-            border-radius: 14px; 
-            margin-bottom: 25px; 
-            box-shadow: 0 10px 35px rgba(0,0,0,0.5); 
-            border: 1px solid #334155; 
-            backdrop-filter: blur(12px); 
+            border-radius: 16px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
+            border: 1px solid rgba(255, 255, 255, 0.06); 
         }
         
-        .card h2 { color: #818cf8; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
-        .card p { color: #94a3b8; font-size: 14px; margin-bottom: 15px; line-height: 1.6; }
+        .card.full-width { grid-column: 1 / -1; }
+
+        .card h2 { 
+            color: #818cf8; 
+            margin-bottom: 12px; 
+            font-size: 16px; 
+            font-weight: 600;
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06); 
+            padding-bottom: 10px; 
+        }
+        
+        .card p { color: #9ca3af; font-size: 13.5px; margin-bottom: 15px; line-height: 1.5; }
 
         .btn { 
-            background: linear-gradient(135deg, #6366f1, #4f46e5); 
+            background: linear-gradient(135deg, #4f46e5, #3730a3); 
             color: #fff; 
             border: none; 
-            padding: 13px 20px; 
+            padding: 12px 20px; 
             border-radius: 10px; 
-            font-weight: bold; 
+            font-weight: 600; 
             cursor: pointer; 
             transition: all 0.2s ease; 
             width: 100%; 
             margin-top: 10px; 
-            font-size: 15px;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
-        .btn:hover { background: linear-gradient(135deg, #4f46e5, #4338ca); transform: translateY(-1px); }
+        .btn:hover { background: linear-gradient(135deg, #4338ca, #312e81); transform: translateY(-1px); }
 
         .input-field { 
             width: 100%; 
-            padding: 14px; 
+            padding: 13px 15px; 
             border-radius: 10px; 
-            border: 1px solid #475569; 
-            background: #0f172a; 
-            color: #f8fafc; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            background: rgba(3, 7, 18, 0.6); 
+            color: #f9fafb; 
             margin-bottom: 15px; 
-            font-size: 15px; 
+            font-size: 14px; 
             outline: none;
             transition: border-color 0.2s;
         }
         .input-field:focus { border-color: #6366f1; }
 
-        .inner-box { background: #0f172a; border: 1px solid #334155; padding: 20px; border-radius: 12px; margin-bottom: 15px; }
-        
-        /* PANTALLA DE ACCESO Y REGISTRO LEGAL (FLOTANTE) */
+        .inner-box { 
+            background: rgba(3, 7, 18, 0.4); 
+            border: 1px solid rgba(255, 255, 255, 0.04); 
+            padding: 18px; 
+            border-radius: 12px; 
+            margin-bottom: 15px; 
+        }
+
+        /* PANTALLA DE REGISTRO FLOTANTE EJECUTIVA */
         #authScreen { 
             display: flex; 
             position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(7, 9, 19, 0.90); 
+            background: rgba(3, 7, 18, 0.92); 
+            backdrop-filter: blur(10px);
             z-index: 9999; 
             justify-content: center; 
             align-items: center; 
@@ -113,124 +144,125 @@
         }
 
         .auth-card { 
-            background: rgba(30, 41, 59, 0.98); 
-            border: 1px solid #3b82f6; 
+            background: rgba(17, 24, 39, 0.95); 
+            border: 1px solid rgba(59, 130, 246, 0.3); 
             padding: 35px; 
-            border-radius: 18px; 
-            max-width: 500px; 
+            border-radius: 20px; 
+            max-width: 480px; 
             width: 100%; 
-            box-shadow: 0 25px 60px rgba(0,0,0,0.8); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8); 
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(15px);
         }
 
-        /* Franja tricolor decorativa superior */
+        /* Franja tricolor elegante superior */
         .auth-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 6px;
+            top: 0; left: 0; width: 100%; height: 5px;
             background: linear-gradient(90deg, #facc15 33.3%, #2563eb 33.3%, #2563eb 66.6%, #dc2626 66.6%);
         }
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA DE REGISTRO Y VALIDACIÓN POR CORREO -->
+    <!-- PANTALLA FLOTANTE DE REGISTRO Y VALIDACIÓN POR CORREO -->
     <div id="authScreen">
         <div class="auth-card">
             <div style="text-align: center; margin-bottom: 25px;">
-                <h2 style="color: #f8fafc; font-size: 22px; border: none; justify-content: center;">NEXUS MEDIA GROUP C.A.</h2>
-                <p style="color: #34d399; font-size: 13px; font-weight: bold; margin-top: 4px;">REGISTRO OFICIAL - EMPLEO REMOTO VENEZUELA</p>
+                <h2 style="color: #ffffff; font-size: 20px; font-weight: 700; border: none;">NEXUS MEDIA GROUP C.A.</h2>
+                <p style="color: #34d399; font-size: 11px; font-weight: 700; margin-top: 5px; letter-spacing: 1.5px;">SISTEMA DE GESTIÓN Y EMPLEO REMOTO</p>
             </div>
 
-            <!-- PASO 1: Ingreso de datos completos -->
+            <!-- PASO 1: Ingreso de Datos Legales -->
             <div id="step1">
-                <p style="margin-bottom: 20px; color: #94a3b8; font-size: 13px; text-align: center;">Complete sus datos legales para la creación del expediente y validación en el sistema corporativo.</p>
+                <p style="margin-bottom: 20px; color: #9ca3af; font-size: 13px; text-align: center;">Ingrese sus datos formales para registrar su expediente en la plataforma corporativa.</p>
                 
-                <label style="font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 5px;">Nombre Completo:</label>
+                <label style="font-size: 12px; color: #d1d5db; display: block; margin-bottom: 5px;">Nombre Completo:</label>
                 <input type="text" id="regName" class="input-field" placeholder="Ej: Jhoan David Lopez">
                 
-                <label style="font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 5px;">Correo Electrónico:</label>
+                <label style="font-size: 12px; color: #d1d5db; display: block; margin-bottom: 5px;">Correo Electrónico:</label>
                 <input type="email" id="regEmail" class="input-field" placeholder="correo@gmail.com">
                 
-                <label style="font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 5px;">Teléfono Móvil de Contacto:</label>
+                <label style="font-size: 12px; color: #d1d5db; display: block; margin-bottom: 5px;">Número de Teléfono Móvil:</label>
                 <input type="text" id="regPhone" class="input-field" placeholder="Ej: +58 04220139930">
                 
-                <button class="btn" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);" onclick="sendVerificationCode()">Enviar Código de Verificación al Correo</button>
+                <button class="btn" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); margin-top: 5px;" onclick="sendVerificationCode()">Enviar Código al Correo</button>
             </div>
 
-            <!-- PASO 2: Verificación de Código -->
+            <!-- PASO 2: Confirmación de Código -->
             <div id="step2" style="display: none;">
-                <p style="margin-bottom: 20px; color: #34d399; font-size: 14px; text-align: center;">✉️ Se ha enviado un código de seguridad de 4 dígitos a su correo electrónico. Ingréselo para validar su acceso.</p>
+                <p style="margin-bottom: 20px; color: #34d399; font-size: 13px; text-align: center;">✉️ Se ha enviado un código de verificación de 4 dígitos a su correo electrónico. Ingréselo para activar su acceso.</p>
                 
-                <label style="font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 5px; text-align: center;">Código de Verificación:</label>
-                <input type="text" id="verificationInput" class="input-field" placeholder="0000" style="text-align: center; letter-spacing: 8px; font-size: 24px; font-weight: bold;">
+                <label style="font-size: 12px; color: #d1d5db; display: block; margin-bottom: 5px; text-align: center;">Código de Seguridad:</label>
+                <input type="text" id="verificationInput" class="input-field" placeholder="0000" style="text-align: center; letter-spacing: 8px; font-size: 22px; font-weight: bold;">
                 
-                <button class="btn" style="background: #10b981; color: #0f172a;" onclick="verifyAndAccess()">Verificar y Entrar al Sistema</button>
+                <button class="btn" style="background: #10b981; color: #030712;" onclick="verifyAndAccess()">Verificar y Entrar</button>
             </div>
         </div>
     </div>
 
-    <!-- PANEL PRINCIPAL DE TRABAJO -->
+    <!-- PANEL PRINCIPAL DE TRABAJO ESTILO DASHBOARD -->
     <div class="container" id="mainDashboard" style="display: none;">
         
-        <!-- Cabecera formal con nombre de la compañía -->
+        <!-- Cabecera -->
         <div class="header">
-            <div class="company-info">
+            <div class="brand-info">
                 <h1>NEXUS MEDIA GROUP C.A.</h1>
-                <p>Plataforma Oficial de Trabajo Remoto (Venezuela)</p>
+                <p>Plataforma de Operaciones (Venezuela)</p>
             </div>
-            <div class="wallet-badge">
+            <div class="metric-pill">
                 Sueldo Semanal: $<span id="balance">20.000</span> USD
             </div>
         </div>
 
-        <!-- Expediente del Operador -->
-        <div class="card">
-            <h2>👤 Expediente del Colaborador</h2>
-            <p>Operador Registrado: <strong id="userDisplay" style="color: #f8fafc;"></strong></p>
-            <p>Datos de Contacto: <span id="contactDisplay" style="color: #38bdf8;"></span> | Estatus: <span style="color: #34d399; font-weight: bold;">[ACTIVO - REMOTO DESDE CASA]</span></p>
-        </div>
-
-        <!-- SECCIÓN DE TAREAS Y MICRO-OPERACIONES (En lugar de anuncios confusos) -->
-        <div class="card">
-            <h2>📋 Módulo de Tareas & Micro-Operaciones Diarias</h2>
-            <p>Realice sus tareas operativas asignadas en el sistema para mantener activo su rendimiento laboral y validar su jornada diaria de teletrabajo.</p>
+        <div class="grid-layout">
             
-            <div class="inner-box">
-                <h3 style="color: #facc15; font-size: 15px; margin-bottom: 8px;">⚙️ Tarea Activa: Validación de Tráfico y Registros</h3>
-                <p style="color: #cbd5e1; margin-bottom: 12px; font-size: 13px;">Verifique los flujos de datos y registre la actividad del servidor corporativo correspondiente al día de hoy.</p>
-                <button class="btn" style="background-color: #f59e0b; color: #0f172a;" onclick="completeTask()">Completar y Registrar Tarea Diaria</button>
-            </div>
-        </div>
-
-        <!-- RED DE RECLUTAMIENTO Y BONOS -->
-        <div class="card">
-            <h2>🏆 Red de Reclutamiento & Escala de Bonos</h2>
-            <p>Incremente sus ingresos semanales invitando a más personas a laborar desde casa a través de su enlace institucional:</p>
-            
-            <div class="inner-box" style="border-color: #3b82f6;">
-                <h3 style="color: #38bdf8; margin-bottom: 8px;">📈 Meta de Productividad Corporativa:</h3>
-                <p style="color: #f8fafc; margin: 0; font-size: 13px;">• Al alcanzar <strong>35 colaboradores activos</strong> bajo su red, desbloquea automáticamente su bonificación semanal escalada de <strong>$20 a $45 USD</strong>.</p>
+            <!-- Expediente -->
+            <div class="card full-width">
+                <h2>👤 Expediente del Operador</h2>
+                <p>Colaborador Activo: <strong id="userDisplay" style="color: #ffffff;"></strong></p>
+                <p>Canal de Contacto: <span id="contactDisplay" style="color: #38bdf8;"></span> | Estatus: <span style="color: #34d399; font-weight: bold;">[ACTIVO - REMOTO]</span></p>
             </div>
 
-            <div class="inner-box" style="text-align: center; border-style: dashed;">
-                <p style="margin-bottom: 8px; color: #f8fafc;">Su enlace institucional de incorporación:</p>
-                <div id="refLinkText" style="background: #1e293b; color: #818cf8; padding: 12px; border-radius: 8px; word-break: break-all; font-size: 13px; margin-bottom: 12px; border: 1px solid #475569;">Generando enlace...</div>
-                <button class="btn" style="background-color: #10b981; color: #0f172a;" onclick="copyRefLink()">Copiar Enlace de Reclutamiento</button>
-                <p style="margin-top: 15px; margin-bottom: 0; font-size: 14px;">Colaboradores activos bajo su gestión: <strong id="refCount" style="color: #38bdf8;">0</strong> / 35</p>
+            <!-- Módulo de Tareas Operativas -->
+            <div class="card">
+                <h2>📋 Módulo de Tareas & Operaciones</h2>
+                <p>Ejecute las tareas administrativas asignadas para mantener validada su jornada de trabajo diario desde casa.</p>
+                <div class="inner-box">
+                    <h3 style="color: #facc15; font-size: 14px; margin-bottom: 6px;">⚙️ Validación de Tráfico Web</h3>
+                    <p style="color: #9ca3af; font-size: 12.5px; margin-bottom: 10px;">Procesamiento de registros y control operativo diario del sistema.</p>
+                    <button class="btn" style="background-color: #f59e0b; color: #030712;" onclick="completeTask()">Completar Tarea Diaria</button>
+                </div>
             </div>
-        </div>
 
-        <!-- CONFIGURACIÓN DE PAGO -->
-        <div class="card">
-            <h2>💳 Configuración de Nómina (Binance Pay)</h2>
-            <p>Ingrese su correo o identificador de Binance Pay para recibir sus pagos semanales de manera directa, legal y sin intermediarios.</p>
-            <input type="text" id="cryptoWallet" class="input-field" placeholder="Ej: Correo o ID de Binance Pay">
-            <button class="btn" onclick="saveWallet()">Guardar Datos de Pago</button>
-        </div>
+            <!-- Configuración de Pago / Nómina -->
+            <div class="card">
+                <h2>💳 Nómina & Binance Pay</h2>
+                <p>Configure su identificador o correo de Binance Pay para recibir sus desembolsos semanales de forma segura.</p>
+                <input type="text" id="cryptoWallet" class="input-field" placeholder="Correo o ID de Binance Pay">
+                <button class="btn" onclick="saveWallet()">Guardar Datos de Pago</button>
+            </div>
 
+            <!-- Red de Reclutamiento (Ancho Completo) -->
+            <div class="card full-width">
+                <h2>🏆 Red de Reclutamiento & Bonos por Escala</h2>
+                <p>Aumente sus ingresos invitando a más colaboradores a trabajar desde casa a través de su enlace institucional:</p>
+                
+                <div class="inner-box" style="border-color: rgba(59, 130, 246, 0.3);">
+                    <h3 style="color: #38bdf8; font-size: 14px; margin-bottom: 6px;">📈 Meta de Productividad Corporativa:</h3>
+                    <p style="color: #ffffff; font-size: 13px; margin: 0;">• Al registrar <strong>35 colaboradores activos</strong> bajo su gestión, desbloquea su bonificación semanal escalada de <strong>$20 a $45 USD</strong>.</p>
+                </div>
+
+                <div class="inner-box" style="text-align: center; border-style: dashed;">
+                    <p style="color: #d1d5db; margin-bottom: 8px; font-size: 13px;">Su enlace institucional de incorporación:</p>
+                    <div id="refLinkText" style="background: rgba(3, 7, 18, 0.6); color: #818cf8; padding: 12px; border-radius: 8px; word-break: break-all; font-size: 12px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.1);">Generando enlace...</div>
+                    <button class="btn" style="background-color: #10b981; color: #030712; width: auto; padding: 10px 25px;" onclick="copyRefLink()">Copiar Enlace de Reclutamiento</button>
+                    <p style="margin-top: 15px; margin-bottom: 0; font-size: 13.5px; color: #9ca3af;">Colaboradores activos bajo su gestión: <strong id="refCount" style="color: #38bdf8;">0</strong> / 35</p>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <script>
@@ -250,7 +282,6 @@
                 return;
             }
 
-            // Generamos el código de 4 dígitos simulado que se envía al correo
             generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
             
             localStorage.setItem('tempName', name);
@@ -319,7 +350,7 @@
         }
 
         function completeTask() {
-            alert('✅ ¡Tarea operativa completada con éxito! Su jornada y registro de tráfico diario han sido guardados en el sistema.');
+            alert('✅ ¡Tarea operativa completada con éxito! Su jornada y registro de tráfico diario han sido guardados.');
         }
 
         function saveWallet() {
