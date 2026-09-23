@@ -69,13 +69,15 @@
         document.getElementById('balance').innerText = currentBalance.toFixed(2);
 
         function completeTask(amount) {
-            // Aquí en el futuro meteremos los códigos de Monetag
             currentBalance += amount;
             localStorage.setItem('userBalance', currentBalance.toFixed(2));
             document.getElementById('balance').innerText = currentBalance.toFixed(2);
             alert('¡Tarea completada con éxito! Se han sumado $' + amount + ' a tu cuenta.');
         }
     </script>
+
+    <!-- Script oficial de Monetag integrado -->
+    <script>(function(s){s.dataset.zone='11874610',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
 </html>
