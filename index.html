@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Media Group | Empleo Remoto Venezuela</title>
+    <title>Nexus Media Group | Panel de Operaciones Remotas</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
-        /* Fondo corporativo con la bandera de Venezuela estilizada y edificios */
         body { 
-            background: linear-gradient(135deg, rgba(7, 9, 19, 0.94) 0%, rgba(11, 15, 25, 0.95) 50%, rgba(15, 23, 42, 0.96) 100%),
+            background: linear-gradient(135deg, rgba(7, 9, 19, 0.95) 0%, rgba(11, 15, 25, 0.96) 50%, rgba(15, 23, 42, 0.98) 100%),
                         url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
             background-size: cover;
             color: #f1f5f9; 
-            padding: 20px; 
+            padding: 30px 15px; 
             min-height: 100vh; 
             position: relative;
         }
 
-        /* Marca de agua gigante de la compañía atrás */
+        /* Marca de agua elegante de fondo */
         body::before {
             content: "NEXUS MEDIA GROUP";
             position: fixed;
@@ -27,48 +26,85 @@
             transform: translate(-50%, -50%);
             font-size: 7vw;
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.025);
+            color: rgba(255, 255, 255, 0.02);
             white-space: nowrap;
             z-index: 0;
             pointer-events: none;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
         }
 
-        .header { display: flex; justify-content: space-between; align-items: center; background-color: rgba(30, 27, 75, 0.92); padding: 15px 25px; border-radius: 12px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; border: 1px solid #312e81; position: relative; z-index: 2; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
-        .company-badge { display: flex; align-items: center; gap: 10px; }
-        .logo-dot { width: 14px; height: 14px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
-        .wallet { background-color: #0f172a; padding: 10px 18px; border-radius: 8px; border: 1px solid #6366f1; color: #818cf8; font-weight: bold; }
-        .container { max-width: 850px; margin: 0 auto; position: relative; z-index: 2; }
-        .card { background-color: rgba(30, 41, 59, 0.95); padding: 22px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.4); border: 1px solid #334155; backdrop-filter: blur(10px); }
-        h2 { color: #818cf8; margin-bottom: 10px; font-size: 20px; display: flex; align-items: center; gap: 8px; }
-        p { color: #94a3b8; font-size: 14px; margin-bottom: 15px; line-height: 1.5; }
-        .btn { background-color: #6366f1; color: #fff; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background 0.2s; width: 100%; margin-top: 10px; }
-        .btn:hover { background-color: #4f46e5; }
-        .input-field { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #475569; background-color: #0f172a; color: #f8fafc; margin-bottom: 12px; font-size: 15px; }
-        
-        .promo-banner { background: linear-gradient(135deg, #1e1b4b, #0f172a); border: 2px solid #10b981; padding: 18px; border-radius: 10px; margin-bottom: 15px; }
-        .ref-box { background: #0f172a; border: 1px dashed #6366f1; padding: 18px; border-radius: 10px; text-align: center; }
-        .ref-link { background: #1e293b; color: #818cf8; padding: 12px; border-radius: 8px; word-break: break-all; font-size: 13px; margin-bottom: 12px; border: 1px solid #475569; }
-        
-        /* ADVERTENCIA DE BLOQUEADOR / VPN */
-        #adblock-warning {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(7, 9, 19, 0.98);
-            z-index: 99999;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-        }
+        .container { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
 
-        /* PANTALLA DE REGISTRO FLOTANTE CON TRAMA TRICOLOR DE VENEZUELA */
+        /* Cabecera general limpia */
+        .header { 
+            background: rgba(30, 27, 75, 0.95); 
+            padding: 20px 25px; 
+            border-radius: 14px; 
+            margin-bottom: 25px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+            border: 1px solid #312e81; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+        }
+        .company-info h1 { color: #f8fafc; font-size: 20px; letter-spacing: 0.5px; }
+        .company-info p { color: #34d399; font-size: 13px; font-weight: 600; margin-top: 2px; }
+        .wallet-badge { background: #0f172a; padding: 12px 20px; border-radius: 10px; border: 1px solid #6366f1; color: #818cf8; font-weight: bold; font-size: 15px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
+
+        /* Tarjetas de contenido perfectamente espaciadas */
+        .card { 
+            background: rgba(30, 41, 59, 0.95); 
+            padding: 25px; 
+            border-radius: 14px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 10px 35px rgba(0,0,0,0.5); 
+            border: 1px solid #334155; 
+            backdrop-filter: blur(12px); 
+        }
+        
+        .card h2 { color: #818cf8; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        .card p { color: #94a3b8; font-size: 14px; margin-bottom: 15px; line-height: 1.6; }
+
+        .btn { 
+            background: linear-gradient(135deg, #6366f1, #4f46e5); 
+            color: #fff; 
+            border: none; 
+            padding: 13px 20px; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            width: 100%; 
+            margin-top: 10px; 
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+        .btn:hover { background: linear-gradient(135deg, #4f46e5, #4338ca); transform: translateY(-1px); }
+
+        .input-field { 
+            width: 100%; 
+            padding: 14px; 
+            border-radius: 10px; 
+            border: 1px solid #475569; 
+            background: #0f172a; 
+            color: #f8fafc; 
+            margin-bottom: 15px; 
+            font-size: 15px; 
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-field:focus { border-color: #6366f1; }
+
+        .inner-box { background: #0f172a; border: 1px solid #334155; padding: 20px; border-radius: 12px; margin-bottom: 15px; }
+        
+        /* PANTALLA DE ACCESO Y REGISTRO LEGAL (FLOTANTE) */
         #authScreen { 
             display: flex; 
             position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(7, 9, 19, 0.85); 
+            background: rgba(7, 9, 19, 0.90); 
             z-index: 9999; 
             justify-content: center; 
             align-items: center; 
@@ -79,17 +115,17 @@
         .auth-card { 
             background: rgba(30, 41, 59, 0.98); 
             border: 1px solid #3b82f6; 
-            padding: 30px; 
-            border-radius: 16px; 
-            max-width: 480px; 
+            padding: 35px; 
+            border-radius: 18px; 
+            max-width: 500px; 
             width: 100%; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8); 
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
         }
 
-        /* Franja superior tricolor representativa de Venezuela */
+        /* Franja tricolor decorativa superior */
         .auth-card::before {
             content: '';
             position: absolute;
@@ -100,130 +136,104 @@
 </head>
 <body>
 
-    <!-- BLOQUEADOR ANTI-BLOQUEO / ADVERTENCIA DE ANUNCIOS -->
-    <div id="adblock-warning">
-        <div style="background: #1e293b; padding: 30px; border-radius: 12px; border: 2px solid #dc2626; max-width: 450px;">
-            <h2 style="color: #dc2626; margin-bottom: 10px;">⚠️ Sistema de Seguridad Activo</h2>
-            <p style="color: #cbd5e1; margin-bottom: 15px;">Hemos detectado un bloqueador de anuncios o VPN activa. Para laborar en la plataforma de teletrabajo en Venezuela y garantizar el pago de su sueldo base, es obligatorio desactivar bloqueadores y VPNs para visualizar la publicidad corporativa.</p>
-            <button class="btn" style="background-color: #10b981;" onclick="location.reload()">Ya lo desactivé, continuar</button>
-        </div>
-    </div>
-
-    <!-- PANTALLA FLOTANTE DE REGISTRO / VERIFICACIÓN -->
+    <!-- PANTALLA DE REGISTRO Y VALIDACIÓN POR CORREO -->
     <div id="authScreen">
         <div class="auth-card">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <div class="logo-dot" style="display: inline-block; margin-bottom: 6px;"></div>
-                <h2 style="color: #f8fafc; font-size: 22px;">NEXUS MEDIA GROUP C.A.</h2>
-                <p style="color: #facc15; font-size: 12px; font-weight: bold; margin-top: 2px;">EMPLEO REMOTO - VENEZUELA DESDE CASA</p>
+            <div style="text-align: center; margin-bottom: 25px;">
+                <h2 style="color: #f8fafc; font-size: 22px; border: none; justify-content: center;">NEXUS MEDIA GROUP C.A.</h2>
+                <p style="color: #34d399; font-size: 13px; font-weight: bold; margin-top: 4px;">REGISTRO OFICIAL - EMPLEO REMOTO VENEZUELA</p>
             </div>
 
-            <!-- PASO 1: Ingresar datos -->
+            <!-- PASO 1: Ingreso de datos completos -->
             <div id="step1">
-                <p style="margin-bottom: 15px; color: #94a3b8; font-size: 13px; text-align: center;">Regístrese formalmente para iniciar sus labores con sueldo semanal y comisiones por tráfico orgánico.</p>
+                <p style="margin-bottom: 20px; color: #94a3b8; font-size: 13px; text-align: center;">Complete sus datos legales para la creación del expediente y validación en el sistema corporativo.</p>
                 
-                <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 3px;">Nombre Completo:</label>
+                <label style="font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 5px;">Nombre Completo:</label>
                 <input type="text" id="regName" class="input-field" placeholder="Ej: Jhoan David Lopez">
                 
-                <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 3px;">Correo Electrónico:</label>
+                <label style="font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 5px;">Correo Electrónico:</label>
                 <input type="email" id="regEmail" class="input-field" placeholder="correo@gmail.com">
                 
-                <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 3px;">Teléfono Celular:</label>
+                <label style="font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 5px;">Teléfono Móvil de Contacto:</label>
                 <input type="text" id="regPhone" class="input-field" placeholder="Ej: +58 04220139930">
                 
-                <button class="btn" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); margin-top: 10px;" onclick="sendVerificationCode()">Enviar Código de Verificación al Correo</button>
+                <button class="btn" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);" onclick="sendVerificationCode()">Enviar Código de Verificación al Correo</button>
             </div>
 
-            <!-- PASO 2: Confirmar Código enviado al correo -->
+            <!-- PASO 2: Verificación de Código -->
             <div id="step2" style="display: none;">
-                <p style="margin-bottom: 15px; color: #10b981; font-size: 13px; text-align: center;">✉️ ¡Código de verificación enviado con éxito a su correo electrónico! Ingréselo abajo para activar su cuenta.</p>
+                <p style="margin-bottom: 20px; color: #34d399; font-size: 14px; text-align: center;">✉️ Se ha enviado un código de seguridad de 4 dígitos a su correo electrónico. Ingréselo para validar su acceso.</p>
                 
-                <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 3px;">Código de 4 Dígitos:</label>
-                <input type="text" id="verificationInput" class="input-field" placeholder="Ej: 4892" style="text-align: center; letter-spacing: 5px; font-size: 20px;">
+                <label style="font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 5px; text-align: center;">Código de Verificación:</label>
+                <input type="text" id="verificationInput" class="input-field" placeholder="0000" style="text-align: center; letter-spacing: 8px; font-size: 24px; font-weight: bold;">
                 
-                <button class="btn" style="background: #10b981; color: #0f172a; margin-top: 10px;" onclick="verifyAndAccess()">Verificar y Acceder al Sistema</button>
+                <button class="btn" style="background: #10b981; color: #0f172a;" onclick="verifyAndAccess()">Verificar y Entrar al Sistema</button>
             </div>
         </div>
     </div>
 
     <!-- PANEL PRINCIPAL DE TRABAJO -->
     <div class="container" id="mainDashboard" style="display: none;">
+        
+        <!-- Cabecera formal con nombre de la compañía -->
         <div class="header">
-            <div class="company-badge">
-                <div class="logo-dot"></div>
-                <div>
-                    <h2 style="margin:0; color: #f8fafc; font-size: 18px;">NEXUS MEDIA GROUP C.A.</h2>
-                    <p style="margin:0; color: #10b981; font-size: 12px;">Plataforma Oficial de Trabajo Remoto (Venezuela)</p>
-                </div>
+            <div class="company-info">
+                <h1>NEXUS MEDIA GROUP C.A.</h1>
+                <p>Plataforma Oficial de Trabajo Remoto (Venezuela)</p>
             </div>
-            <div class="wallet">
-                Sueldo Acumulado: $<span id="balance">0.000</span> USD
+            <div class="wallet-badge">
+                Sueldo Semanal: $<span id="balance">20.000</span> USD
             </div>
         </div>
 
-        <div class="card" style="border-left: 4px solid #6366f1;">
+        <!-- Expediente del Operador -->
+        <div class="card">
             <h2>👤 Expediente del Colaborador</h2>
-            <p>Operador: <strong id="userDisplay" style="color: #f8fafc;"></strong></p>
-            <p>Contacto: <span id="contactDisplay" style="color: #38bdf8;"></span> | Estatus: <span style="color: #10b981; font-weight: bold;">[ACTIVO - REMOTO DESDE CASA]</span></p>
+            <p>Operador Registrado: <strong id="userDisplay" style="color: #f8fafc;"></strong></p>
+            <p>Datos de Contacto: <span id="contactDisplay" style="color: #38bdf8;"></span> | Estatus: <span style="color: #34d399; font-weight: bold;">[ACTIVO - REMOTO DESDE CASA]</span></p>
         </div>
 
-        <!-- SECCIÓN 1: TRÁFICO ORGÁNICO Y TAREAS DE ANUNCIOS -->
+        <!-- SECCIÓN DE TAREAS Y MICRO-OPERACIONES (En lugar de anuncios confusos) -->
         <div class="card">
-            <h2>📢 Tráfico Orgánico & Visualización de Anuncios</h2>
-            <p>Para mantener el pago del sueldo básico semanal, los operadores deben visualizar los anuncios institucionales de nuestros patrocinantes y expandir el tráfico en redes sociales.</p>
+            <h2>📋 Módulo de Tareas & Micro-Operaciones Diarias</h2>
+            <p>Realice sus tareas operativas asignadas en el sistema para mantener activo su rendimiento laboral y validar su jornada diaria de teletrabajo.</p>
             
-            <div class="promo-banner">
-                <h3 style="color: #facc15; margin-bottom: 5px;">💼 Normativa de Trabajo y Anuncios:</h3>
-                <p style="color: #f8fafc; margin: 3px 0;">• Está prohibido el uso de bloqueadores de anuncios o VPNs. El sistema audita la visualización de publicidad para garantizar el fondo de nómina semanal en Venezuela.</p>
+            <div class="inner-box">
+                <h3 style="color: #facc15; font-size: 15px; margin-bottom: 8px;">⚙️ Tarea Activa: Validación de Tráfico y Registros</h3>
+                <p style="color: #cbd5e1; margin-bottom: 12px; font-size: 13px;">Verifique los flujos de datos y registre la actividad del servidor corporativo correspondiente al día de hoy.</p>
+                <button class="btn" style="background-color: #f59e0b; color: #0f172a;" onclick="completeTask()">Completar y Registrar Tarea Diaria</button>
             </div>
-            <button class="btn" style="background-color: #f59e0b; color: #0f172a;" onclick="alert('Visualización de anuncio auditada correctamente. Su jornada diaria cuenta para el sueldo base.')">Ver Anuncio Diario Obligatorio</button>
         </div>
 
-        <!-- SECCIÓN 2: RED DE RECLUTAMIENTO Y METAS -->
+        <!-- RED DE RECLUTAMIENTO Y BONOS -->
         <div class="card">
-            <h2>🏆 Red de Reclutamiento & Bonos por Escala</h2>
-            <p>Aumente sus ingresos trayendo más tráfico y personas a trabajar desde casa mediante su enlace personalizado:</p>
+            <h2>🏆 Red de Reclutamiento & Escala de Bonos</h2>
+            <p>Incremente sus ingresos semanales invitando a más personas a laborar desde casa a través de su enlace institucional:</p>
             
-            <div class="promo-banner" style="border-color: #2563eb;">
-                <h3 style="color: #38bdf8; margin-bottom: 5px;">🚀 Escala de Bonos Semanales:</h3>
-                <p style="color: #f8fafc; margin: 3px 0;">• Meta base de <strong>35 referidos activos</strong>: Desbloquea su sueldo fijo y bono semanal de <strong>$20 a $45 USD</strong> según el volumen de colaboradores bajo su gestión.</p>
+            <div class="inner-box" style="border-color: #3b82f6;">
+                <h3 style="color: #38bdf8; margin-bottom: 8px;">📈 Meta de Productividad Corporativa:</h3>
+                <p style="color: #f8fafc; margin: 0; font-size: 13px;">• Al alcanzar <strong>35 colaboradores activos</strong> bajo su red, desbloquea automáticamente su bonificación semanal escalada de <strong>$20 a $45 USD</strong>.</p>
             </div>
 
-            <div class="ref-box">
-                <p style="margin-bottom: 8px; color: #f8fafc;">Su enlace institucional de invitación:</p>
-                <div class="ref-link" id="refLinkText">Generando enlace...</div>
-                <button class="btn" style="background-color: #10b981; margin-top: 5px;" onclick="copyRefLink()">Copiar Enlace de Reclutamiento</button>
-                <p style="margin-top: 15px; margin-bottom: 5px;">Colaboradores activos bajo su gestión: <strong id="refCount" style="color: #38bdf8;">0</strong> / 35</p>
+            <div class="inner-box" style="text-align: center; border-style: dashed;">
+                <p style="margin-bottom: 8px; color: #f8fafc;">Su enlace institucional de incorporación:</p>
+                <div id="refLinkText" style="background: #1e293b; color: #818cf8; padding: 12px; border-radius: 8px; word-break: break-all; font-size: 13px; margin-bottom: 12px; border: 1px solid #475569;">Generando enlace...</div>
+                <button class="btn" style="background-color: #10b981; color: #0f172a;" onclick="copyRefLink()">Copiar Enlace de Reclutamiento</button>
+                <p style="margin-top: 15px; margin-bottom: 0; font-size: 14px;">Colaboradores activos bajo su gestión: <strong id="refCount" style="color: #38bdf8;">0</strong> / 35</p>
             </div>
         </div>
 
-        <!-- SECCIÓN 3: PAGO Y NÓMINA -->
+        <!-- CONFIGURACIÓN DE PAGO -->
         <div class="card">
             <h2>💳 Configuración de Nómina (Binance Pay)</h2>
-            <p>Ingrese su correo o identificador de Binance Pay para recibir su sueldo semanal de forma directa y sin comisiones.</p>
+            <p>Ingrese su correo o identificador de Binance Pay para recibir sus pagos semanales de manera directa, legal y sin intermediarios.</p>
             <input type="text" id="cryptoWallet" class="input-field" placeholder="Ej: Correo o ID de Binance Pay">
-            <button class="btn" onclick="saveWallet()">Guardar Datos de Binance Pay</button>
+            <button class="btn" onclick="saveWallet()">Guardar Datos de Pago</button>
         </div>
+
     </div>
 
     <script>
-        // Detección básica simulada de bloqueadores / extensiones extrañas para proteger los anuncios
-        window.addEventListener('load', () => {
-            // Si el contenedor de anuncios simulados o elementos de control fallan, se puede alertar.
-            // Mantendremos la validación lista por si el usuario usa bloqueadores agresivos.
-            const testAd = document.createElement('div');
-            testAd.innerHTML = '&nbsp;';
-            testAd.className = 'adsbox';
-            document.body.appendChild(testAd);
-            window.setTimeout(() => {
-                if (testAd.offsetHeight === 0) {
-                    // Posible bloqueador activo
-                    // document.getElementById('adblock-warning').style.display = 'flex';
-                }
-                testAd.remove();
-            }, 100);
-        });
-
         let generatedCode = '';
 
         function sendVerificationCode() {
@@ -232,37 +242,33 @@
             const phone = document.getElementById('regPhone').value.trim();
 
             if(name === '' || email === '' || phone === '') {
-                alert('Por favor complete todos los campos (Nombre, Correo y Teléfono).');
+                alert('Por favor complete todos los campos obligatorios.');
                 return;
             }
             if(!email.includes('@')) {
-                alert('Ingrese un correo electrónico válido.');
+                alert('Por favor ingrese un correo electrónico válido.');
                 return;
             }
 
-            // Simulamos la generación y envío del código al correo real del usuario
+            // Generamos el código de 4 dígitos simulado que se envía al correo
             generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
             
-            // Guardamos temporalmente los datos
             localStorage.setItem('tempName', name);
             localStorage.setItem('tempContact', email + ' / ' + phone);
 
-            // Mostramos alerta simulando el envío real a su correo
-            alert('¡Código de verificación enviado al correo: ' + email + '! (Código simulado para prueba: ' + generatedCode + ')');
+            alert('¡Código de verificación enviado al correo ' + email + '! (Código de prueba: ' + generatedCode + ')');
             
-            // Cambiamos al paso 2 (ingresar el código)
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'block';
         }
 
         function verifyAndAccess() {
-            const userInputCode = document.getElementById('verificationInput').value.trim();
-            if(userInputCode !== generatedCode) {
-                alert('Código de verificación incorrecto. Por favor revise el código enviado a su correo.');
+            const userInput = document.getElementById('verificationInput').value.trim();
+            if(userInput !== generatedCode) {
+                alert('El código de verificación ingresado es incorrecto.');
                 return;
             }
 
-            // Código correcto, guardamos sesión y abrimos el sistema
             localStorage.setItem('currentUser', localStorage.getItem('tempName'));
             localStorage.setItem('userContact', localStorage.getItem('tempContact'));
             
@@ -271,7 +277,6 @@
             window.location.reload();
         }
 
-        // Validación de sesión activa
         window.addEventListener('DOMContentLoaded', () => {
             const savedUser = localStorage.getItem('currentUser');
             if (savedUser) {
@@ -287,7 +292,7 @@
             document.getElementById('userDisplay').innerText = currentUser;
             document.getElementById('contactDisplay').innerText = userContact;
 
-            let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 20.000; // Sueldo base inicial de ejemplo
+            let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 20.000;
             document.getElementById('balance').innerText = currentBalance.toFixed(3);
 
             const urlParams = new URLSearchParams(window.location.search);
@@ -309,8 +314,12 @@
 
         function copyRefLink() {
             navigator.clipboard.writeText(window.userRefLinkGlobal).then(() => {
-                alert('¡Enlace de reclutamiento copiado con éxito!');
+                alert('¡Enlace institucional copiado con éxito!');
             });
+        }
+
+        function completeTask() {
+            alert('✅ ¡Tarea operativa completada con éxito! Su jornada y registro de tráfico diario han sido guardados en el sistema.');
         }
 
         function saveWallet() {
@@ -320,7 +329,7 @@
                 return;
             }
             localStorage.setItem('userCryptoWallet', wallet);
-            alert('¡Datos de Binance Pay guardados correctamente para la nómina semanal!');
+            alert('¡Datos de Binance Pay guardados correctamente para la nómina!');
         }
     </script>
 </body>
