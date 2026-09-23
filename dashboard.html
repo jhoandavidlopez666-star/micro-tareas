@@ -3,197 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trivia Pro & Super Bonos Semanales</title>
+    <title>Nexus Media Group | Portal Oficial de Operaciones Remotas</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
-        .header { display: flex; justify-content: space-between; align-items: center; background-color: #1e293b; padding: 15px 20px; border-radius: 10px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-        .wallet { background-color: #0f172a; padding: 10px 15px; border-radius: 8px; border: 1px solid #38bdf8; color: #38bdf8; font-weight: bold; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .card { background-color: #1e293b; padding: 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
-        h2 { color: #38bdf8; margin-bottom: 10px; font-size: 20px; }
-        p { color: #94a3b8; font-size: 14px; margin-bottom: 15px; }
-        .btn { background-color: #38bdf8; color: #0f172a; border: none; padding: 12px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s; width: 100%; margin-top: 10px; }
-        .btn:hover { background-color: #0ea5e9; }
-        .input-field { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #334155; background-color: #0f172a; color: #f8fafc; margin-bottom: 10px; font-size: 16px; }
+        body { background-color: #0b0f19; color: #f1f5f9; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; background-color: #1e1b4b; padding: 15px 25px; border-radius: 12px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; border: 1px solid #312e81; }
+        .company-badge { display: flex; align-items: center; gap: 10px; }
+        .logo-dot { width: 14px; height: 14px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
+        .wallet { background-color: #0f172a; padding: 10px 18px; border-radius: 8px; border: 1px solid #6366f1; color: #818cf8; font-weight: bold; }
+        .container { max-width: 850px; margin: 0 auto; }
+        .card { background-color: #1e293b; padding: 22px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); border: 1px solid #334155; }
+        h2 { color: #818cf8; margin-bottom: 10px; font-size: 20px; display: flex; align-items: center; gap: 8px; }
+        p { color: #94a3b8; font-size: 14px; margin-bottom: 15px; line-height: 1.5; }
+        .btn { background-color: #6366f1; color: #fff; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background 0.2s; width: 100%; margin-top: 10px; }
+        .btn:hover { background-color: #4f46e5; }
+        .input-field { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #475569; background-color: #0f172a; color: #f8fafc; margin-bottom: 12px; font-size: 15px; }
         
-        /* Estilos de la Trivia y Referidos */
-        .trivia-box { background: #0f172a; border: 1px solid #334155; padding: 20px; border-radius: 8px; text-align: center; }
-        .level-badge { display: inline-block; background: #38bdf8; color: #0f172a; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 12px; }
-        .trivia-question { font-size: 18px; font-weight: bold; color: #f8fafc; margin-bottom: 15px; }
-        .ref-box { background: #0f172a; border: 1px dashed #38bdf8; padding: 15px; border-radius: 8px; text-align: center; }
-        .ref-link { background: #1e293b; color: #38bdf8; padding: 10px; border-radius: 6px; word-break: break-all; font-size: 13px; margin-bottom: 10px; border: 1px solid #334155; }
-        .promo-banner { background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px solid #10b981; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
-        .custom-q-list { background: #0f172a; padding: 10px; border-radius: 6px; margin-top: 10px; max-height: 150px; overflow-y: auto; text-align: left; font-size: 13px; }
+        .task-box { background: #0f172a; border: 1px solid #334155; padding: 20px; border-radius: 10px; text-align: center; }
+        .level-badge { display: inline-block; background: #6366f1; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; margin-bottom: 12px; text-transform: uppercase; }
+        .task-question { font-size: 17px; font-weight: bold; color: #f8fafc; margin-bottom: 15px; }
+        
+        .promo-banner { background: linear-gradient(135deg, #1e1b4b, #0f172a); border: 2px solid #10b981; padding: 18px; border-radius: 10px; margin-bottom: 15px; }
+        .ref-box { background: #0f172a; border: 1px dashed #6366f1; padding: 18px; border-radius: 10px; text-align: center; }
+        .ref-link { background: #1e293b; color: #818cf8; padding: 12px; border-radius: 8px; word-break: break-all; font-size: 13px; margin-bottom: 12px; border: 1px solid #475569; }
+        .video-task-card { background: #0f172a; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        
+        /* Pantallas de Autenticación y Bloqueo */
+        #authScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0b0f19; z-index: 8888; justify-content: center; align-items: center; padding: 20px; overflow-y: auto; }
+        .auth-card { background: #1e293b; border: 1px solid #6366f1; padding: 30px; border-radius: 14px; max-width: 450px; width: 100%; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        
+        #adblockModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 15, 25, 0.95); z-index: 9999; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        .adblock-content { background: #1e293b; border: 2px solid #ef4444; padding: 30px; border-radius: 12px; max-width: 500px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <!-- MODAL DE ALERTA ANTI-BLOQUEADOR -->
+    <div id="adblockModal">
+        <div class="adblock-content">
+            <h2 style="color: #ef4444; margin-bottom: 15px;">⚠️ Alerta de Seguridad del Sistema</h2>
+            <p style="color: #f8fafc; font-size: 15px;">Nexus Media Group detectó un bloqueador de anuncios activo. Para operar en el portal de teletrabajo, es obligatorio desactivarlo y recargar.</p>
+            <button class="btn" style="background-color: #ef4444;" onclick="window.location.reload()">Ya lo desactivé, Recargar</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA DE REGISTRO / ACCESO CORPORATIVO -->
+    <div id="authScreen">
+        <div class="auth-card">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div class="logo-dot" style="display: inline-block; margin-bottom: 8px;"></div>
+                <h2 style="color: #f8fafc; font-size: 22px;">NEXUS MEDIA GROUP</h2>
+                <p style="color: #10b981; font-size: 13px;">Portal Oficial de Empleo Remoto en Venezuela</p>
+            </div>
+
+            <!-- PASO 1: DATOS INICIALES -->
+            <div id="step1Form">
+                <p style="margin-bottom: 15px; color: #94a3b8; text-align: center;">Regístrese para postularse a los puestos de trabajo remoto desde casa con excelentes ingresos garantizados.</p>
+                <label style="font-size: 13px; color: #cbd5e1;">Nombre Completo:</label>
+                <input type="text" id="regName" class="input-field" placeholder="Ej: Carlos Mendoza">
+                
+                <label style="font-size: 13px; color: #cbd5e1;">Correo Electrónico:</label>
+                <input type="email" id="regEmail" class="input-field" placeholder="correo@gmail.com">
+                
+                <label style="font-size: 13px; color: #cbd5e1;">Número de Teléfono Móvil:</label>
+                <input type="text" id="regPhone" class="input-field" placeholder="Ej: 0412-1234567">
+                
+                <button class="btn" onclick="sendVerificationCode()">Solicitar Código de Verificación</button>
+            </div>
+
+            <!-- PASO 2: INGRESO DE CÓDIGO -->
+            <div id="step2Code" style="display: none;">
+                <p style="margin-bottom: 15px; color: #38bdf8; text-align: center;">Hemos enviado un código de seguridad a su correo y teléfono registrado. (Código de validación del sistema: <strong style="color:#10b981;">7788</strong>)</p>
+                
+                <label style="font-size: 13px; color: #cbd5e1;">Ingrese Código de Verificación:</label>
+                <input type="text" id="enteredCode" class="input-field" placeholder="Ej: 7788" maxlength="4" style="text-align: center; font-size: 20px; letter-spacing: 5px;">
+                
+                <button class="btn" style="background-color: #10b981;" onclick="verifyAndRegister()">Verificar y Activar Expediente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL PRINCIPAL DEL TRABAJADOR -->
+    <div class="container" id="mainDashboard" style="display: none;">
         <div class="header">
-            <div>
-                <h2>Bienvenido, <span id="userDisplay">Usuario</span></h2>
-                <p style="margin: 0;">Sistema de Trivia Interactiva & Pagos Semanales</p>
+            <div class="company-badge">
+                <div class="logo-dot"></div>
+                <div>
+                    <h2 style="margin:0; color: #f8fafc; font-size: 18px;">NEXUS MEDIA GROUP C.A.</h2>
+                    <p style="margin:0; color: #10b981; font-size: 12px;">Portal Oficial de Operaciones & Teletrabajo</p>
+                </div>
             </div>
             <div class="wallet">
-                Saldo: $<span id="balance">0.000</span> USD
+                Balance Corporativo: $<span id="balance">0.000</span> USD
             </div>
         </div>
 
-        <!-- SECCIÓN DE TRIVIA CON ESCRITURA Y ENVÍO -->
+        <div class="card" style="border-left: 4px solid #6366f1;">
+            <h2>👤 Expediente del Operador</h2>
+            <p>Colaborador: <strong id="userDisplay" style="color: #f8fafc;"></strong></p>
+            <p>Contacto: <span id="contactDisplay" style="color: #38bdf8;"></span> | Estatus: <span style="color: #10b981; font-weight: bold;">[ACTIVO - REMOTO]</span></p>
+        </div>
+
+        <!-- SECCIÓN 1: TAREAS DE MARKETING / VIDEOS -->
         <div class="card">
-            <h2>✍️ Responde y Gana</h2>
-            <p>Escribe tu respuesta en el cuadro y presiona enviar. ¡Si acertaras, ganas saldo y avanzas de nivel!</p>
+            <h2>🎬 Campaña de Promoción Masiva y Difusión</h2>
+            <p>Realice videos en TikTok, Instagram Reels o YouTube Shorts promocionando las vacantes de la empresa y gane excelentes comisiones por expansión.</p>
             
-            <div class="trivia-box" id="triviaCard">
-                <!-- Se carga dinámicamente con JavaScript -->
+            <div class="video-task-card">
+                <h3 style="color: #f59e0b; font-size: 15px; margin-bottom: 5px;">📱 Pauta de Expansión Activa</h3>
+                <p style="margin: 0; color: #cbd5e1; font-size: 13px;">Requisito: Publicación vertical mostrando los beneficios de la empresa e incluyendo su enlace institucional.</p>
+                <p style="margin-top: 5px; color: #10b981; font-weight: bold; font-size: 13px;">Comisión directa por auditoría de video: $0.50 USD.</p>
             </div>
+
+            <input type="text" id="videoLinkInput" class="input-field" placeholder="Pegue aquí el enlace del video publicado...">
+            <button class="btn" style="background-color: #f59e0b; color: #0f172a;" onclick="submitVideoTask()">Enviar Enlace para Auditoría</button>
         </div>
 
-        <!-- SECCIÓN PARA QUE LOS USUARIOS AGREGUEN SUS PROPIAS PREGUNTAS -->
+        <!-- SECCIÓN 2: MICRO-TAREAS Y AUDITORÍAS -->
         <div class="card">
-            <h2>📝 Crea tus propias Preguntas</h2>
-            <p>¿Quieres aportar contenido? Escribe tu propia pregunta y su respuesta para que otros usuarios también la respondan.</p>
-            <input type="text" id="newQuestionText" class="input-field" placeholder="Escribe tu pregunta aquí...">
-            <input type="text" id="newAnswerText" class="input-field" placeholder="Escribe la respuesta correcta...">
-            <button class="btn" style="background-color: #8b5cf6; color: #fff;" onclick="addNewUserQuestion()">Publicar mi Pregunta</button>
-            <div class="custom-q-list" id="customQuestionsContainer">
-                <em style="color: #64748b;">Aún no has creado preguntas personalizadas.</em>
-            </div>
+            <h2>✍️ Micro-Tareas: Validación Operativa de Datos</h2>
+            <p>Complete las auditorías diarias asignadas para asegurar la producción y acumular ganancias estables en su cuenta.</p>
+            
+            <div class="task-box" id="triviaCard"></div>
         </div>
 
-        <!-- SECCIÓN DE REFERIDOS Y BONOS SEMANALES MASIVOS -->
+        <!-- SECCIÓN 3: APORTE DE CONTENIDO -->
         <div class="card">
-            <h2>🔥 Meta Masiva Semanal (Super Bono de Referidos)</h2>
-            <p>Si mantienes un flujo masivo en tu comunidad o red alcanzando la meta semanal, la plataforma te premia:</p>
+            <h2>📝 Banco de Contenido: Registro de Consignas</h2>
+            <p>Los operadores pueden registrar nuevas preguntas aprobadas para nutrir la plataforma corporativa.</p>
+            <input type="text" id="newQuestionText" class="input-field" placeholder="Escriba la consigna o pregunta...">
+            <input type="text" id="newAnswerText" class="input-field" placeholder="Respuesta clave exacta...">
+            <button class="btn" style="background-color: #8b5cf6;" onclick="addNewUserQuestion()">Registrar en Sistema</button>
+        </div>
+
+        <!-- SECCIÓN 4: RED DE RECLUTAMIENTO Y BONOS -->
+        <div class="card">
+            <h2>🏆 Gestión de Equipo & Bonos Semanales Formidables</h2>
+            <p>La dirección evalúa el rendimiento por la adquisición de colaboradores bajo su enlace institucional:</p>
             
             <div class="promo-banner">
-                <h3 style="color: #10b981; margin-bottom: 5px;">🏆 Meta Oficial Semanal:</h3>
-                <p style="color: #f8fafc; margin: 3px 0;">• Trae/mantiene <strong>35 referidos activos</strong> en la semana ➔ <strong>Bono Fijo de $20.00 USD</strong> (Pago Semanal automático)</p>
-                <p style="color: #38bdf8; margin-top: 8px; font-size: 13px;">🕒 <em>El corte de validación de referidos masivos y el despacho de los $20 semanales se procesa cada fin de semana.</em></p>
+                <h3 style="color: #10b981; margin-bottom: 5px;">💼 Meta de Productividad y Bonos Fijos:</h3>
+                <p style="color: #f8fafc; margin: 3px 0;">• Logre invitar a <strong>35 colaboradores activos</strong> mediante su enlace de reclutamiento y califique para recibir un <strong>bono semanal fijo de $20.00 USD</strong> evaluado por la administración.</p>
+                <p style="color: #818cf8; margin-top: 8px; font-size: 13px;">🕒 <em>Cortes de rendimiento y auditoría de equipo realizados todos los fines de semana.</em></p>
             </div>
 
             <div class="ref-box">
-                <p style="margin-bottom: 8px; color: #f8fafc;">Tu enlace de invitado personal:</p>
-                <div class="ref-link" id="refLinkText">Cargando enlace...</div>
-                <button class="btn" style="background-color: #10b981; color: #fff; margin-top: 5px;" onclick="copyRefLink()">Copiar Enlace de Referido</button>
-                <p style="margin-top: 15px; margin-bottom: 5px;">Tus referidos actuales: <strong id="refCount" style="color: #38bdf8;">0</strong> personas</p>
-                <button class="btn" style="background-color: #f59e0b; color: #0f172a;" onclick="claimWeeklyBonus()">Reclamar Bono Semanal ($20)</button>
+                <p style="margin-bottom: 8px; color: #f8fafc;">Su enlace institucional de incorporación:</p>
+                <div class="ref-link" id="refLinkText">Generando credencial...</div>
+                <button class="btn" style="background-color: #10b981; margin-top: 5px;" onclick="copyRefLink()">Copiar Enlace de Reclutamiento</button>
+                <p style="margin-top: 15px; margin-bottom: 5px;">Personal bajo su gestión: <strong id="refCount" style="color: #38bdf8;">0</strong> / 35 colaboradores</p>
             </div>
         </div>
 
+        <!-- SECCIÓN 5: CONFIGURACIÓN DE PAGO -->
         <div class="card">
-            <h2>Configurar Billetera Cripto (Binance / USDT)</h2>
-            <p>Ingresa tu correo de Binance Pay o dirección USDT (Red TRC20) para recibir tus pagos.</p>
-            <input type="text" id="cryptoWallet" class="input-field" placeholder="Ej: Correo de Binance o Dirección USDT">
-            <button class="btn" onclick="saveWallet()">Guardar Billetera</button>
+            <h2>💳 Datos de Nómina (Binance Pay / USDT)</h2>
+            <p>Ingrese su correo o identificador oficial para recibir los pagos de su sueldo, comisiones y bonos semanales.</p>
+            <input type="text" id="cryptoWallet" class="input-field" placeholder="Ej: Correo de Binance Pay o USDT TRC20">
+            <button class="btn" onclick="saveWallet()">Actualizar Datos de Pago</button>
         </div>
 
         <div class="card" style="text-align: center;">
-            <h2>Solicitar Retiro de Saldo</h2>
-            <p>El mínimo de retiro acumulado por tareas y trivias es de <strong>$5.00 USD</strong>.</p>
-            <button class="btn" onclick="requestWithdrawal()">Retirar a Cripto</button>
+            <h2>Solicitar Desembolso de Nómina</h2>
+            <p>El límite mínimo acumulado para procesar órdenes es de <strong>$5.00 USD</strong>.</p>
+            <button class="btn" onclick="requestWithdrawal()">Procesar Orden de Retiro</button>
         </div>
     </div>
 
     <script>
-        // Versión para limpieza limpia del script en el navegador
-        const appVersion = 'v13_weekly_35_referrals';
+        // Detector AdBlock
+        setTimeout(function() {
+            const ad = document.createElement('div');
+            ad.innerHTML = '&nbsp;';
+            ad.className = 'adsbox';
+            ad.style.position = 'absolute';
+            ad.style.left = '-999px';
+            document.body.appendChild(ad);
+            setTimeout(function() {
+                if (ad.offsetHeight === 0) {
+                    document.getElementById('adblockModal').style.display = 'flex';
+                }
+                ad.remove();
+            }, 100);
+        }, 500);
+
+        const appVersion = 'v17_nexus_ultimate';
         if (localStorage.getItem('appVersion') !== appVersion) {
             localStorage.clear();
             localStorage.setItem('appVersion', appVersion);
         }
 
-        // Detección de referido por URL (?ref=nombre)
         const urlParams = new URLSearchParams(window.location.search);
         const referrer = urlParams.get('ref');
 
         let savedUser = localStorage.getItem('currentUser');
+        let savedContact = localStorage.getItem('userContact');
+
         if (!savedUser) {
-            let defaultName = 'Usuario_' + Math.floor(Math.random() * 10000);
-            const userName = prompt('Por favor, ingresa tu correo o nombre de usuario para registrarte:') || defaultName;
-            let cleanUserName = userName.trim();
-            localStorage.setItem('currentUser', cleanUserName);
-            
-            if (referrer && referrer !== cleanUserName) {
+            document.getElementById('authScreen').style.display = 'flex';
+        } else {
+            document.getElementById('mainDashboard').style.display = 'block';
+            initDashboard();
+        }
+
+        let tempName = '';
+        let tempEmail = '';
+        let tempPhone = '';
+
+        function sendVerificationCode() {
+            tempName = document.getElementById('regName').value.trim();
+            tempEmail = document.getElementById('regEmail').value.trim();
+            tempPhone = document.getElementById('regPhone').value.trim();
+
+            if(tempName === '' || tempEmail === '' || tempPhone === '') {
+                alert('Por favor complete todos los campos obligatorios para continuar.');
+                return;
+            }
+            if(!tempEmail.includes('@')) {
+                alert('Ingrese un correo electrónico válido.');
+                return;
+            }
+
+            document.getElementById('step1Form').style.display = 'none';
+            document.getElementById('step2Code').style.display = 'block';
+            alert('📨 Código de seguridad generado y enviado exitosamente.');
+        }
+
+        function verifyAndRegister() {
+            const codeInput = document.getElementById('enteredCode').value.trim();
+            if(codeInput !== '7788' && codeInput !== '1234') {
+                alert('Código incorrecto. Utilice el código de prueba predeterminado: 7788');
+                return;
+            }
+
+            localStorage.setItem('currentUser', tempName);
+            localStorage.setItem('userContact', tempEmail + ' / ' + tempPhone);
+
+            if (referrer && referrer !== tempName) {
                 let existingRefData = JSON.parse(localStorage.getItem('refStorage_' + referrer)) || { count: 0 };
                 existingRefData.count += 1;
                 localStorage.setItem('refStorage_' + referrer, JSON.stringify(existingRefData));
             }
+
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('mainDashboard').style.display = 'block';
             window.location.reload();
         }
 
-        const currentUser = localStorage.getItem('currentUser');
-        document.getElementById('userDisplay').innerText = currentUser;
+        function initDashboard() {
+            const currentUser = localStorage.getItem('currentUser');
+            const userContact = localStorage.getItem('userContact');
+            document.getElementById('userDisplay').innerText = currentUser;
+            document.getElementById('contactDisplay').innerText = userContact;
 
-        let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
-        document.getElementById('balance').innerText = currentBalance.toFixed(3);
+            let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
+            document.getElementById('balance').innerText = currentBalance.toFixed(3);
 
-        let myRefData = JSON.parse(localStorage.getItem('refStorage_' + currentUser)) || { count: 0 };
-        let refCount = myRefData.count;
-        document.getElementById('refCount').innerText = refCount;
+            let myRefData = JSON.parse(localStorage.getItem('refStorage_' + currentUser)) || { count: 0 };
+            document.getElementById('refCount').innerText = myRefData.count;
 
-        const currentCleanUrl = window.location.href.split('?')[0];
-        const userRefLink = currentCleanUrl + '?ref=' + encodeURIComponent(currentUser);
-        document.getElementById('refLinkText').innerText = userRefLink;
+            const currentCleanUrl = window.location.href.split('?')[0];
+            const userRefLink = currentCleanUrl + '?ref=' + encodeURIComponent(currentUser);
+            document.getElementById('refLinkText').innerText = userRefLink;
+            window.userRefLinkGlobal = userRefLink;
+        }
 
         function copyRefLink() {
-            navigator.clipboard.writeText(userRefLink).then(() => {
-                alert('¡Enlace de referido copiado con éxito!');
+            navigator.clipboard.writeText(window.userRefLinkGlobal).then(() => {
+                alert('¡Enlace institucional de reclutamiento copiado con éxito!');
             });
         }
 
-        function claimWeeklyBonus() {
-            if (refCount >= 35) {
-                currentBalance += 20.00;
-                alert('🚀 ¡Increíble! Meta masiva de 35 referidos alcanzada. Se han acreditado $20.00 USD para tu lote de pago semanal.');
-            } else {
-                alert('Aún no alcanzas la meta de 35 referidos para el bono semanal. Tienes ' + refCount + '. ¡Sigue compartiendo tu enlace masivamente!');
+        function submitVideoTask() {
+            const vLink = document.getElementById('videoLinkInput').value.trim();
+            if(vLink === '' || (!vLink.includes('http://') && !vLink.includes('https://'))) {
+                alert('Por favor ingrese un enlace web válido de su video.');
                 return;
             }
+            let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
+            currentBalance += 0.50;
             localStorage.setItem('userBalance', currentBalance.toFixed(3));
             document.getElementById('balance').innerText = currentBalance.toFixed(3);
+            document.getElementById('videoLinkInput').value = '';
+            alert('🎥 ¡Enlace recibido! Se han acreditado $0.50 USD de bonificación a su expediente por campaña publicitaria.');
         }
 
-        const savedWallet = localStorage.getItem('userCryptoWallet') || '';
-        if(savedWallet) {
-            document.getElementById('cryptoWallet').value = savedWallet;
-        }
-
-        // Banco base de preguntas del sistema
         const defaultQuestions = [
-            { level: 'Nivel 1', q: '¿Cuántas ruedas principales tiene un carro estándar? (Escribe el número)', answers: ['4', 'cuatro'], reward: 0.001 },
-            { level: 'Nivel 2', q: '¿De qué color es la clorofila de las hojas de las plantas?', answers: ['verde'], reward: 0.001 },
-            { level: 'Nivel 3', q: '¿En qué continente está ubicado Venezuela?', answers: ['america del sur', 'suramerica', 'sudamerica', 'américa del sur'], reward: 0.001 },
-            { level: 'Nivel 4', q: '¿Cómo se llama el planeta más grande de nuestro sistema solar?', answers: ['jupiter', 'júpiter'], reward: 0.002 },
-            { level: 'Nivel 5', q: '¿En qué año se firmó el acta de la Independencia de Venezuela?', answers: ['1811'], reward: 0.002 },
-            { level: 'Nivel 6', q: '¿Qué elemento químico tiene el símbolo "Au"?', answers: ['oro'], reward: 0.003 },
-            { level: 'Nivel 7', q: 'Apellido del físico que formuló la teoría de la relatividad:', answers: ['einstein', 'albert einstein'], reward: 0.003 },
-            { level: 'Nivel 8', q: '¿En qué año se creó el primer bloque (Genesis Block) de Bitcoin?', answers: ['2009'], reward: 0.005 }
+            { level: 'Auditoría Nivel 1', q: '¿Cuántas ruedas principales posee un vehículo tipo sedán convencional? (Escriba en número)', answers: ['4', 'cuatro'], reward: 0.001 },
+            { level: 'Auditoría Nivel 2', q: '¿Cuál es el color predominante en la clorofila de la vegetación?', answers: ['verde'], reward: 0.001 },
+            { level: 'Auditoría Nivel 3', q: '¿En qué subcontinente se encuentra la República Bolivariana de Venezuela?', answers: ['america del sur', 'suramerica', 'sudamerica', 'américa del sur'], reward: 0.001 },
+            { level: 'Auditoría Nivel 4', q: '¿Cómo se denomina el cuerpo celeste más voluminoso del sistema solar?', answers: ['jupiter', 'júpiter'], reward: 0.002 },
+            { level: 'Auditoría Nivel 5', q: '¿En qué año se rubricó el documento de independencia de Venezuela?', answers: ['1811'], reward: 0.002 }
         ];
 
-        // Combinar con preguntas creadas por usuarios si existen
         let customQuestions = JSON.parse(localStorage.getItem('userCustomQuestions')) || [];
         let questionBank = defaultQuestions.concat(customQuestions);
 
         let currentQuestionIndex = parseInt(localStorage.getItem('typedTriviaIndex')) || 0;
-        if (currentQuestionIndex >= questionBank.length) {
-            currentQuestionIndex = 0;
-        }
+        if (currentQuestionIndex >= questionBank.length) { currentQuestionIndex = 0; }
 
         function renderTrivia() {
             const container = document.getElementById('triviaCard');
+            if (!container) return;
             if (questionBank.length === 0) {
-                container.innerHTML = '<p>No hay preguntas disponibles por ahora.</p>';
+                container.innerHTML = '<p>No hay auditorías pendientes.</p>';
                 return;
             }
             const currentQ = questionBank[currentQuestionIndex];
 
             container.innerHTML = `
-                <div class="level-badge">${currentQ.level || 'Comunidad'}</div>
-                <div class="trivia-question">${currentQ.q}</div>
-                <input type="text" id="userAnswerInput" class="input-field" placeholder="Escribe tu respuesta aquí y pulsa enviar...">
-                <button class="btn" onclick="submitTypedAnswer()">Enviar Respuesta (Gana $${(currentQ.reward || 0.001).toFixed(3)})</button>
+                <div class="level-badge">${currentQ.level || 'Tarea Corporativa'}</div>
+                <div class="task-question">${currentQ.q}</div>
+                <input type="text" id="userAnswerInput" class="input-field" placeholder="Escriba la respuesta de validación aquí...">
+                <button class="btn" onclick="submitTypedAnswer()">Enviar Validación (Acreditar $${(currentQ.reward || 0.001).toFixed(3)})</button>
             `;
         }
 
@@ -202,7 +324,7 @@
             const userText = inputField.value.trim().toLowerCase();
 
             if (userText === '') {
-                alert('Por favor escribe una respuesta antes de enviar.');
+                alert('Debe rellenar el campo de validación.');
                 return;
             }
 
@@ -210,24 +332,23 @@
             let isCorrect = currentQ.answers.some(ans => userText.includes(ans));
 
             if (!isCorrect) {
-                alert('❌ Respuesta incorrecta. ¡Inténtalo de nuevo!');
+                alert('❌ Validación incorrecta. Verifique la información e intente de nuevo.');
                 return;
             }
 
-            // Abre el enlace publicitario de Monetag al acertar
+            // Enlace publicitario de Monetag para asegurar la ganancia del dueño
             window.open('https://omg10.com/4/11874696', '_blank');
 
+            let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
             let rewardAmt = currentQ.reward || 0.001;
             currentBalance += rewardAmt;
             localStorage.setItem('userBalance', currentBalance.toFixed(3));
             document.getElementById('balance').innerText = currentBalance.toFixed(3);
 
-            alert('🎉 ¡Correcto! Has ganado $' + rewardAmt.toFixed(3));
+            alert('🎉 ¡Validación exitosa! Se han sumado $' + rewardAmt.toFixed(3) + ' a su balance.');
 
             currentQuestionIndex++;
-            if (currentQuestionIndex >= questionBank.length) {
-                currentQuestionIndex = 0;
-            }
+            if (currentQuestionIndex >= questionBank.length) { currentQuestionIndex = 0; }
             localStorage.setItem('typedTriviaIndex', currentQuestionIndex);
 
             renderTrivia();
@@ -238,12 +359,12 @@
             const aText = document.getElementById('newAnswerText').value.trim().toLowerCase();
 
             if(qText === '' || aText === '') {
-                alert('Por favor completa tanto la pregunta como la respuesta.');
+                alert('Complete la consigna y la respuesta clave.');
                 return;
             }
 
             let newEntry = {
-                level: 'Creada por Usuario',
+                level: 'Aporte de Operador',
                 q: qText,
                 answers: [aText],
                 reward: 0.002
@@ -251,55 +372,38 @@
 
             customQuestions.push(newEntry);
             localStorage.setItem('userCustomQuestions', JSON.stringify(customQuestions));
-            
-            // Actualizar banco local
             questionBank = defaultQuestions.concat(customQuestions);
 
             document.getElementById('newQuestionText').value = '';
             document.getElementById('newAnswerText').value = '';
             
-            renderCustomQuestionsList();
-            alert('¡Pregunta publicada con éxito en el sistema!');
-        }
-
-        function renderCustomQuestionsList() {
-            const listContainer = document.getElementById('customQuestionsContainer');
-            if (customQuestions.length === 0) {
-                listContainer.innerHTML = '<em style="color: #64748b;">Aún no has creado preguntas personalizadas.</em>';
-                return;
-            }
-            let htmlContent = '<strong>Tus preguntas aportadas:</strong><ul style="margin-left: 15px; margin-top: 5px;">';
-            customQuestions.forEach((item, index) => {
-                htmlContent += `<li><strong>Q:</strong> ${item.q} <br><em>Ans:</em> ${item.answers.join(', ')}</li>`;
-            });
-            htmlContent += '</ul>';
-            listContainer.innerHTML = htmlContent;
+            alert('¡Consigna registrada correctamente en el sistema!');
         }
 
         function saveWallet() {
             const wallet = document.getElementById('cryptoWallet').value.trim();
             if(wallet === '') {
-                alert('Por favor ingresa una billetera o correo de Binance válido.');
+                alert('Ingrese un identificador o correo válido.');
                 return;
             }
             localStorage.setItem('userCryptoWallet', wallet);
-            alert('¡Billetera guardada correctamente!');
+            alert('¡Datos de cobro guardados con éxito!');
         }
 
         function requestWithdrawal() {
             const wallet = localStorage.getItem('userCryptoWallet');
+            let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0.000;
             if(!wallet) {
-                alert('Error: Debes configurar tu billetera antes de retirar.');
+                alert('Error: Debe configurar sus datos bancarios de Binance Pay antes de solicitar retiro.');
                 return;
             }
             if(currentBalance < 5.00) {
-                alert('Saldo insuficiente. Necesitas al menos $5.00 USD acumulados para solicitar tu retiro. Tienes $' + currentBalance.toFixed(3));
+                alert('Saldo insuficiente. El mínimo de retiro corporativo es de $5.00 USD. Su balance actual es de $' + currentBalance.toFixed(3));
                 return;
             }
-            alert('¡Solicitud de retiro enviada con éxito! Se procesará en el lote de pagos correspondiente.');
+            alert('¡Orden de retiro generada con éxito! Será despachada en el próximo ciclo de pagos de la empresa.');
         }
 
-        renderCustomQuestionsList();
         renderTrivia();
     </script>
 
