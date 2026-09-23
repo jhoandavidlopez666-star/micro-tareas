@@ -26,7 +26,7 @@
         <div class="header">
             <div>
                 <h2>Bienvenido, <span id="userDisplay">Usuario</span></h2>
-                <p style="margin: 0;">Gana cripto completando microtareas</p>
+                <p style="margin: 0;">Gana cripto viendo contenido y microtareas</p>
             </div>
             <div class="wallet">
                 Saldo: $<span id="balance">0.000</span> USD
@@ -34,21 +34,33 @@
         </div>
 
         <div class="card">
-            <h2>Tareas Disponibles Hoy</h2>
-            <p>Haz clic en "Ganar" para ver el anuncio patrocinado y sumar saldo a tu cuenta.</p>
+            <h2>🎬 Zona de Entretenimiento y Videos Virales</h2>
+            <p>Mira los videos del día, reproduce el contenido multimedia y gana saldo automáticamente.</p>
             
             <div class="task-list">
                 <div class="task-item">
-                    <span>Visitar enlace patrocinado #1 (15 seg)</span>
+                    <span>🎥 Video Viral #1: El misterio de las calles (20 seg)</span>
+                    <button class="btn" onclick="doTask(0.002)">Ver Video ($0.002)</button>
+                </div>
+                <div class="task-item">
+                    <span>🔥 Reel de Humor #2: Momentos épicos</span>
+                    <button class="btn" onclick="doTask(0.002)">Ver Reel ($0.002)</button>
+                </div>
+                <div class="task-item">
+                    <span>💡 Curiosidad del Día #3: Sabías que...</span>
+                    <button class="btn" onclick="doTask(0.003)">Ver Artículo ($0.003)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📝 Micro-tareas Tradicionales</h2>
+            <p>Completa estas interacciones rápidas para sumar un extra.</p>
+            
+            <div class="task-list">
+                <div class="task-item">
+                    <span>Visitar enlace patrocinado #1</span>
                     <button class="btn" onclick="doTask(0.001)">Ganar $0.001</button>
-                </div>
-                <div class="task-item">
-                    <span>Ver anuncio de redirección #2</span>
-                    <button class="btn" onclick="doTask(0.002)">Ganar $0.002</button>
-                </div>
-                <div class="task-item">
-                    <span>Completar micro-verificación #3</span>
-                    <button class="btn" onclick="doTask(0.003)">Ganar $0.003</button>
                 </div>
             </div>
         </div>
@@ -69,7 +81,7 @@
 
     <script>
         // Sistema de versión para reiniciar datos viejos y forzar registro limpio
-        const appVersion = 'v2_reset';
+        const appVersion = 'v3_entertainment';
         if (localStorage.getItem('appVersion') !== appVersion) {
             localStorage.clear();
             localStorage.setItem('appVersion', appVersion);
@@ -78,7 +90,6 @@
         // Cargar datos del usuario
         const savedUser = localStorage.getItem('currentUser');
         if (!savedUser) {
-            // Si no hay usuario registrado, redirigir al index o pedir nombre rápido
             const userName = prompt('Por favor, ingresa tu correo o nombre de usuario para registrarte:') || 'Usuario';
             localStorage.setItem('currentUser', userName);
             window.location.reload();
@@ -102,7 +113,7 @@
             localStorage.setItem('userBalance', currentBalance.toFixed(3));
             document.getElementById('balance').innerText = currentBalance.toFixed(3);
             
-            alert('¡Anuncio verificado! Se han sumado $' + amount.toFixed(3) + ' a tu cuenta.');
+            alert('¡Contenido verificado con éxito! Se han sumado $' + amount.toFixed(3) + ' a tu cuenta.');
         }
 
         function saveWallet() {
