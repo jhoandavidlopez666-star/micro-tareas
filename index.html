@@ -3,23 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Media Group | Panel de Operaciones</title>
+    <title>Nexus Global | Portal Corporativo de Teletrabajo</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; }
-        
-        body { 
-            background: #0b0f19; 
-            color: #f3f4f6; 
-            display: flex;
-            min-height: 100vh; 
-            overflow-x: hidden;
+        :root {
+            --bg-main: #060913;
+            --bg-sidebar: #0b101d;
+            --bg-card: #101728;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --success: #10b981;
+            --warning: #f59e0b;
         }
 
-        /* BARRA LATERAL IZQUIERDA (Estilo Monetag / Panel Pro) */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        
+        body { 
+            background: var(--bg-main); 
+            color: var(--text-main); 
+            display: flex;
+            min-height: 100vh; 
+        }
+
+        /* BARRA LATERAL CORPORATIVA */
         .sidebar {
-            width: 260px;
-            background: #111827;
-            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            width: 270px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             position: fixed;
@@ -28,27 +40,26 @@
         }
 
         .sidebar-brand {
-            padding: 24px 20px;
+            padding: 24px 22px;
             font-size: 16px;
-            font-weight: 800;
+            font-weight: 700;
             color: #ffffff;
             letter-spacing: 0.5px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            background: rgba(17, 24, 39, 0.95);
+            border-bottom: 1px solid var(--border-color);
         }
-        .sidebar-brand span { color: #34d399; display: block; font-size: 10px; font-weight: 600; margin-top: 4px; letter-spacing: 1px; }
+        .sidebar-brand span { color: var(--success); display: block; font-size: 10px; font-weight: 600; margin-top: 4px; letter-spacing: 1.5px; text-transform: uppercase; }
 
         .sidebar-menu {
             list-style: none;
-            padding: 20px 12px;
+            padding: 16px 12px;
             flex-grow: 1;
         }
 
         .sidebar-menu li {
-            padding: 12px 15px;
+            padding: 13px 16px;
             border-radius: 8px;
             margin-bottom: 6px;
-            color: #9ca3af;
+            color: var(--text-muted);
             font-size: 13.5px;
             font-weight: 500;
             cursor: pointer;
@@ -59,346 +70,308 @@
         }
 
         .sidebar-menu li:hover, .sidebar-menu li.active {
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
+            background: rgba(37, 99, 235, 0.15);
+            color: #60a5fa;
         }
 
-        /* CONTENIDO PRINCIPAL A LA DERECHA */
+        /* CONTENIDO PRINCIPAL */
         .main-content {
-            margin-left: 260px;
+            margin-left: 270px;
             flex-grow: 1;
             padding: 30px;
-            background: #0b0f19;
-            min-height: 100vh;
         }
 
         .top-header {
-            background: #111827;
-            padding: 20px 25px;
+            background: var(--bg-card);
+            padding: 20px 28px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        .top-header h2 { font-size: 18px; color: #ffffff; font-weight: 600; }
-        .balance-badge { background: #1f2937; padding: 10px 18px; border-radius: 8px; border: 1px solid #4f46e5; color: #818cf8; font-weight: 600; font-size: 14px; }
+        .top-header h2 { font-size: 17px; color: #ffffff; font-weight: 600; }
+        .company-status { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--success); background: rgba(16, 185, 129, 0.1); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
 
-        /* Cuadrícula de Tarjetas */
-        .dashboard-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 20px; 
-        }
-        
-        @media(max-width: 900px) { 
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .sidebar { width: 70px; }
-            .sidebar-brand span, .sidebar-menu span { display: none; }
-            .main-content { margin-left: 70px; }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
+        .section-view { display: none; }
+        .section-view.active-view { display: block; }
+
+        /* TARJETAS Y COMPONENTES */
         .card { 
-            background: #111827; 
-            padding: 25px; 
-            border-radius: 14px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3); 
-            border: 1px solid rgba(255, 255, 255, 0.06); 
+            background: var(--bg-card); 
+            padding: 26px; 
+            border-radius: 12px; 
+            border: 1px solid var(--border-color); 
+            margin-bottom: 22px;
         }
-        
-        .card.full-width { grid-column: 1 / -1; }
 
         .card h3 { 
-            color: #818cf8; 
+            color: #ffffff; 
             margin-bottom: 12px; 
-            font-size: 15px; 
+            font-size: 15.5px; 
             font-weight: 600;
             display: flex; 
             align-items: center; 
             gap: 10px; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06); 
-            padding-bottom: 10px; 
+            border-bottom: 1px solid var(--border-color); 
+            padding-bottom: 12px; 
         }
-        
-        .card p { color: #9ca3af; font-size: 13.5px; margin-bottom: 15px; line-height: 1.5; }
+
+        .card p { color: var(--text-muted); font-size: 13.5px; line-height: 1.6; margin-bottom: 16px; }
 
         .btn { 
-            background: linear-gradient(135deg, #4f46e5, #3730a3); 
+            background: var(--accent); 
             color: #fff; 
             border: none; 
-            padding: 12px 20px; 
+            padding: 11px 20px; 
             border-radius: 8px; 
             font-weight: 600; 
             cursor: pointer; 
-            transition: all 0.2s ease; 
-            width: 100%; 
-            margin-top: 10px; 
-            font-size: 14px;
+            transition: background 0.2s; 
+            font-size: 13.5px;
         }
-        .btn:hover { background: linear-gradient(135deg, #4338ca, #312e81); }
+        .btn:hover { background: var(--accent-hover); }
+        .btn-success { background: var(--success); color: #000; }
 
         .input-field { 
             width: 100%; 
-            padding: 12px 15px; 
+            padding: 12px 16px; 
             border-radius: 8px; 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            background: #030712; 
+            border: 1px solid var(--border-color); 
+            background: var(--bg-main); 
             color: #f9fafb; 
-            margin-bottom: 15px; 
+            margin-bottom: 14px; 
             font-size: 14px; 
             outline: none;
         }
-        .input-field:focus { border-color: #6366f1; }
+        .input-field:focus { border-color: var(--accent); }
 
-        .inner-box { 
-            background: #030712; 
-            border: 1px solid rgba(255, 255, 255, 0.04); 
-            padding: 16px; 
-            border-radius: 10px; 
-            margin-bottom: 15px; 
+        /* GRID CORPORATIVO */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+        .info-box {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 18px;
+            border-radius: 8px;
         }
 
-        /* PANTALLA DE REGISTRO Y VALIDACIÓN CORREO */
+        /* LOGIN / REGISTRO DE COLABORADOR */
         #authScreen { 
-            display: flex; 
-            position: fixed; 
-            top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(3, 7, 18, 0.95); 
-            z-index: 9999; 
-            justify-content: center; 
-            align-items: center; 
-            padding: 20px; 
+            display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(6, 9, 19, 0.98); z-index: 9999; justify-content: center; align-items: center; padding: 20px; 
         }
-
         .auth-card { 
-            background: #111827; 
-            border: 1px solid rgba(59, 130, 246, 0.3); 
-            padding: 35px; 
-            border-radius: 16px; 
-            max-width: 450px; 
-            width: 100%; 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8); 
-            position: relative;
+            background: var(--bg-card); border: 1px solid var(--border-color); padding: 35px; border-radius: 14px; max-width: 420px; width: 100%; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        .auth-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 5px;
-            background: linear-gradient(90deg, #facc15 33.3%, #2563eb 33.3%, #2563eb 66.6%, #dc2626 66.6%);
-            border-top-left-radius: 16px;
-            border-top-right-radius: 16px;
+        @media(max-width: 850px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .sidebar { width: 70px; }
+            .sidebar-brand span, .sidebar-menu span { display: none; }
+            .main-content { margin-left: 70px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA DE ACCESO Y VERIFICACIÓN POR CORREO -->
+    <!-- REGISTRO / ACCESO DE PERSONAL -->
     <div id="authScreen">
         <div class="auth-card">
-            <div style="text-align: center; margin-bottom: 25px;">
-                <h2 style="color: #ffffff; font-size: 18px; font-weight: 700;">NEXUS MEDIA GROUP C.A.</h2>
-                <p style="color: #34d399; font-size: 11px; font-weight: 700; margin-top: 4px; letter-spacing: 1px;">ACCESO OFICIAL - CONTROL REMOTO</p>
-            </div>
+            <h3 style="color: #fff; font-size: 18px; margin-bottom: 4px; text-align: center;">NEXUS GLOBAL CORP.</h3>
+            <p style="color: var(--success); font-size: 10.5px; font-weight: 700; text-align: center; margin-bottom: 25px; letter-spacing: 1.5px; text-transform: uppercase;">Portal de Teletrabajo y Gestión Remota</p>
 
-            <!-- PASO 1 -->
             <div id="step1">
-                <p style="margin-bottom: 18px; color: #9ca3af; font-size: 13px; text-align: center;">Ingrese sus datos para registrar el expediente en el sistema corporativo.</p>
-                
-                <label style="font-size: 12px; color: #d1d5db; display: block; margin-bottom: 5px;">Nombre Completo:</label>
+                <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">Nombre y Apellido del Colaborador:</label>
                 <input type="text" id="regName" class="input-field" placeholder="Ej: Jhoan David Lopez">
                 
-                <label style="font-size: 12px; color: #d1d5db; display: block; margin-bottom: 5px;">Correo Electrónico:</label>
+                <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">Correo Corporativo / Personal:</label>
                 <input type="email" id="regEmail" class="input-field" placeholder="correo@gmail.com">
-                
-                <label style="font-size: 12px; color: #d1d5db; display: block; margin-bottom: 5px;">Teléfono Móvil:</label>
-                <input type="text" id="regPhone" class="input-field" placeholder="Ej: +58 04220139930">
-                
-                <button class="btn" style="background: #2563eb;" onclick="sendVerificationCode()">Enviar Código al Correo</button>
-            </div>
 
-            <!-- PASO 2 -->
-            <div id="step2" style="display: none;">
-                <p style="margin-bottom: 18px; color: #34d399; font-size: 13px; text-align: center;">✉️ Código de verificación de 4 dígitos enviado a su correo.</p>
+                <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">Teléfono de Contacto:</label>
+                <input type="text" id="regPhone" class="input-field" placeholder="+58 4220139930">
                 
-                <label style="font-size: 12px; color: #d1d5db; display: block; margin-bottom: 5px; text-align: center;">Código de Seguridad:</label>
-                <input type="text" id="verificationInput" class="input-field" placeholder="0000" style="text-align: center; letter-spacing: 8px; font-size: 22px; font-weight: bold;">
-                
-                <button class="btn" style="background: #10b981; color: #030712;" onclick="verifyAndAccess()">Verificar y Entrar</button>
+                <button class="btn" style="width: 100%; margin-top: 5px;" onclick="registerEmployee()">Ingresar al Sistema</button>
             </div>
         </div>
     </div>
 
-    <!-- BARRA LATERAL (SIDEBAR TIPO MONETAG) -->
+    <!-- MENÚ LATERAL CORPORATIVO -->
     <div class="sidebar" id="appSidebar" style="display: none;">
         <div class="sidebar-brand">
-            NEXUS MEDIA
-            <span>PANEL OPERATIVO</span>
+            NEXUS GLOBAL
+            <span>Corporativo Home Office</span>
         </div>
         <ul class="sidebar-menu">
-            <li class="active">📊 <span>Estadísticas</span></li>
-            <li>📁 <span>Expediente</span></li>
-            <li>⚙️ <span>Tareas y Tráfico</span></li>
-            <li>💳 <span>Nómina y Pagos</span></li>
-            <li>🏆 <span>Red de Bonos</span></li>
+            <li class="active" onclick="switchTab('homeoffice', this)">🏢 <span>Portal Home Office</span></li>
+            <li onclick="switchTab('recruitment', this)">👥 <span>Programa de Talento</span></li>
+            <li onclick="switchTab('payroll', this)">💳 <span>Nómina y Pagos</span></li>
+            <li onclick="switchTab('profile', this)">📁 <span>Expediente Laboral</span></li>
         </ul>
     </div>
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- PANEL PRINCIPAL -->
     <div class="main-content" id="mainDashboard" style="display: none;">
         
         <div class="top-header">
-            <h2>Panel de Control y Operaciones</h2>
-            <div class="balance-badge">
-                Sueldo Semanal: $<span id="balance">20.000</span> USD
+            <h2 id="viewTitle">Portal de Operaciones Remotas</h2>
+            <div class="company-status">
+                <span class="dot"></span> Teletrabactivo Activo [Remoto]
             </div>
         </div>
 
-        <div class="dashboard-grid">
-            
-            <!-- Expediente -->
-            <div class="card full-width">
-                <h3>👤 Expediente del Operador</h3>
-                <p>Colaborador: <strong id="userDisplay" style="color: #ffffff;"></strong> | Contacto: <span id="contactDisplay" style="color: #38bdf8;"></span></p>
-                <p style="margin: 0;">Estatus del Sistema: <span style="color: #34d399; font-weight: bold;">[ACTIVO - REMOTO DESDE CASA]</span></p>
-            </div>
+        <!-- SECCIÓN 1: PORTAL HOME OFFICE -->
+        <div id="view-homeoffice" class="section-view active-view">
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🕒 Jornada Laboral Remota</h3>
+                    <p>Controle su registro de asistencia diaria y verifique los bloques de operaciones asignados por la compañía desde su hogar.</p>
+                    <div class="info-box" style="margin-bottom: 15px;">
+                        <p style="color: #fff; margin-bottom: 6px;">Estado del Turno: <strong style="color: var(--success);">En Línea / Operativo</strong></p>
+                        <p style="margin: 0; font-size: 12.5px;">Sueldo Base Asignado: <strong>$20.00 USD Semanales</strong></p>
+                    </div>
+                    <button class="btn btn-success" onclick="checkIn()">Registrar Marcaje de Jornada</button>
+                </div>
 
-            <!-- Tareas Operativas -->
-            <div class="card">
-                <h3>📋 Módulo de Tareas & Operaciones</h3>
-                <p>Ejecute las operaciones diarias asignadas para mantener validada su jornada laboral.</p>
-                <div class="inner-box">
-                    <h4 style="color: #facc15; font-size: 13.5px; margin-bottom: 5px;">⚙️ Validación de Tráfico Web</h4>
-                    <p style="color: #9ca3af; font-size: 12px; margin-bottom: 10px;">Procesamiento y control operativo del sistema.</p>
-                    <button class="btn" style="background-color: #f59e0b; color: #030712;" onclick="completeTask()">Completar Tarea Diaria</button>
+                <div class="card">
+                    <h3>📋 Protocolos y Tareas de Oficina</h3>
+                    <p>Instrucciones operativas y directrices corporativas para el desarrollo de actividades a distancia.</p>
+                    <div class="info-box">
+                        <p style="color: #facc15; font-size: 13px; margin-bottom: 8px;">📌 Aviso de la Dirección:</p>
+                        <p style="font-size: 12.5px; margin: 0;">Mantenga los canales de comunicación activos y complete los reportes semanales antes del cierre de cada ciclo fiscal.</p>
+                    </div>
                 </div>
             </div>
-
-            <!-- Nómina / Binance Pay -->
-            <div class="card">
-                <h3>💳 Nómina & Binance Pay</h3>
-                <p>Configure sus datos para recibir sus pagos semanales de manera directa y segura.</p>
-                <input type="text" id="cryptoWallet" class="input-field" placeholder="Correo o ID de Binance Pay">
-                <button class="btn" onclick="saveWallet()">Guardar Datos de Pago</button>
-            </div>
-
-            <!-- Red de Reclutamiento -->
-            <div class="card full-width">
-                <h3>🏆 Red de Reclutamiento & Bonos</h3>
-                <p>Aumente sus ingresos invitando a más colaboradores a trabajar desde casa:</p>
-                <div class="inner-box" style="border-color: rgba(59, 130, 246, 0.3);">
-                    <p style="color: #ffffff; font-size: 13px; margin: 0;">• Al registrar <strong>35 colaboradores activos</strong> bajo su gestión, desbloquea su bonificación semanal escalada de <strong>$20 a $45 USD</strong>.</p>
-                </div>
-                <div class="inner-box" style="text-align: center; border-style: dashed;">
-                    <p style="color: #d1d5db; margin-bottom: 8px; font-size: 13px;">Su enlace institucional de incorporación:</p>
-                    <div id="refLinkText" style="background: #030712; color: #818cf8; padding: 10px; border-radius: 6px; word-break: break-all; font-size: 12px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1);">Generando enlace...</div>
-                    <button class="btn" style="background-color: #10b981; color: #030712; width: auto; padding: 8px 20px;" onclick="copyRefLink()">Copiar Enlace</button>
-                    <p style="margin-top: 12px; margin-bottom: 0; font-size: 13px; color: #9ca3af;">Colaboradores activos: <strong id="refCount" style="color: #38bdf8;">0</strong> / 35</p>
-                </div>
-            </div>
-
         </div>
+
+        <!-- SECCIÓN 2: PROGRAMA DE TALENTO Y REFERIDOS -->
+        <div id="view-recruitment" class="section-view">
+            <div class="card">
+                <h3>👥 Programa de Expansión y Captación de Talento</h3>
+                <p>La compañía fomenta el crecimiento corporativo a través de nuestra red de referidos estratégicos. Incorpore nuevos profesionales a su equipo de trabajo bajo los estándares de Nexus Global.</p>
+                
+                <div class="grid-2" style="margin-bottom: 20px;">
+                    <div class="info-box">
+                        <strong style="color: #60a5fa; display: block; margin-bottom: 6px; font-size: 13.5px;">📖 Guía y Beneficios del Programa</strong>
+                        <p style="font-size: 12.5px; margin: 0;">Por cada colaborador que se incorpore a través de su enlace institucional, cumpla con sus protocolos y mantenga su estatus activo, usted acumula créditos de bonificación escalada que elevan su compensación semanal hasta los <strong>$45 USD</strong> adicionales.</p>
+                    </div>
+                    <div class="info-box">
+                        <strong style="color: var(--success); display: block; margin-bottom: 6px; font-size: 13.5px;">📊 Escala de Rendimiento</strong>
+                        <p style="font-size: 12.5px; margin: 0;">Meta corporativa: Al consolidar una red de <strong>35 colaboradores activos</strong> bajo su supervisión, desbloquea de forma automática los beneficios de rango superior en la nómina.</p>
+                    </div>
+                </div>
+
+                <div style="background: var(--bg-main); border: 1px dashed var(--border-color); padding: 20px; border-radius: 8px; text-align: center;">
+                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 10px;">Su Enlace Corporativo de Referencia Institucional:</p>
+                    <div id="refLinkText" style="background: #000; color: #818cf8; padding: 12px; border-radius: 6px; word-break: break-all; font-size: 12px; margin-bottom: 15px; border: 1px solid var(--border-color);">Generando enlace...</div>
+                    <button class="btn btn-success" onclick="copyRefLink()">Copiar Enlace Institucional</button>
+                    <p style="margin-top: 14px; font-size: 13px; color: var(--text-muted);">Colaboradores activos en su red: <strong id="refCount" style="color: #60a5fa;">0</strong> / 35</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: NÓMINA Y PAGOS -->
+        <div id="view-payroll" class="section-view">
+            <div class="card">
+                <h3>💳 Departamento de Administración y Nómina</h3>
+                <p>Configure sus datos de abono para recibir las liquidaciones semanales directas de la empresa mediante Binance Pay u otras pasarelas autorizadas.</p>
+                <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">Correo o ID de Binance Pay para Depósitos:</label>
+                <input type="text" id="walletInput" class="input-field" placeholder="ejemplo@gmail.com / ID de Cuenta">
+                <button class="btn" onclick="saveWalletData()">Guardar Datos Bancarios / Cuenta</button>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: EXPEDIENTE LABORAL -->
+        <div id="view-profile" class="section-view">
+            <div class="card">
+                <h3>📁 Expediente del Colaborador</h3>
+                <p>Información oficial registrada en el directorio de personal de Nexus Global Corp.</p>
+                <div class="info-box">
+                    <p style="color: #fff; margin-bottom: 8px;">Colaborador: <strong id="empNameDisp" style="color: #60a5fa;"></strong></p>
+                    <p style="color: #fff; margin-bottom: 8px;">Contacto: <strong id="empContactDisp" style="color: #facc15;"></strong></p>
+                    <p style="color: #fff; margin-bottom: 8px;">Modalidad: <strong style="color: var(--success);">Teletrabajo Remoto (Home Office)</strong></p>
+                    <p style="margin: 0; color: var(--success);">Estatus Corporativo: <strong>[CONTRATADO - ACTIVO]</strong></p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        let generatedCode = '';
-
-        function sendVerificationCode() {
+        function registerEmployee() {
             const name = document.getElementById('regName').value.trim();
             const email = document.getElementById('regEmail').value.trim();
             const phone = document.getElementById('regPhone').value.trim();
 
-            if(name === '' || email === '' || phone === '') {
-                alert('Por favor complete todos los campos obligatorios.');
-                return;
+            if(!name || !email || !phone) { 
+                alert('Por favor, complete todos los campos obligatorios del registro corporativo.'); 
+                return; 
             }
-            if(!email.includes('@')) {
-                alert('Por favor ingrese un correo electrónico válido.');
-                return;
-            }
-
-            generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
-            localStorage.setItem('tempName', name);
-            localStorage.setItem('tempContact', email + ' / ' + phone);
-
-            alert('¡Código de verificación enviado al correo ' + email + '! (Código de prueba: ' + generatedCode + ')');
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('step2').style.display = 'block';
-        }
-
-        function verifyAndAccess() {
-            const userInput = document.getElementById('verificationInput').value.trim();
-            if(userInput !== generatedCode) {
-                alert('El código de verificación ingresado es incorrecto.');
-                return;
-            }
-
-            localStorage.setItem('currentUser', localStorage.getItem('tempName'));
-            localStorage.setItem('userContact', localStorage.getItem('tempContact'));
             
-            document.getElementById('authScreen').style.display = 'none';
-            document.getElementById('appSidebar').style.display = 'flex';
-            document.getElementById('mainDashboard').style.display = 'block';
-            window.location.reload();
+            localStorage.setItem('nexusEmpName', name);
+            localStorage.setItem('nexusEmpContact', email + ' | ' + phone);
+            location.reload();
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
+            const employee = localStorage.getItem('nexusEmpName');
+            if(employee) {
                 document.getElementById('authScreen').style.display = 'none';
                 document.getElementById('appSidebar').style.display = 'flex';
                 document.getElementById('mainDashboard').style.display = 'block';
-                initDashboard();
+
+                document.getElementById('empNameDisp').innerText = employee;
+                document.getElementById('empContactDisp').innerText = localStorage.getItem('nexusEmpContact');
+
+                const link = window.location.href.split('?')[0] + '?ref=' + encodeURIComponent(employee);
+                document.getElementById('refLinkText').innerText = link;
+                window.globalLink = link;
+
+                let network = JSON.parse(localStorage.getItem('net_' + employee)) || {count: 0};
+                document.getElementById('refCount').innerText = network.count;
             }
         });
 
-        function initDashboard() {
-            const currentUser = localStorage.getItem('currentUser');
-            const userContact = localStorage.getItem('userContact');
-            document.getElementById('userDisplay').innerText = currentUser;
-            document.getElementById('contactDisplay').innerText = userContact;
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.section-view').forEach(v => v.classList.remove('active-view'));
+            document.querySelectorAll('.sidebar-menu li').forEach(l => l.classList.remove('active'));
+            
+            document.getElementById('view-' + tabId).classList.add('active-view');
+            el.classList.add('active');
 
-            let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 20.000;
-            document.getElementById('balance').innerText = currentBalance.toFixed(3);
+            const titles = {
+                'homeoffice': 'Portal de Operaciones Remotas',
+                'recruitment': 'Programa de Expansión y Talento',
+                'payroll': 'Departamento de Administración y Nómina',
+                'profile': 'Expediente del Colaborador'
+            };
+            document.getElementById('viewTitle').innerText = titles[tabId];
+        }
 
-            const urlParams = new URLSearchParams(window.location.search);
-            const referrer = urlParams.get('ref');
-            if (referrer && referrer !== currentUser) {
-                let refData = JSON.parse(localStorage.getItem('refStorage_' + referrer)) || { count: 0 };
-                refData.count += 1;
-                localStorage.setItem('refStorage_' + referrer, JSON.stringify(refData));
-            }
-
-            let myRefData = JSON.parse(localStorage.getItem('refStorage_' + currentUser)) || { count: 0 };
-            document.getElementById('refCount').innerText = myRefData.count;
-
-            const currentCleanUrl = window.location.href.split('?')[0];
-            const userRefLink = currentCleanUrl + '?ref=' + encodeURIComponent(currentUser);
-            document.getElementById('refLinkText').innerText = userRefLink;
-            window.userRefLinkGlobal = userRefLink;
+        function checkIn() { 
+            alert('✅ Marcaje de jornada remota registrado con éxito. Su tiempo en línea ha quedado validado para el sistema.'); 
         }
 
         function copyRefLink() {
-            navigator.clipboard.writeText(window.userRefLinkGlobal).then(() => {
-                alert('¡Enlace institucional copiado con éxito!');
-            });
+            navigator.clipboard.writeText(window.globalLink);
+            alert('¡Enlace institucional de talento copiado al portapapeles!');
         }
 
-        function completeTask() {
-            alert('✅ ¡Tarea operativa completada con éxito! Su registro de tráfico diario ha sido guardado.');
-        }
-
-        function saveWallet() {
-            const wallet = document.getElementById('cryptoWallet').value.trim();
-            if(wallet === '') {
-                alert('Ingrese su correo o ID de Binance Pay.');
-                return;
-            }
-            localStorage.setItem('userCryptoWallet', wallet);
-            alert('¡Datos de Binance Pay guardados correctamente para la nómina!');
+        function saveWalletData() {
+            const w = document.getElementById('walletInput').value.trim();
+            if(!w) { alert('Ingrese su cuenta o ID de Binance Pay.'); return; }
+            localStorage.setItem('nexusWallet', w);
+            alert('¡Datos de cobro corporativo actualizados correctamente!');
         }
     </script>
 </body>
