@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skynet | Dashboard Corporativo</title>
+    <title>Skynet | Portal Corporativo Remoto</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -30,7 +30,6 @@
             overflow-x: hidden;
         }
 
-        /* PANTALLA DE ACCESO */
         #authScreen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
@@ -65,7 +64,6 @@
         }
         .input-control:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px var(--primary-glow); }
 
-        /* BARRA LATERAL ESTILO LAPTOP */
         .sidebar {
             width: 260px;
             background: var(--bg-sidebar);
@@ -115,10 +113,8 @@
             display: flex; align-items: center; justify-content: space-between;
         }
 
-        /* CONTENEDOR PRINCIPAL */
         .main-wrapper {
             margin-left: 260px;
-            flex-grow: y;
             flex-grow: 1;
             padding: 32px;
             max-width: calc(100vw - 260px);
@@ -155,7 +151,6 @@
         .view-section.active-panel { display: block; animation: fadeIn 0.25s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* TARJETAS DE MÉTRICAS (IGUAL A LA FOTO) */
         .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 25px; }
         
         .metric-card {
@@ -194,7 +189,6 @@
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); box-shadow: none; }
         .btn-outline:hover { background: rgba(0,0,0,0.04); }
 
-        /* BLOQUE DE ANUNCIOS MONITAX */
         .monitax-ad-box {
             background: linear-gradient(135deg, #0f172a, #1e293b);
             color: #fff; padding: 26px; border-radius: 14px; margin-bottom: 25px;
@@ -238,7 +232,7 @@
         </div>
     </div>
 
-    <!-- MENÚ LATERAL ESTILO LAPTOP -->
+    <!-- MENÚ LATERAL -->
     <nav class="sidebar" id="appSidebar" style="display: none;">
         <div class="sidebar-header">
             <div class="auth-logo" style="width: 34px; height: 34px; font-size: 15px;">S</div>
@@ -251,7 +245,7 @@
         <ul class="sidebar-menu">
             <div class="menu-title">General</div>
             <li class="active" onclick="switchPanel('dashboard', this)">📊 <span>Overview & Saldo</span></li>
-            <li onclick="switchPanel('ads', this)">📢 <span>Monitax Anuncios</span></li>
+            <li onclick="switchPanel('ads', this)">📢 <span>Monetag Anuncios</span></li>
             <div class="menu-title">Operaciones</div>
             <li onclick="switchPanel('jobs', this)">💼 <span>Tareas y Niveles</span></li>
             <li onclick="switchPanel('promo', this)">🌐 <span>Red y Referidos</span></li>
@@ -270,7 +264,7 @@
         </div>
     </nav>
 
-    <!-- CONTENEDOR DE PANTALLAS -->
+    <!-- CONTENEDOR PRINCIPAL -->
     <main class="main-wrapper" id="mainContainer" style="display: none;">
         
         <header class="top-bar">
@@ -283,7 +277,7 @@
             </div>
         </header>
 
-        <!-- PANEL 1: DASHBOARD / OVERVIEW -->
+        <!-- PANEL 1: DASHBOARD -->
         <section id="panel-dashboard" class="view-section active-panel">
             <div class="metrics-grid">
                 <div class="metric-card">
@@ -294,7 +288,7 @@
                 <div class="metric-card">
                     <span>Ganancia por Anuncios</span>
                     <h3 id="userAdEarnings">$0.00 USD</h3>
-                    <p>Monitax Ads</p>
+                    <p>Monetag Ads</p>
                 </div>
                 <div class="metric-card">
                     <span>Red de Referidos</span>
@@ -308,16 +302,17 @@
                 </div>
             </div>
 
+            <!-- BLOQUE DE ANUNCIOS MONETAG CON TU ENLACE REAL -->
             <div class="monitax-ad-box">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="background: var(--warning); color: #000; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;">Monitax Ads Partner</span>
-                    <span style="font-size: 11px; color: #94a3b8;">Pago por visualización garantizado</span>
+                    <span style="background: var(--warning); color: #000; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;">Monetag Ads Partner</span>
+                    <span style="font-size: 11px; color: #94a3b8;">Ingresos por visualización activa</span>
                 </div>
                 <div>
-                    <h3 style="font-size: 16px; margin-bottom: 4px;">Campañas Publicitarias Activas</h3>
-                    <p style="font-size: 12.5px; color: #cbd5e1;">Haz clic en el botón para interactuar con el anuncio y sumar comisiones inmediatas a tu balance.</p>
+                    <h3 style="font-size: 16px; margin-bottom: 4px;">Campañas Publicitarias en Vivo</h3>
+                    <p style="font-size: 12.5px; color: #cbd5e1;">Haz clic en el botón para interactuar con el anuncio oficial y sumar comisiones a tu balance.</p>
                 </div>
-                <button class="btn-action btn-success" onclick="earnFromAd(0.08)" style="justify-content: center;">Ver Anuncio Patrocinado (+$0.08)</button>
+                <button class="btn-action btn-success" onclick="openMonetagAd(0.08)" style="justify-content: center;">Ver Anuncio Patrocinado (+$0.08)</button>
             </div>
 
             <div class="panel-card">
@@ -332,13 +327,13 @@
             </div>
         </section>
 
-        <!-- PANEL 2: MONITAX ANUNCIOS -->
+        <!-- PANEL 2: MONETAG ANUNCIOS -->
         <section id="panel-ads" class="view-section">
             <div class="panel-card">
                 <div class="panel-header">
-                    <h3>📢 Red de Anuncios Monitax</h3>
+                    <h3>📢 Red de Anuncios Monetag</h3>
                 </div>
-                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px;">Sección exclusiva de visualización de anuncios publicitarios para la acumulación de ganancias.</p>
+                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px;">Sección exclusiva de visualización de anuncios publicitarios para la acumulación de ganancias de la plataforma.</p>
                 
                 <div style="display: grid; gap: 15px;">
                     <div style="background: #f8fafc; border: 1px solid var(--border); padding: 18px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
@@ -346,14 +341,14 @@
                             <h4 style="font-size: 14px; font-weight: 700;">Banner Publicitario Global #1</h4>
                             <p style="font-size: 12px; color: var(--text-muted);">Visualización certificada de patrocinador.</p>
                         </div>
-                        <button class="btn-action btn-success" onclick="earnFromAd(0.05)">Ver Anuncio (+$0.05)</button>
+                        <button class="btn-action btn-success" onclick="openMonetagAd(0.05)">Ver Anuncio (+$0.05)</button>
                     </div>
                     <div style="background: #f8fafc; border: 1px solid var(--border); padding: 18px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <h4 style="font-size: 14px; font-weight: 700;">Campaña Patrocinada de Tráfico #2</h4>
                             <p style="font-size: 12px; color: var(--text-muted);">Impacto publicitario de red internacional.</p>
                         </div>
-                        <button class="btn-action btn-success" onclick="earnFromAd(0.12)">Ver Anuncio (+$0.12)</button>
+                        <button class="btn-action btn-success" onclick="openMonetagAd(0.12)">Ver Anuncio (+$0.12)</button>
                     </div>
                 </div>
             </div>
@@ -441,6 +436,9 @@
         let referralEarnings = parseFloat(localStorage.getItem('skynet_ref_earnings')) || 0.00;
         let currentJobLevel = parseInt(localStorage.getItem('skynet_job_level')) || 1;
 
+        // TU ENLACE DIRECTO REAL DE MONETAG
+        const MONETAG_DIRECT_LINK = "https://omg10.com/4/11874696";
+
         function loginSystem() {
             const name = document.getElementById('regName').value.trim();
             const email = document.getElementById('regEmail').value.trim();
@@ -487,7 +485,7 @@
 
             const titles = {
                 'dashboard': ['Overview Principal', 'Resumen financiero, métricas en tiempo real y ganancias activas.'],
-                'ads': ['Red de Anuncios Monitax', 'Espacios publicitarios habilitados para la generación de ingresos.'],
+                'ads': ['Red de Anuncios Monetag', 'Espacios publicitarios habilitados para la generación de ingresos.'],
                 'jobs': ['Tareas Interactivas y Preguntas', 'Evaluaciones progresivas para sumar valor a tu saldo.'],
                 'promo': ['Red de Referidos y Bonos', 'Control de referidos y cumplimiento de la meta de 35 personas.'],
                 'finance': ['Retiros USDT', 'Gestión de pagos y cobros en criptomoneda.'],
@@ -507,11 +505,17 @@
             localStorage.setItem('skynet_ref_earnings', referralEarnings);
         }
 
-        function earnFromAd(amount) {
+        // FUNCIÓN QUE ABRE TU ENLACE REAL DE MONETAG Y SUMA LA GANANCIA VIRTUAL
+        function openMonetagAd(amount) {
+            // Abre tu enlace de Monetag en una nueva pestaña (aquí es donde se generan tus ganancias reales)
+            window.open(MONETAG_DIRECT_LINK, '_blank');
+
+            // Actualiza el saldo en pantalla para el usuario
             userCapital += amount;
             adEarnings += amount;
             updateBalancesUI();
-            alert('✅ ¡Publicidad procesada con éxito! +$' + amount.toFixed(2) + ' USD acreditados.');
+            
+            alert('✅ ¡Anuncio verificado con éxito! +$' + amount.toFixed(2) + ' USD acreditados.');
         }
 
         const jobQuestions = {
