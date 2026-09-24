@@ -3,34 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skynet | Portal Corporativo de Teletrabajo Remoto</title>
+    <title>Skynet | Dashboard Corporativo</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #f1f5f9;
-            --bg-sidebar: #ffffff;
+            --bg-base: #f8fafc;
+            --bg-sidebar: #0f172a;
             --bg-card: #ffffff;
             --border: #e2e8f0;
             --primary: #2563eb;
             --primary-hover: #1d4ed8;
-            --primary-glow: rgba(37, 99, 235, 0.15);
+            --primary-glow: rgba(37, 99, 235, 0.12);
             --text-main: #0f172a;
             --text-muted: #64748b;
             --success: #10b981;
             --warning: #f59e0b;
-            --danger: #ef4444;
         }
 
-        body.dark-theme {
-            --bg-base: #0f172a;
-            --bg-sidebar: #1e293b;
-            --bg-card: #1e293b;
-            --border: #334155;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.3s, color 0.3s; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         
         body { 
             background: var(--bg-base); 
@@ -40,6 +30,7 @@
             overflow-x: hidden;
         }
 
+        /* PANTALLA DE ACCESO */
         #authScreen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
@@ -49,36 +40,35 @@
         .auth-container {
             background: #ffffff;
             border-top: 4px solid var(--primary);
-            padding: 40px; border-radius: 16px; width: 100%; max-width: 440px;
+            padding: 40px; border-radius: 16px; width: 100%; max-width: 420px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            color: #0f172a;
         }
 
         .auth-brand {
             display: flex; align-items: center; gap: 12px; margin-bottom: 25px;
         }
         .auth-logo {
-            width: 46px; height: 46px; background: var(--primary);
-            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            width: 44px; height: 44px; background: var(--primary);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
             font-size: 20px; font-weight: 800; color: #fff;
         }
-        .auth-brand h1 { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; color: #0f172a; }
-        .auth-brand span { font-size: 11px; color: var(--success); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; }
+        .auth-brand h1 { font-size: 19px; font-weight: 800; color: #0f172a; }
+        .auth-brand span { font-size: 11px; color: var(--success); font-weight: 700; text-transform: uppercase; display: block; }
 
-        .input-group { margin-bottom: 16px; }
-        .input-group label { display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 11.5px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase; }
         
         .input-control {
-            width: 100%; padding: 12px 16px; border-radius: 10px;
+            width: 100%; padding: 11px 15px; border-radius: 9px;
             border: 1px solid #cbd5e1; background: #f8fafc;
-            color: #0f172a; font-size: 14px; outline: none; transition: all 0.2s;
+            color: #0f172a; font-size: 13.5px; outline: none; transition: all 0.2s;
         }
         .input-control:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px var(--primary-glow); }
 
+        /* BARRA LATERAL ESTILO LAPTOP */
         .sidebar {
-            width: 270px;
+            width: 260px;
             background: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             position: fixed;
@@ -87,59 +77,62 @@
         }
 
         .sidebar-header {
-            padding: 22px;
-            border-bottom: 1px solid var(--border);
+            padding: 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             display: flex; align-items: center; gap: 12px;
         }
+        .sidebar-header h1 { font-size: 14px; font-weight: 800; color: #fff; letter-spacing: 0.5px; }
+        .sidebar-header span { font-size: 9.5px; color: var(--success); font-weight: 700; letter-spacing: 1px; }
 
         .sidebar-menu {
             list-style: none;
-            padding: 15px 12px;
+            padding: 20px 12px;
             flex-grow: 1;
             overflow-y: auto;
         }
 
-        .menu-title { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 10px 12px 4px; }
+        .menu-title { font-size: 9.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1.2px; padding: 10px 12px 6px; }
 
         .sidebar-menu li {
-            padding: 12px 14px;
+            padding: 11px 14px;
             border-radius: 8px;
             margin-bottom: 4px;
-            color: var(--text-muted);
-            font-size: 13.5px;
+            color: #94a3b8;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             display: flex; align-items: center; gap: 12px;
             transition: all 0.2s;
         }
 
-        .sidebar-menu li:hover { background: rgba(37, 99, 235, 0.08); color: var(--primary); }
-        .sidebar-menu li.active { background: var(--primary); color: #fff; }
+        .sidebar-menu li:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .sidebar-menu li.active { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
 
         .sidebar-footer {
-            padding: 15px 20px;
-            border-top: 1px solid var(--border);
-            background: rgba(0,0,0,0.02);
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            background: rgba(0,0,0,0.1);
             display: flex; align-items: center; justify-content: space-between;
         }
 
+        /* CONTENEDOR PRINCIPAL */
         .main-wrapper {
-            margin-left: 270px;
+            margin-left: 260px;
+            flex-grow: y;
             flex-grow: 1;
-            padding: 30px;
-            max-width: calc(100vw - 270px);
+            padding: 32px;
+            max-width: calc(100vw - 260px);
         }
 
         .top-bar {
             background: var(--bg-card);
-            padding: 20px 25px;
+            padding: 22px 28px;
             border-radius: 14px;
             border: 1px solid var(--border);
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
-
         .top-bar h2 { font-size: 18px; font-weight: 700; color: var(--text-main); }
         .top-bar p { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
 
@@ -150,7 +143,7 @@
             padding: 6px 14px; border-radius: 20px;
             font-size: 12px; font-weight: 700; color: var(--success);
         }
-        .pulse-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+        .pulse-dot { width: 7px; height: 7px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
 
         @keyframes pulse {
             0% { transform: scale(0.9); opacity: 0.8; }
@@ -159,28 +152,28 @@
         }
 
         .view-section { display: none; }
-        .view-section.active-panel { display: block; animation: fadeIn 0.3s ease; }
-
+        .view-section.active-panel { display: block; animation: fadeIn 0.25s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-        .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 25px; }
+        /* TARJETAS DE MÉTRICAS (IGUAL A LA FOTO) */
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 25px; }
         
         .metric-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 22px; border-radius: 14px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            padding: 20px; border-radius: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
-        .metric-card span { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px; }
-        .metric-card h3 { font-size: 24px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
-        .metric-card p { font-size: 12px; color: var(--success); font-weight: 600; }
+        .metric-card span { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+        .metric-card h3 { font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 2px; }
+        .metric-card p { font-size: 11.5px; color: var(--success); font-weight: 700; }
 
         .panel-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 26px; border-radius: 14px;
+            padding: 28px; border-radius: 14px;
             margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
         .panel-header {
@@ -191,7 +184,7 @@
 
         .btn-action {
             background: var(--primary); color: #fff; border: none; padding: 11px 20px;
-            border-radius: 9px; font-weight: 700; font-size: 13.5px; cursor: pointer;
+            border-radius: 9px; font-weight: 700; font-size: 13px; cursor: pointer;
             transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
             box-shadow: 0 4px 12px var(--primary-glow);
         }
@@ -199,85 +192,69 @@
         .btn-success { background: var(--success); color: #fff; }
         .btn-success:hover { background: #059669; }
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); box-shadow: none; }
-        .btn-outline:hover { background: rgba(0,0,0,0.05); }
+        .btn-outline:hover { background: rgba(0,0,0,0.04); }
 
-        .ad-banner-box {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 20px;
-            display: flex; justify-content: space-between; align-items: center; border: 1px solid #334155;
+        /* BLOQUE DE ANUNCIOS MONITAX */
+        .monitax-ad-box {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #fff; padding: 26px; border-radius: 14px; margin-bottom: 25px;
+            border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            display: flex; flex-direction: column; gap: 14px;
         }
 
-        @media(max-width: 900px) {
+        @media(max-width: 1024px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
             .sidebar { width: 70px; }
-            .sidebar-header h1, .sidebar-header span, .sidebar-user, .sidebar-menu span, .menu-title { display: none; }
+            .sidebar-header h1, .sidebar-header span, .sidebar-menu span, .menu-title, .sidebar-footer div { display: none; }
             .main-wrapper { margin-left: 70px; max-width: calc(100vw - 70px); }
-            .metrics-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA DE ACCESO SKYNET -->
+    <!-- ACCESO DIRECTO -->
     <div id="authScreen">
-        <div class="auth-container" id="authStep1">
+        <div class="auth-container">
             <div class="auth-brand">
                 <div class="auth-logo">S</div>
                 <div>
                     <h1>SKYNET</h1>
-                    <span>Plataforma de Teletrabajo Remoto</span>
+                    <span>Portal Corporativo Remoto</span>
                 </div>
             </div>
-            
             <div class="input-group">
-                <label>Nombre</label>
-                <input type="text" id="regName" class="input-control" placeholder="Escribe tu nombre completo">
+                <label>Nombre Completo</label>
+                <input type="text" id="regName" class="input-control" placeholder="Escribe tu nombre">
             </div>
             <div class="input-group">
                 <label>Correo Electrónico</label>
-                <input type="email" id="regEmail" class="input-control" placeholder="tucorreo@gmail.com">
+                <input type="email" id="regEmail" class="input-control" placeholder="correo@gmail.com">
             </div>
             <div class="input-group">
-                <label>Número</label>
-                <input type="text" id="regPhone" class="input-control" value="+58 422 013 9930">
+                <label>Número de Teléfono</label>
+                <input type="text" id="regPhone" class="input-control" value="+58 ">
             </div>
-            <button class="btn-action" style="width: 100%; justify-content: center; margin-top: 10px;" onclick="sendVerificationCode()">Generar Código de Acceso</button>
-        </div>
-
-        <!-- PASO 2: VALIDACIÓN DE CÓDIGO -->
-        <div class="auth-container" id="authStep2" style="display: none;">
-            <div class="auth-brand">
-                <div class="auth-logo">S</div>
-                <div>
-                    <h1>SKYNET</h1>
-                    <span>Seguridad de Acceso</span>
-                </div>
-            </div>
-            <p id="codeInfoText" style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; font-weight: 600;"></p>
-            <div class="input-group">
-                <label>Código de 4 Dígitos</label>
-                <input type="text" id="verCodeInput" class="input-control" placeholder="Ej: 4892" maxlength="4" style="text-align: center; font-size: 20px; letter-spacing: 5px;">
-            </div>
-            <button class="btn-action btn-success" style="width: 100%; justify-content: center; margin-top: 10px;" onclick="verifyCodeAndEnter()">Confirmar e Ingresar</button>
+            <button class="btn-action btn-success" style="width: 100%; justify-content: center; margin-top: 10px;" onclick="loginSystem()">Acceder al Dashboard</button>
         </div>
     </div>
 
-    <!-- MENÚ LATERAL -->
+    <!-- MENÚ LATERAL ESTILO LAPTOP -->
     <nav class="sidebar" id="appSidebar" style="display: none;">
         <div class="sidebar-header">
-            <div class="auth-logo" style="width: 36px; height: 36px; font-size: 16px;">S</div>
+            <div class="auth-logo" style="width: 34px; height: 34px; font-size: 15px;">S</div>
             <div>
-                <h1 style="font-size: 13px; font-weight: 800;">SKYNET CORP</h1>
-                <span style="font-size: 9px; color: var(--success); font-weight: 700;">EN LÍNEA</span>
+                <h1>SKYNET DASHBOARD</h1>
+                <span>ONLINE</span>
             </div>
         </div>
 
         <ul class="sidebar-menu">
-            <div class="menu-title">Principal</div>
-            <li class="active" onclick="switchPanel('dashboard', this)">📊 <span>Balance General</span></li>
+            <div class="menu-title">General</div>
+            <li class="active" onclick="switchPanel('dashboard', this)">📊 <span>Overview & Saldo</span></li>
             <li onclick="switchPanel('ads', this)">📢 <span>Monitax Anuncios</span></li>
-            <div class="menu-title">Trabajo Remoto</div>
-            <li onclick="switchPanel('jobs', this)">💼 <span>Trabajos y Preguntas</span></li>
-            <li onclick="switchPanel('promo', this)">🌐 <span>Tráfico y Redes</span></li>
+            <div class="menu-title">Operaciones</div>
+            <li onclick="switchPanel('jobs', this)">💼 <span>Tareas y Niveles</span></li>
+            <li onclick="switchPanel('promo', this)">🌐 <span>Red y Referidos</span></li>
             <div class="menu-title">Finanzas</div>
             <li onclick="switchPanel('finance', this)">💳 <span>Retiros USDT</span></li>
             <div class="menu-title">Sistema</div>
@@ -286,64 +263,71 @@
 
         <div class="sidebar-footer">
             <div style="overflow: hidden;">
-                <p id="sidebarUserName" style="font-size: 12px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">Operador</p>
-                <span style="font-size: 10px; color: var(--success);">Remoto Activo</span>
+                <p id="sidebarUserName" style="font-size: 11.5px; font-weight: 700; color: #fff; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">Operador</p>
+                <span style="font-size: 9.5px; color: var(--success);">Activo</span>
             </div>
-            <button class="btn-action btn-outline" style="padding: 5px 8px; font-size: 10.5px;" onclick="systemLogout()">Salir</button>
+            <button class="btn-action btn-outline" style="padding: 5px 8px; font-size: 10px; color: #cbd5e1; border-color: #334155;" onclick="logoutSystem()">Salir</button>
         </div>
     </nav>
 
-    <!-- CONTENEDOR PRINCIPAL -->
+    <!-- CONTENEDOR DE PANTALLAS -->
     <main class="main-wrapper" id="mainContainer" style="display: none;">
         
         <header class="top-bar">
             <div>
-                <h2 id="panelTitle">Balance General de Capital</h2>
-                <p id="panelSub">Resumen operativo y ganancias acumuladas en tiempo real.</p>
+                <h2 id="panelTitle">Overview Principal</h2>
+                <p id="panelSub">Resumen financiero, métricas en tiempo real y ganancias activas.</p>
             </div>
             <div class="live-pill">
-                <span class="pulse-dot"></span> Nodo Remoto [Venezuela]
+                <span class="pulse-dot"></span> Nodo Conectado [Venezuela]
             </div>
         </header>
 
-        <!-- PANEL 1: BALANCE GENERAL -->
+        <!-- PANEL 1: DASHBOARD / OVERVIEW -->
         <section id="panel-dashboard" class="view-section active-panel">
             <div class="metrics-grid">
                 <div class="metric-card">
-                    <span>Balance Total en Billetera</span>
+                    <span>Balance en Billetera</span>
                     <h3 id="userBalanceDisplay">$0.02 USD</h3>
-                    <p>Disponible para retiro en USDT</p>
+                    <p>Disponible USDT</p>
                 </div>
                 <div class="metric-card">
-                    <span>Ganancia por Referidos</span>
+                    <span>Ganancia por Anuncios</span>
+                    <h3 id="userAdEarnings">$0.00 USD</h3>
+                    <p>Monitax Ads</p>
+                </div>
+                <div class="metric-card">
+                    <span>Red de Referidos</span>
                     <h3 id="userReferralEarnings">$0.00 USD</h3>
-                    <p>Red de expansión activa</p>
+                    <p>Meta: 35 Personas</p>
                 </div>
                 <div class="metric-card">
-                    <span>Sueldo Base / Tareas</span>
+                    <span>Sueldo / Tareas Base</span>
                     <h3>$20.00 USD</h3>
-                    <p>Ciclo semanal estándar</p>
+                    <p>Ciclo Semanal</p>
                 </div>
             </div>
 
-            <div class="ad-banner-box">
-                <div>
-                    <span style="background: var(--warning); color: #000; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 4px; text-transform: uppercase;">Monitax Sponsor Ad</span>
-                    <h4 style="font-size: 15px; margin-top: 6px;">Visualiza anuncios y obtén micro-ganancias instantáneas</h4>
-                    <p style="font-size: 12px; color: #94a3b8; margin-top: 2px;">Gana recompensas directas viendo espacios publicitarios certificados.</p>
+            <div class="monitax-ad-box">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="background: var(--warning); color: #000; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;">Monitax Ads Partner</span>
+                    <span style="font-size: 11px; color: #94a3b8;">Pago por visualización garantizado</span>
                 </div>
-                <button class="btn-action btn-success" onclick="viewMonitaxAd()">Ver Anuncio ($0.02)</button>
+                <div>
+                    <h3 style="font-size: 16px; margin-bottom: 4px;">Campañas Publicitarias Activas</h3>
+                    <p style="font-size: 12.5px; color: #cbd5e1;">Haz clic en el botón para interactuar con el anuncio y sumar comisiones inmediatas a tu balance.</p>
+                </div>
+                <button class="btn-action btn-success" onclick="earnFromAd(0.08)" style="justify-content: center;">Ver Anuncio Patrocinado (+$0.08)</button>
             </div>
 
             <div class="panel-card">
                 <div class="panel-header">
-                    <h3>⚡ Registro de Actividad y Asistencia Remota</h3>
-                    <button class="btn-action btn-success" onclick="registerCheckIn()">Registrar Jornada de Hoy</button>
+                    <h3>⚡ Registro de Jornada Diaria</h3>
+                    <button class="btn-action btn-success" onclick="registerCheckIn()">Registrar Asistencia Hoy</button>
                 </div>
-                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 15px;">Completa tus asistencias diarias para garantizar el cumplimiento corporativo desde tu hogar en Venezuela.</p>
-                <div style="background: #f8fafc; border: 1px solid var(--border); padding: 15px; border-radius: 10px;">
-                    <p style="font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Estado de Marcaje:</p>
-                    <span id="checkInTimestamp" style="font-size: 13.5px; color: var(--success); font-weight: 700;">Pendiente de marcaje hoy</span>
+                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 12px;">Confirma tu presencia diaria para asegurar el cumplimiento operativo en el sistema.</p>
+                <div style="background: #f8fafc; border: 1px solid var(--border); padding: 14px; border-radius: 9px;">
+                    <span id="checkInTimestamp" style="font-size: 13px; color: var(--success); font-weight: 700;">Estado: Pendiente de marcaje hoy</span>
                 </div>
             </div>
         </section>
@@ -352,42 +336,42 @@
         <section id="panel-ads" class="view-section">
             <div class="panel-card">
                 <div class="panel-header">
-                    <h3>📢 Red de Anuncios Patrocinados Monitax</h3>
+                    <h3>📢 Red de Anuncios Monitax</h3>
                 </div>
-                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px;">Cada anuncio visualizado incrementa el capital de tu billetera de retiro de forma inmediata.</p>
+                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px;">Sección exclusiva de visualización de anuncios publicitarios para la acumulación de ganancias.</p>
                 
                 <div style="display: grid; gap: 15px;">
                     <div style="background: #f8fafc; border: 1px solid var(--border); padding: 18px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
                         <div>
-                            <h4 style="font-size: 14px; font-weight: 700;">Campaña Publicitaria Global #1</h4>
-                            <p style="font-size: 12px; color: var(--text-muted);">Visualización de banner corporativo por 15 segundos.</p>
+                            <h4 style="font-size: 14px; font-weight: 700;">Banner Publicitario Global #1</h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">Visualización certificada de patrocinador.</p>
                         </div>
-                        <button class="btn-action" onclick="earnFromAd(0.05)">Ver Anuncio (+$0.05)</button>
+                        <button class="btn-action btn-success" onclick="earnFromAd(0.05)">Ver Anuncio (+$0.05)</button>
                     </div>
                     <div style="background: #f8fafc; border: 1px solid var(--border); padding: 18px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
                         <div>
-                            <h4 style="font-size: 14px; font-weight: 700;">Campaña Publicitaria Global #2</h4>
-                            <p style="font-size: 12px; color: var(--text-muted);">Patrocinador tecnológico internacional Monitax.</p>
+                            <h4 style="font-size: 14px; font-weight: 700;">Campaña Patrocinada de Tráfico #2</h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">Impacto publicitario de red internacional.</p>
                         </div>
-                        <button class="btn-action" onclick="earnFromAd(0.08)">Ver Anuncio (+$0.08)</button>
+                        <button class="btn-action btn-success" onclick="earnFromAd(0.12)">Ver Anuncio (+$0.12)</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- PANEL 3: TRABAJOS Y PREGUNTAS -->
+        <!-- PANEL 3: TAREAS Y PREGUNTAS -->
         <section id="panel-jobs" class="view-section">
             <div class="panel-card">
                 <div class="panel-header">
-                    <h3 id="jobHeaderTitle">💼 Trabajos Interactivos [Nivel 1]</h3>
-                    <span id="userLevelBadge" style="background: rgba(37, 99, 235, 0.1); color: var(--primary); padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 800;">Nivel 1 (Básico)</span>
+                    <h3 id="jobHeaderTitle">💼 Tareas Interactivas [Nivel 1]</h3>
+                    <span id="userLevelBadge" style="background: rgba(37, 99, 235, 0.1); color: var(--primary); padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 800;">Nivel 1</span>
                 </div>
-                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px;">Responde o traduce correctamente escribiendo en el recuadro para avanzar de nivel y sumar ingresos a tu billetera.</p>
+                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px;">Resuelve la evaluación correctamente para subir de nivel y sumar valor a tu saldo.</p>
                 
-                <div style="background: #f8fafc; border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                    <p id="jobQuestionText" style="font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 12px;">Pregunta 1: Traduce al inglés la palabra: "Trabajo remoto"</p>
+                <div style="background: #f8fafc; border: 1px solid var(--border); padding: 20px; border-radius: 10px;">
+                    <p id="jobQuestionText" style="font-size: 14.5px; font-weight: 700; margin-bottom: 12px;">Pregunta 1: Traduce al inglés la palabra: "Trabajo remoto"</p>
                     <input type="text" id="jobAnswerInput" class="input-control" placeholder="Escribe tu respuesta aquí..." style="margin-bottom: 12px;">
-                    <button class="btn-action btn-success" onclick="submitJobAnswer()">Enviar Respuesta y Validar</button>
+                    <button class="btn-action btn-success" onclick="submitJobAnswer()">Enviar Respuesta</button>
                 </div>
             </div>
         </section>
@@ -396,21 +380,14 @@
         <section id="panel-promo" class="view-section">
             <div class="panel-card">
                 <div class="panel-header">
-                    <h3>🌐 Tráfico Orgánico y Promoción en Redes Sociales</h3>
+                    <h3>🌐 Red de Referidos y Bonos</h3>
                 </div>
-                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px;">Promociona la plataforma en tus redes sociales. Comparte tu enlace institucional de referido y gana comisiones adicionales por cada usuario activo verificado.</p>
+                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px;">Comparte tu enlace de invitación y completa la meta de <strong>35 personas activas</strong> para liberar tu bono especial.</p>
                 
-                <div style="background: #f8fafc; border: 1px dashed var(--border); padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 20px;">
-                    <p style="font-size: 11.5px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 10px;">Tu Enlace Exclusivo de Referido:</p>
-                    <div id="userRefLinkBox" style="background: #0f172a; color: #60a5fa; padding: 12px; border-radius: 8px; word-break: break-all; font-size: 12px; margin-bottom: 15px;">Generando enlace...</div>
-                    <button class="btn-action" onclick="copyRefLink()">Copiar Enlace al Portapapeles</button>
-                </div>
-
-                <div style="background: #f8fafc; border: 1px solid var(--border); padding: 20px; border-radius: 12px;">
-                    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">Enviar Evidencia de Promoción</h4>
-                    <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">Envía el enlace de tu publicación en redes para que la directiva valide tu bono de promoción internacional.</p>
-                    <input type="text" id="promoProofInput" class="input-control" placeholder="Pega el enlace de tu publicación o video..." style="margin-bottom: 10px;">
-                    <button class="btn-action btn-success" onclick="submitPromoProof()">Notificar a la Directiva</button>
+                <div style="background: #f8fafc; border: 1px dashed var(--border); padding: 18px; border-radius: 10px; text-align: center; margin-bottom: 18px;">
+                    <p style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Tu Enlace de Referido:</p>
+                    <div id="userRefLinkBox" style="background: #0f172a; color: #60a5fa; padding: 10px; border-radius: 6px; font-size: 11.5px; word-break: break-all; margin-bottom: 12px;">Generando...</div>
+                    <button class="btn-action" onclick="copyRefLink()">Copiar Enlace</button>
                 </div>
             </div>
         </section>
@@ -419,19 +396,19 @@
         <section id="panel-finance" class="view-section">
             <div class="panel-card">
                 <div class="panel-header">
-                    <h3>💳 Departamento Financiero - Retiros en USDT</h3>
+                    <h3>💳 Departamento Financiero - Retiros USDT</h3>
                 </div>
-                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px;">Retira tus ganancias acumuladas de forma directa. Monto mínimo de retiro: <strong>$5.00 USD</strong> hasta un máximo de <strong>$500.00 USD</strong>.</p>
+                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 18px;">Retira tus ganancias acumuladas. Monto mínimo: <strong>$5.00 USD</strong>.</p>
                 
                 <div class="input-group">
-                    <label>Dirección de Billetera USDT (Red ERC20 / TRC20) o Binance Pay ID:</label>
-                    <input type="text" id="usdtWalletInput" class="input-control" placeholder="Ej: 0x71C... o tu correo de Binance Pay">
+                    <label>Billetera USDT o Binance Pay ID:</label>
+                    <input type="text" id="usdtWalletInput" class="input-control" placeholder="Ej: 0x71C... o correo de Binance">
                 </div>
                 <div class="input-group">
-                    <label>Monto a Retirar en USD ($):</label>
+                    <label>Monto a Retirar ($):</label>
                     <input type="number" id="withdrawAmountInput" class="input-control" placeholder="Mínimo 5.00">
                 </div>
-                <button class="btn-action btn-success" onclick="requestWithdrawal()">Solicitar Retiro en USDT</button>
+                <button class="btn-action btn-success" onclick="requestWithdrawal()">Solicitar Retiro</button>
             </div>
         </section>
 
@@ -439,28 +416,19 @@
         <section id="panel-settings" class="view-section">
             <div class="panel-card">
                 <div class="panel-header">
-                    <h3>⚙️ Configuración del Sistema y Apariencia</h3>
+                    <h3>⚙️ Configuración de Cuenta</h3>
                 </div>
-                
                 <div class="input-group">
                     <label>Nombre</label>
                     <input type="text" id="cfgName" class="input-control" readonly>
                 </div>
                 <div class="input-group">
-                    <label>Correo Electrónico</label>
+                    <label>Correo</label>
                     <input type="text" id="cfgEmail" class="input-control" readonly>
                 </div>
                 <div class="input-group">
-                    <label>Número</label>
+                    <label>Teléfono</label>
                     <input type="text" id="cfgPhone" class="input-control" readonly>
-                </div>
-
-                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
-                    <label style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; display: block;">Cambiar Tema Visual de la Plataforma:</label>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="btn-action" onclick="setTheme('light')">Tema Blanco Limpio</button>
-                        <button class="btn-action btn-outline" onclick="setTheme('dark')">Tema Oscuro Pro</button>
-                    </div>
                 </div>
             </div>
         </section>
@@ -469,45 +437,24 @@
 
     <script>
         let userCapital = parseFloat(localStorage.getItem('skynet_balance')) || 0.02;
+        let adEarnings = parseFloat(localStorage.getItem('skynet_ad_earnings')) || 0.00;
         let referralEarnings = parseFloat(localStorage.getItem('skynet_ref_earnings')) || 0.00;
         let currentJobLevel = parseInt(localStorage.getItem('skynet_job_level')) || 1;
 
-        function sendVerificationCode() {
+        function loginSystem() {
             const name = document.getElementById('regName').value.trim();
             const email = document.getElementById('regEmail').value.trim();
             const phone = document.getElementById('regPhone').value.trim();
 
             if(!name || !email) {
-                alert('Por favor complete los campos obligatorios de identificación.');
+                alert('Por favor complete su Nombre y Correo Electrónico.');
                 return;
             }
 
-            // Generar un código de 4 dígitos fijo y mostrarlo claramente en pantalla para acceso inmediato
-            const generatedCode = "1234";
-            localStorage.setItem('skynet_temp_code', generatedCode);
-            localStorage.setItem('skynet_temp_name', name);
-            localStorage.setItem('skynet_temp_email', email);
-            localStorage.setItem('skynet_temp_phone', phone);
-
-            document.getElementById('authStep1').style.display = 'none';
-            document.getElementById('authStep2').style.display = 'block';
-            document.getElementById('codeInfoText').innerHTML = `🔑 ¡Código generado con éxito!<br>Por temas de conexión local, tu código de acceso rápido de 4 dígitos es: <strong style="color:var(--primary); font-size:16px;">1234</strong><br>(Escríbelo abajo para ingresar).`;
-        }
-
-        function verifyCodeAndEnter() {
-            const enteredCode = document.getElementById('verCodeInput').value.trim();
-            const savedCode = localStorage.getItem('skynet_temp_code') || "1234";
-
-            if(enteredCode !== savedCode && enteredCode !== "1234") {
-                alert('❌ Código incorrecto. Usa el código indicado en pantalla (1234).');
-                return;
-            }
-
-            localStorage.setItem('skynet_name', localStorage.getItem('skynet_temp_name') || 'Operador Skynet');
-            localStorage.setItem('skynet_email', localStorage.getItem('skynet_temp_email') || 'correo@skynet.com');
-            localStorage.setItem('skynet_phone', localStorage.getItem('skynet_temp_phone') || '+58 422 013 9930');
+            localStorage.setItem('skynet_name', name);
+            localStorage.setItem('skynet_email', email);
+            localStorage.setItem('skynet_phone', phone || '+58');
             localStorage.setItem('skynet_logged', 'true');
-
             location.reload();
         }
 
@@ -528,10 +475,6 @@
                 const refLink = window.location.href.split('?')[0] + '?ref=' + encodeURIComponent(name);
                 document.getElementById('userRefLinkBox').innerText = refLink;
                 window.skynetRefLink = refLink;
-
-                if(localStorage.getItem('skynet_theme') === 'dark') {
-                    document.body.classList.add('dark-theme');
-                }
             }
         });
 
@@ -543,12 +486,12 @@
             element.classList.add('active');
 
             const titles = {
-                'dashboard': ['Balance General de Capital', 'Resumen operativo y ganancias acumuladas en tiempo real.'],
-                'ads': ['Monitax Anuncios', 'Visualización de espacios publicitarios patrocinados.'],
-                'jobs': ['Trabajos y Preguntas Interactivas', 'Evaluaciones progresivas para sumar ingresos a la billetera.'],
-                'promo': ['Tráfico Orgánico y Redes', 'Sistema de expansión y comisiones por referidos.'],
-                'finance': ['Retiros USDT', 'Gestión de cobros directos en criptomoneda.'],
-                'settings': ['Configuración del Sistema', 'Preferencias de cuenta y apariencia visual.']
+                'dashboard': ['Overview Principal', 'Resumen financiero, métricas en tiempo real y ganancias activas.'],
+                'ads': ['Red de Anuncios Monitax', 'Espacios publicitarios habilitados para la generación de ingresos.'],
+                'jobs': ['Tareas Interactivas y Preguntas', 'Evaluaciones progresivas para sumar valor a tu saldo.'],
+                'promo': ['Red de Referidos y Bonos', 'Control de referidos y cumplimiento de la meta de 35 personas.'],
+                'finance': ['Retiros USDT', 'Gestión de pagos y cobros en criptomoneda.'],
+                'settings': ['Configuración de Cuenta', 'Gestión de datos del operador remoto.']
             };
             document.getElementById('panelTitle').innerText = titles[panelId][0];
             document.getElementById('panelSub').innerText = titles[panelId][1];
@@ -556,26 +499,24 @@
 
         function updateBalancesUI() {
             document.getElementById('userBalanceDisplay').innerText = '$' + userCapital.toFixed(2) + ' USD';
+            document.getElementById('userAdEarnings').innerText = '$' + adEarnings.toFixed(2) + ' USD';
             document.getElementById('userReferralEarnings').innerText = '$' + referralEarnings.toFixed(2) + ' USD';
+            
             localStorage.setItem('skynet_balance', userCapital);
+            localStorage.setItem('skynet_ad_earnings', adEarnings);
             localStorage.setItem('skynet_ref_earnings', referralEarnings);
-        }
-
-        function viewMonitaxAd() {
-            userCapital += 0.02;
-            updateBalancesUI();
-            alert('✅ ¡Anuncio Monitax visualizado con éxito! Se han sumado $0.02 USD a tu billetera.');
         }
 
         function earnFromAd(amount) {
             userCapital += amount;
+            adEarnings += amount;
             updateBalancesUI();
-            alert('✅ ¡Recompensa acreditada! +$' + amount.toFixed(2) + ' USD añadidos a tu balance.');
+            alert('✅ ¡Publicidad procesada con éxito! +$' + amount.toFixed(2) + ' USD acreditados.');
         }
 
         const jobQuestions = {
             1: { q: "Pregunta 1: Traduce al inglés la palabra: 'Trabajo remoto'", ans: "remote work" },
-            2: { q: "Pregunta 2: ¿Cuál es la red de criptomoneda estándar para retiros USDT mencionados en la plataforma?", ans: "erc20" },
+            2: { q: "Pregunta 2: ¿Cuál es la red de criptomoneda estándar para retiros USDT?", ans: "erc20" },
             3: { q: "Pregunta 3: Traduce al español: 'Data analysis'", ans: "analisis de datos" }
         };
 
@@ -583,82 +524,50 @@
             const userAnswer = document.getElementById('jobAnswerInput').value.trim().toLowerCase();
             const currentQ = jobQuestions[currentJobLevel];
 
-            if(!userAnswer) {
-                alert('Por favor escribe tu respuesta en el cuadro de texto.');
-                return;
-            }
+            if(!userAnswer) { alert('Escribe tu respuesta.'); return; }
 
             if(userAnswer.includes(currentQ.ans)) {
                 userCapital += 0.10;
                 updateBalancesUI();
-                alert('🎉 ¡Respuesta correcta! Has ganado +$0.10 USD y subes al siguiente nivel.');
-                
+                alert('🎉 ¡Correcto! +$0.10 USD sumados a tu billetera.');
                 currentJobLevel++;
                 if(currentJobLevel > 3) currentJobLevel = 1;
                 localStorage.setItem('skynet_job_level', currentJobLevel);
-                
-                loadJobLevel();
             } else {
                 alert('❌ Respuesta incorrecta. Inténtalo de nuevo.');
             }
             document.getElementById('jobAnswerInput').value = '';
         }
 
-        function loadJobLevel() {
-            if(jobQuestions[currentJobLevel]) {
-                document.getElementById('jobQuestionText').innerText = jobQuestions[currentJobLevel].q;
-                document.getElementById('jobHeaderTitle').innerText = '💼 Trabajos Interactivos [Nivel ' + currentJobLevel + ']';
-                document.getElementById('userLevelBadge').innerText = 'Nivel ' + currentJobLevel;
-            }
-        }
-
         function registerCheckIn() {
             const now = new Date().toLocaleString();
-            localStorage.setItem('skynet_checkin', now);
-            document.getElementById('checkInTimestamp').innerText = now;
+            document.getElementById('checkInTimestamp').innerText = 'Registrado: ' + now;
             userCapital += 0.05;
             updateBalancesUI();
-            alert('✅ ¡Jornada diaria registrada con éxito! +$0.05 USD añadidos.');
+            alert('✅ ¡Asistencia registrada! +$0.05 USD añadidos.');
         }
 
         function copyRefLink() {
             navigator.clipboard.writeText(window.skynetRefLink);
-            alert('¡Enlace de referido copiado al portapapeles con éxito!');
-        }
-
-        function submitPromoProof() {
-            const proof = document.getElementById('promoProofInput').value.trim();
-            if(!proof) { alert('Ingrese el enlace de su publicación.'); return; }
-            alert('✅ Evidencia enviada a la directiva correctamente. Será evaluada para otorgar el bono de promoción.');
-            document.getElementById('promoProofInput').value = '';
+            alert('¡Enlace copiado al portapapeles!');
         }
 
         function requestWithdrawal() {
             const wallet = document.getElementById('usdtWalletInput').value.trim();
             const amount = parseFloat(document.getElementById('withdrawAmountInput').value);
 
-            if(!wallet) { alert('Ingrese una billetera USDT o Binance Pay ID válido.'); return; }
-            if(isNaN(amount) || amount < 5) { alert('El monto mínimo de retiro es de $5.00 USD.'); return; }
-            if(amount > userCapital) { alert('El monto solicitado supera su balance actual en la billetera.'); return; }
+            if(!wallet) { alert('Ingrese su billetera.'); return; }
+            if(isNaN(amount) || amount < 5) { alert('El monto mínimo es $5.00 USD.'); return; }
+            if(amount > userCapital) { alert('Saldo insuficiente en la billetera.'); return; }
 
             userCapital -= amount;
             updateBalancesUI();
-            alert('✅ ¡Solicitud de retiro por $' + amount.toFixed(2) + ' USDT procesada con éxito hacia su cuenta!');
+            alert('✅ ¡Retiro de $' + amount.toFixed(2) + ' USDT procesado con éxito!');
             document.getElementById('usdtWalletInput').value = '';
             document.getElementById('withdrawAmountInput').value = '';
         }
 
-        function setTheme(themeMode) {
-            if(themeMode === 'dark') {
-                document.body.classList.add('dark-theme');
-                localStorage.setItem('skynet_theme', 'dark');
-            } else {
-                document.body.classList.remove('dark-theme');
-                localStorage.setItem('skynet_theme', 'light');
-            }
-        }
-
-        function systemLogout() {
+        function logoutSystem() {
             localStorage.removeItem('skynet_logged');
             location.reload();
         }
